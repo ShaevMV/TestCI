@@ -1,9 +1,12 @@
-dist: precise
+dist: xenial
 
 language: php
 
 php:
   - 7.2
+
+services:
+  - mysql
 
 cache:
   directories:
@@ -14,6 +17,8 @@ before_script:
   - cp .env.travis .env
   - composer self-update
   - composer install --no-interaction
+  - mysql --version
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
 
 script:
   - vendor/bin/phpunit

@@ -11,6 +11,7 @@ use App\Ticket\Filter\Service\Factory\FilterString;
 use App\Ticket\Filter\Service\FilterFactoryService;
 use App\Ticket\Modules\Festival\Model\FestivalModel;
 use FestivalSeeder;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\TestCase;
 use TypeRegistrationSeeder;
 
@@ -27,26 +28,28 @@ use TypeRegistrationSeeder;
  */
 class FilterFieldTest extends TestCase
 {
-    const TYPE_INDEX = "type";
-    const FIELD_INDEX = "index";
-    const VALUE_INDEX = "value";
+    private const TYPE_INDEX = "type";
+    private const FIELD_INDEX = "index";
+    private const VALUE_INDEX = "value";
 
     /**
      * Создать фильтр из данных
      *
      * @dataProvider dataProviderFilter
-     * @param string $class
+     *
+     * @param object $class
      * @param array $data
+     *
      * @return void
      */
-    public function testCreateFilter(array $data, string $class)
+    public function testCreateFilter(array $data, object $class): void
     {
         $filter = (new FilterItem())
             ->setValue($data[self::VALUE_INDEX])
             ->setFieldAndTable($data[self::FIELD_INDEX])
             ->setType($data[self::TYPE_INDEX]);
 
-        $this->assertInstanceOf($class, FilterFactoryService::initFilter($filter));
+        $this->assertInstanceOf(get_class($class), FilterFactoryService::initFilter($filter));
     }
 
     /**
@@ -55,8 +58,12 @@ class FilterFieldTest extends TestCase
      * @dataProvider dataProviderFilter
      *
      * @param array $data
+     *
+     * @throws BindingResolutionException
+     *
+     * @return void
      */
-    public function testCreateFilterList(array $data)
+    public function testCreateFilterList(array $data): void
     {
         static $filters = [];
 
@@ -82,8 +89,12 @@ class FilterFieldTest extends TestCase
      * @dataProvider dataProviderFilter
      *
      * @param array $data
+     *
+     * @throws BindingResolutionException
+     *
+     * @return void
      */
-    public function testFiltration(array $data)
+    public function testFiltration(array $data): void
     {
         static $filters = [];
 
@@ -111,22 +122,24 @@ class FilterFieldTest extends TestCase
      */
     public function dataProviderFilter()
     {
+        $filterItem = new FilterItem();
+
         return [
             [[
                 self::TYPE_INDEX => FilterFactoryService::INTEGER_TYPE,
                 self::FIELD_INDEX => 'festivals.status',
                 self::VALUE_INDEX => FestivalSeeder::STATUS_FOR_TEST,
-            ], FilterInteger::class],
+            ], new FilterInteger($filterItem)],
             [[
                 self::TYPE_INDEX => FilterFactoryService::STRING_TYPE,
                 self::FIELD_INDEX => 'festivals.title',
                 self::VALUE_INDEX => FestivalSeeder::TITLE_FOR_TEST,
-            ], FilterString::class],
+            ], new FilterString($filterItem)],
             [[
                 self::TYPE_INDEX => FilterFactoryService::DATE_TYPE,
                 self::FIELD_INDEX => 'festivals.date_start',
                 self::VALUE_INDEX => FestivalSeeder::DATE_START_FOR_TEST,
-            ], FilterDate::class],
+            ], new FilterDate($filterItem)],
             [[
                 self::TYPE_INDEX => FilterFactoryService::DATE_BETWEEN_TYPE,
                 self::FIELD_INDEX => 'festivals.date_start',
@@ -134,17 +147,17 @@ class FilterFieldTest extends TestCase
                     FestivalSeeder::DATE_START_FOR_TEST,
                     FestivalSeeder::DATE_END_FOR_TEST,
                 ]
-            ], FilterDateBetween::class],
+            ], new FilterDateBetween($filterItem)],
             [[
                 self::TYPE_INDEX => FilterFactoryService::INTEGER_TYPE,
                 self::FIELD_INDEX => 'typeRegistration.price',
                 self::VALUE_INDEX => TypeRegistrationSeeder::PRICE_FOR_TEST
-            ], FilterInteger::class],
+            ], new FilterInteger($filterItem)],
             [[
                 self::TYPE_INDEX => FilterFactoryService::STRING_TYPE,
                 self::FIELD_INDEX => 'typeRegistration.title',
                 self::VALUE_INDEX => TypeRegistrationSeeder::TITLE_FOR_TEST
-            ], FilterString::class],
+            ], new FilterString($filterItem)],
         ];
     }
 }

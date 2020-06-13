@@ -2,8 +2,9 @@
 
 namespace App\Ticket\Model;
 
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Webpatser\Uuid\Uuid;
 
@@ -14,12 +15,19 @@ use Webpatser\Uuid\Uuid;
  *
  * @property string $id
  *
- * @method static Builder|Model whereId($value)
+ * @method static Builder whereId($value)
+ * @method static Builder getQuery()
+ * @method static int count($columns = '*')
+ * @method static bool insert($values)
+ * @method static Builder whereHas($relation, $callback = null, $operator = '>=', $count = 1)
+ * @method static Builder|Model create($attributes = [])
+ * @method static BaseModel|Collection|static|static[] findOrFail($id, $columns = [])
+ * @method static QueryBuilder leftJoin($table, $first, $operator = null, $second = null)
+ * @method static BaseModel|Collection|static[]|static|null find($id, $columns = [])
+ * @method static Builder where($column, $operator = null, $value = null, $boolean = 'and')
  * @method static Builder|Model newModelQuery()
  * @method static Builder|Model newQuery()
  * @method static Builder|Model query()
- *
- * @mixin Eloquent
  */
 class Model extends BaseModel
 {

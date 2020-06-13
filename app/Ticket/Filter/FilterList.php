@@ -36,8 +36,7 @@ final class FilterList
         array $filterFields,
         ModelJoinService $joinService,
         FilterService $filterService
-    )
-    {
+    ) {
         $this->filterFields = $filterFields;
         $this->joinService = $joinService;
         $this->filterService = $filterService;
@@ -56,25 +55,27 @@ final class FilterList
     /**
      * Фильтрация
      *
-     * @param BuilderQuery $builder
+     * @param BuilderQuery|Builder $builder
      * @param Model $model
      *
-     * @return Builder|BuilderQuery
+     * @return Builder|BuilderQuery|null
      */
-    public function filtration(BuilderQuery $builder, Model $model)
+    public function filtration($builder, Model $model)
     {
+        $result = null;
+
         foreach ($this->filterFields as $field) {
             if ($field->getFilterItem()->getTable() !== $model->getTable()) {
-                $builder = $this->joinService->getModel(
+                $result = $this->joinService->getModel(
                     $model,
                     $field->getFilterItem()->getTable(),
                     $this->filterService->getWhere($field)
                 );
             } else {
-                $builder = $field->filtration($builder);
+                $result = $field->filtration($builder);
             }
         }
 
-        return $builder;
+        return $result;
     }
 }

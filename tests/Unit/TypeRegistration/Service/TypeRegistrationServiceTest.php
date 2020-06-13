@@ -35,8 +35,10 @@ class TypeRegistrationServiceTest extends TestCase
      *
      * @param Uuid $festivalId
      * @param SpecificationEntity $specificationEntity
+     *
+     * @return void
      */
-    public function testGetList(Uuid $festivalId, SpecificationEntity $specificationEntity)
+    public function testGetList(Uuid $festivalId, SpecificationEntity $specificationEntity): void
     {
         $typeRegistrationList = $this->typeRegistrationRepository
             ->getTypeRegistrationForFestival($festivalId);

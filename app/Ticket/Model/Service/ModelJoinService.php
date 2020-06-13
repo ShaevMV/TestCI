@@ -61,16 +61,19 @@ final class ModelJoinService
         try {
             switch (get_class($model->$joinTable())) {
                 case BelongsToMany::class:
-                    return $model->whereHas($joinTable,
+                    return $model->whereHas(
+                        $joinTable,
                         function (Builder $builder) use ($where) {
                             $where($builder);
-                        });
-                    break;
+                        }
+                    );
                 default:
                     throw new ErrorException("Type function {$joinTable} not correct");
             }
         } catch (ErrorException $exception) {
-            throw new BadMethodCallException("Bad value method {$joinTable} in class " . get_class($model) . " {$exception->getMessage()}");
+            throw new BadMethodCallException(
+                "Bad value method {$joinTable} in class " . get_class($model) . " {$exception->getMessage()}"
+            );
         }
     }
 }

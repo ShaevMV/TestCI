@@ -38,6 +38,9 @@ class FestivalTest extends TestCase
 {
     use DatabaseTransactions;
 
+    /**
+     * @var string
+     */
     private $id;
 
     /**
@@ -72,8 +75,10 @@ class FestivalTest extends TestCase
 
     /**
      * Обновить данные фестиваля
+     *
+     * @return void
      */
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $id = Uuid::import($this->id);
         $festival = new Festival();
@@ -84,8 +89,10 @@ class FestivalTest extends TestCase
 
     /**
      * Связать проходку с фестивалем
+     *
+     * @return void
      */
-    public function testJoinTypeRegistrationTable()
+    public function testJoinTypeRegistrationTable(): void
     {
         $price = (new Price())
             ->setPrice(1000);
@@ -98,8 +105,10 @@ class FestivalTest extends TestCase
 
     /**
      * Получить активный фестеваль который проходит сейчас
+     *
+     * @return void
      */
-    public function testGetActive()
+    public function testGetActive(): void
     {
         $festival = $this->festivalRepository->getActive();
         $typeRegistrationList = $this->typeRegistrationRepository->getTypeRegistrationForFestival($festival->getId());
@@ -107,19 +116,20 @@ class FestivalTest extends TestCase
 
         $festival->setTypeRegistration($typeRegistrationList);
 
-        $this->assertInstanceOf(Festival::class, $festival);
+        $this->assertInstanceOf(get_class(new Festival()), $festival);
     }
 
     /**
      * Получить список фестивалей
+     *
+     * @return void
      */
-    public function testGetList()
+    public function testGetList(): void
     {
         $filter[] = FilterFactoryService::initFilter((new FilterItem())
             ->setType(FilterFactoryService::STRING_TYPE)
             ->setFieldAndTable('festivals.id')
-            ->setValue(FestivalSeeder::ID_FOR_TEST)
-        );
+            ->setValue(FestivalSeeder::ID_FOR_TEST));
 
         $festivalList = $this->festivalRepository
             ->setPagination(Pagination::getInstance(1, 1))

@@ -17,7 +17,6 @@ final class Parameter
 
         return (new self())
             ->setParams($params);
-
     }
 
     private static function isValidate(string $params): bool

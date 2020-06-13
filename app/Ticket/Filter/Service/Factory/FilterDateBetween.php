@@ -3,7 +3,9 @@
 namespace App\Ticket\Filter\Service\Factory;
 
 use Carbon\Carbon;
-use Illuminate\Database\Query\Builder;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as BuilderQuery;
 use InvalidArgumentException;
 
 /**
@@ -17,13 +19,33 @@ final class FilterDateBetween extends FilterFieldsAbstract
 {
 
     /**
+     * Фильтрация
+     *
+     * @param Builder|BuilderQuery $builder
+     *
+     * @throws Exception
+     *
+     * @return Builder|BuilderQuery
+     */
+    public function filtration($builder)
+    {
+        $value = $this->filterItem->getValue();
+
+        $dateArray = array_map(function (Carbon $item) {
+            return $item->toDateString();
+        }, $this->getValidValue($value));
+
+        return $builder->whereBetween($this->getFieldForWhere(), $dateArray);
+    }
+
+    /**
      * Выдать значения для фильтрации
      *
-     * @param string[] $value
+     * @param mixed $value
+     *
+     * @throws InvalidArgumentException|Exception
      *
      * @return Carbon[]
-     *
-     * @throws InvalidArgumentException
      */
     protected static function getValidValue($value): array
     {
@@ -33,30 +55,11 @@ final class FilterDateBetween extends FilterFieldsAbstract
 
             if (count($date::getLastErrors()['errors']) > 0) {
                 throw new InvalidArgumentException("{$item} not DateType. Error: {$date::getLastErrors()['errors']}");
-                break;
             }
 
             $result[] = $date;
         }
 
         return $result;
-    }
-
-    /**
-     * Фильтрация
-     *
-     * @param Builder $builder
-     *
-     * @return Builder
-     */
-    public function filtration(Builder $builder): Builder
-    {
-        $value = $this->filterItem->getValue();
-
-        $dateArray = array_map(function (Carbon $item) {
-            return $item->toDateString();
-        }, $this->getValidValue($value));
-
-        return $builder->whereBetween($this->getFieldForWhere(), $dateArray);
     }
 }

@@ -2,7 +2,8 @@
 
 namespace App\Ticket\Filter\Service\Factory;
 
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as BuilderQuery;
 use InvalidArgumentException;
 
 /**
@@ -36,7 +37,7 @@ final class FilterString extends FilterFieldsAbstract
      * @param string $value
      * @return bool
      */
-    static private function isValidValue($value): bool
+    private static function isValidValue($value): bool
     {
         return is_string($value);
     }
@@ -44,10 +45,11 @@ final class FilterString extends FilterFieldsAbstract
     /**
      * Фильтрация
      *
-     * @param Builder $builder
-     * @return Builder
+     * @param Builder|BuilderQuery $builder
+     *
+     * @return Builder|BuilderQuery
      */
-    public function filtration(Builder $builder): Builder
+    public function filtration($builder)
     {
         $value = $this->filterItem->getValue();
 

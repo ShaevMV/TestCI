@@ -34,42 +34,50 @@ class SpecificationServiceTest extends TestCase
      * @dataProvider getParams
      *
      * @param array $data
-     * @param string $class
+     * @param object $class
+     *
+     * @return void
      */
-    public function testCreateList(array $data, string $class)
+    public function testCreateList(array $data, object $class): void
     {
-        $parameter = Parameter::fromState(json_encode($data));
+        $parameter = Parameter::fromState(json_encode($data) ? : null);
         $specificationList = $this->specificationService->createList($parameter);
 
         $this->assertIsArray($specificationList);
-        $this->assertInstanceOf($class, end($specificationList));
+        $this->assertInstanceOf(get_class($class), end($specificationList));
     }
 
+    /**
+     * @return array|array[]
+     */
     public function getParams(): array
     {
         return [
             [
                 TypeRegistrationSeeder::PARAMS_FOR_TEST_COUNT,
-                SpecificationCount::class,
+                new SpecificationCount(0),
             ],
         ];
     }
 
-    public function testIsSatisfiedByCount()
+    /**
+     * @return void
+     */
+    public function testIsSatisfiedByCount(): void
     {
         $count = TypeRegistrationSeeder::PARAMS_FOR_TEST_COUNT[SpecificationService::KEY_COUNT];
         $specification = new SpecificationCount($count);
 
         $this->assertTrue(
             $specification->isSatisfiedBy(
-                (new SpecificationEntity)
+                (new SpecificationEntity())
                     ->setCount($count)
             )
         );
 
         $this->assertFalse(
             $specification->isSatisfiedBy(
-                (new SpecificationEntity)
+                (new SpecificationEntity())
                     ->setCount($count - 1)
             )
         );
@@ -81,24 +89,26 @@ class SpecificationServiceTest extends TestCase
      * @param array $data
      *
      * @dataProvider getParams
+     *
+     * @return void
      */
-    public function testListAndSpecification(array $data)
+    public function testListAndSpecification(array $data): void
     {
-        $parameter = Parameter::fromState(json_encode($data));
+        $parameter = Parameter::fromState(json_encode($data) ? : null);
         $specificationList = $this->specificationService->createList($parameter);
         $specificationAnd = new SpecificationAnd($specificationList);
         $count = TypeRegistrationSeeder::PARAMS_FOR_TEST_COUNT[SpecificationService::KEY_COUNT];
 
         $this->assertTrue(
             $specificationAnd->isSatisfiedBy(
-                (new SpecificationEntity)
+                (new SpecificationEntity())
                     ->setCount($count)
             )
         );
 
         $this->assertFalse(
             $specificationAnd->isSatisfiedBy(
-                (new SpecificationEntity)
+                (new SpecificationEntity())
                     ->setCount($count - 1)
             )
         );

@@ -15,7 +15,7 @@ interface RepositoryInterface
     /**
      * Сохронить данные в базу
      *
-     * @param $entity
+     * @param EntityInterface $entity
      *
      * @return Uuid|null
      */

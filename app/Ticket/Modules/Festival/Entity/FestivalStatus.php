@@ -15,12 +15,12 @@ use InvalidArgumentException;
 final class FestivalStatus implements EntityDataInterface
 {
     /** @const ID */
-    const STATE_DRAFT_ID = 1;
-    const STATE_PUBLISHED_ID = 2;
+    public const STATE_DRAFT_ID = 1;
+    public const STATE_PUBLISHED_ID = 2;
 
     /** @const Name */
-    const STATE_DRAFT = 'draft';
-    const STATE_PUBLISHED = 'published';
+    private const STATE_DRAFT = 'draft';
+    public const STATE_PUBLISHED = 'published';
 
     /** @var array Список статусов */
     public const STATE_LIST = [
@@ -80,12 +80,16 @@ final class FestivalStatus implements EntityDataInterface
         }
 
         $state = array_search($status, self::STATE_LIST);
-        return new self($state, $status);
+
+        return new self((int)$state, $status);
     }
 
+    /**
+     * @return string|null
+     */
     public function __toString(): ?string
     {
-        return $this->id;
+        return (string)$this->id;
     }
 
     /**

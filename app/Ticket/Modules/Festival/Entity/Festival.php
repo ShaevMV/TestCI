@@ -167,7 +167,7 @@ final class Festival implements EntityInterface
     }
 
     /**
-     * @param TypeRegistration[] typeRegistration
+     * @param TypeRegistration[] $typeRegistration
      *
      * @return Festival
      */

@@ -9,13 +9,15 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "ext-json": "*",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
-        "webpatser/laravel-uuid": "^3.0",
-        "ext-json": "*"
+        "phpstan/phpstan": "^0.12.28",
+        "squizlabs/php_codesniffer": "^3.5",
+        "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {
         "ext-json": "*",

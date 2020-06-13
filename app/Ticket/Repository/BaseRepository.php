@@ -7,7 +7,8 @@ use App\Ticket\Entity\EntityService;
 use App\Ticket\Filter\FilterList;
 use App\Ticket\Model\Model;
 use App\Ticket\Pagination\Pagination;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as BuilderQuery;
 use InvalidArgumentException;
 use OutOfBoundsException;
 use Webpatser\Uuid\Uuid;
@@ -17,7 +18,7 @@ abstract class BaseRepository implements RepositoryInterface
     /** @var Model */
     protected $model;
 
-    /** @var Builder */
+    /** @var Builder|BuilderQuery */
     protected $builder;
 
     /**
@@ -33,7 +34,7 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function update(Uuid $id, EntityInterface $data): bool
     {
-        if (!$this->model->whereId((string)$id)->exists()) {
+        if ($this->model->whereId((string)$id)->exists() === false) {
             throw new OutOfBoundsException(self::class . ' with id ' . (string)$id . ' does not exist');
         }
 
@@ -71,17 +72,17 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function setFilter(?FilterList $fields): self
     {
-        if ($fields !== null) {
-            $this->setBuilder($fields->filtration($this->getBuilder(), $this->model));
+        if ($fields !== null && $builder = $fields->filtration($this->getBuilder(), $this->model)) {
+            $this->setBuilder($builder);
         }
 
         return $this;
     }
 
     /**
-     * @return Builder
+     * @return Builder|BuilderQuery
      */
-    public function getBuilder(): Builder
+    public function getBuilder()
     {
         if (null === $this->builder) {
             $this->builder = $this->model->getQuery();
@@ -91,9 +92,9 @@ abstract class BaseRepository implements RepositoryInterface
     }
 
     /**
-     * @param Builder $builder
+     * @param Builder|BuilderQuery $builder
      */
-    public function setBuilder(Builder $builder): void
+    public function setBuilder($builder): void
     {
         $this->builder = $builder;
     }

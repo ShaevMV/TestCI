@@ -15,7 +15,6 @@ final class SpecificationService
         self::KEY_COUNT,
     ];
 
-
     /**
      * @param Parameter|null $parameter
      *
@@ -35,7 +34,6 @@ final class SpecificationService
                         "Invalid key specification {$key}. The array " .
                         implode(" ", self::ARRAY_KEY) . " does not contain"
                     );
-                    break;
             }
         }
 

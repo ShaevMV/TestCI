@@ -39,8 +39,10 @@ class ModelServiceTest extends TestCase
      * @param Model $model
      *
      * @throws ReflectionException
+     *
+     * @return void
      */
-    public function testIsCallFunction(string $joinTable, Model $model)
+    public function testIsCallFunction(string $joinTable, Model $model): void
     {
         $reflectionMethod = new ReflectionMethod($this->modelService, 'isCallFunction');
         $reflectionMethod->setAccessible(true);
@@ -85,16 +87,21 @@ class ModelServiceTest extends TestCase
     }
 
 
-    public function testExceptionGetModel()
+    /**
+     * @return void
+     */
+    public function testExceptionGetModel(): void
     {
-        /** @var MockObject|FestivalModel $model */
-        $model = $this->createMock(FestivalModel::class);
-
-        $model->method('typeRegistration')
+        /** @var MockObject $mockObject */
+        $mockObject = $this->createMock(FestivalModel::class);
+        $mockObject->method('typeRegistration')
             ->willReturn(new FestivalModel());
 
+        /** @var FestivalModel $model */
+        $model = clone $mockObject;
+
         $this->expectException(BadMethodCallException::class);
-        (new ModelJoinService)->getModel($model, 'typeRegistration');
+        (new ModelJoinService())->getModel($model, 'typeRegistration');
     }
 
     public function getModelProvider(): array

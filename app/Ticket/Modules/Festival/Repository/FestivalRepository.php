@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Exception;
 use OutOfBoundsException;
 use Webpatser\Uuid\Uuid;
+use App\Ticket\Model\Model;
 
 final class FestivalRepository extends BaseRepository
 {
@@ -65,14 +66,14 @@ final class FestivalRepository extends BaseRepository
      */
     public function getActive(): ?Festival
     {
-        if ($arrayData = $this->model
+        $arrayData = $this->model
             ->where('date_start', '<=', Carbon::today()->toDateString())
             ->where('date_end', '>=', Carbon::today()->toDateString())
             ->where('status', '=', FestivalStatus::STATE_PUBLISHED_ID)
-            ->first()
-            ->toArray()
-        ) {
-            return Festival::fromState($arrayData);
+            ->first();
+
+        if ($arrayData instanceof Model) {
+            return Festival::fromState($arrayData->toArray());
         } else {
             throw new OutOfBoundsException('Active festival not found');
         }
@@ -92,8 +93,10 @@ final class FestivalRepository extends BaseRepository
     public function joinTypeRegistration(Uuid $idFestival, Uuid $idTypeRegistration, Price $price): bool
     {
         try {
-            $sync = $this->model::findOrFail((string)$idFestival)
-                ->typeRegistration()
+            /** @var FestivalModel $sync */
+            $sync = $this->model::findOrFail((string)$idFestival);
+
+            $sync->typeRegistration()
                 ->syncWithoutDetaching([
                     (string)$idTypeRegistration => [
                         'price' => (string)$price

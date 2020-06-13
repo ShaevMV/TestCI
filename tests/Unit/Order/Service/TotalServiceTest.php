@@ -26,32 +26,27 @@ class TotalServiceTest extends TestCase
      * @dataProvider typeRegistrationProvider
      *
      * @param TypeRegistration $typeRegistration
-     * @param string $class
+     * @param object $class
+     * @param TotalEntity $totalEntity
+     *
+     * @return void
      */
-    public function testGetStrategy(TypeRegistration $typeRegistration, string $class)
+    public function testGetTotal(TypeRegistration $typeRegistration, object $class, TotalEntity $totalEntity): void
     {
-        $this->assertInstanceOf($class, $this->totalFactoryStrategy->getTotalStrategy($typeRegistration));
+        $this->assertEquals($this->totalService->getTotal($typeRegistration, $totalEntity->getCount()), $totalEntity);
+        $this->assertInstanceOf(get_class($class), $this->totalFactoryStrategy->getTotalStrategy($typeRegistration));
     }
 
     /**
-     * @dataProvider typeRegistrationProvider
-     *
-     * @param TypeRegistration $typeRegistration
-     * @param string $class
-     * @param TotalEntity $totalEntity
+     * @return array[]
      */
-    public function testGetTotal(TypeRegistration $typeRegistration, string $class, TotalEntity $totalEntity)
-    {
-        $this->assertEquals($this->totalService->getTotal($typeRegistration, $totalEntity->getCount()), $totalEntity);
-    }
-
-    public function typeRegistrationProvider()
+    public function typeRegistrationProvider(): array
     {
         return [
             [
                 (new TypeRegistration())
                     ->setPrice(Price::fromState(1000)),
-                DefaultTotal::class,
+                new DefaultTotal(),
                 TotalEntity::fromSate(
                     Price::fromState(1000),
                     3,
@@ -61,8 +56,10 @@ class TotalServiceTest extends TestCase
             [
                 (new TypeRegistration())
                     ->setPrice(Price::fromState(1000))
-                    ->setParams(Parameter::fromState(json_encode(TypeRegistrationSeeder::PARAMS_FOR_TEST_COUNT))),
-                CollectiveTicketTotal::class,
+                    ->setParams(Parameter::fromState(
+                        json_encode(TypeRegistrationSeeder::PARAMS_FOR_TEST_COUNT) ? : null
+                    )),
+                new CollectiveTicketTotal(),
                 TotalEntity::fromSate(
                     Price::fromState(1000),
                     3,

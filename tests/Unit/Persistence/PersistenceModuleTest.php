@@ -5,6 +5,7 @@ namespace Tests\Unit\Persistence;
 use App\Ticket\Modules\Festival\Entity\FestivalStatus;
 use App\Ticket\Modules\Festival\Model\FestivalModel;
 use Carbon\Carbon;
+use Exception;
 use FestivalSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
@@ -32,24 +33,16 @@ class PersistenceModuleTest extends TestCase
     private $model;
 
     /**
-     * @var int;
+     * @var string;
      */
     private $id;
-
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->model = new FestivalModel();
-        $this->id = FestivalSeeder::ID_FOR_TEST;
-    }
 
     /**
      * Записать данные в базу / найти запись по его id
      *
      * @return void
      */
-    public function testCreate()
+    public function testCreate(): void
     {
         $id = uniqid();
         $this->assertTrue($this->model->insert([
@@ -63,7 +56,6 @@ class PersistenceModuleTest extends TestCase
 
         $this->assertTrue($this->model->insert([]));
         $this->assertNull($this->model->find($id . '21'));
-
     }
 
     /**
@@ -78,14 +70,20 @@ class PersistenceModuleTest extends TestCase
                 ->update([
                     'status' => '1'
                 ]) > 0);
+        /** @var FestivalModel $festival */
+        $festival = $this->model->find($this->id);
 
-        $this->assertEquals(1, $this->model->find($this->id)->status);
+        $this->assertEquals(1, $festival->status);
     }
 
     /**
      * Удалить
+     *
+     * @throws Exception
+     *
+     * @return void
      */
-    public function testDelete()
+    public function testDelete(): void
     {
         $this->assertEquals(1, $this->model->whereId($this->id)->delete());
         $this->assertNull($this->model->find($this->id));
@@ -93,11 +91,23 @@ class PersistenceModuleTest extends TestCase
 
     /**
      * Поиск
+     *
+     * @return void
      */
-    public function testWhereAndGet()
+    public function testWhereAndGet(): void
     {
         $this->assertInstanceOf(FestivalModel::class, $this->model->where('id', '=', $this->id)->first());
         $this->assertInstanceOf(Collection::class, $this->model->where('id', '=', $this->id)->get());
         $this->assertEmpty($this->model->where('id', '=', $this->id . '54')->get()->toArray());
+    }
+
+    /**
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->model = new FestivalModel();
+        $this->id = FestivalSeeder::ID_FOR_TEST;
     }
 }

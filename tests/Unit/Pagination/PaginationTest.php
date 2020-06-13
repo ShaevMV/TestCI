@@ -12,8 +12,8 @@ use Tests\TestCase;
  */
 class PaginationTest extends TestCase
 {
-    const PAGE = 1;
-    const LIMIT = 1;
+    private const PAGE = 1;
+    private const LIMIT = 1;
 
     /**
      * @var Pagination

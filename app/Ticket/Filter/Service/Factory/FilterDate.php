@@ -3,7 +3,9 @@
 namespace App\Ticket\Filter\Service\Factory;
 
 use Carbon\Carbon;
-use Illuminate\Database\Query\Builder;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as BuilderQuery;
 use InvalidArgumentException;
 
 final class FilterDate extends FilterFieldsAbstract
@@ -11,11 +13,13 @@ final class FilterDate extends FilterFieldsAbstract
     /**
      * Фильтрация
      *
-     * @param Builder $builder
+     * @param Builder|BuilderQuery $builder
      *
-     * @return Builder
+     * @throws Exception
+     *
+     * @return Builder|BuilderQuery
      */
-    public function filtration(Builder $builder): Builder
+    public function filtration($builder)
     {
         $value = $this->filterItem->getValue();
 
@@ -29,18 +33,21 @@ final class FilterDate extends FilterFieldsAbstract
     /**
      * Выдать значения для фильтрации
      *
-     * @param $value
+     * @param mixed $value
      *
      * @throws InvalidArgumentException
-     * @return Carbon
+     * @throws Exception
      *
+     * @return Carbon
      */
     protected static function getValidValue($value): Carbon
     {
         $date = new Carbon($value);
 
         if (count($date::getLastErrors()['errors']) > 0) {
-            throw new InvalidArgumentException("{$value} not DateType. Error: " . implode(PHP_EOL, $date::getLastErrors()['errors']));
+            throw new InvalidArgumentException(
+                "{$value} not DateType. Error: " . implode(PHP_EOL, $date::getLastErrors()['errors'])
+            );
         }
 
         return $date;

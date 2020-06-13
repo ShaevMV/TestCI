@@ -86,7 +86,6 @@ class TypeRegistrationTest extends TestCase
         $this->assertIsArray($listTypeRegistration);
         $this->assertCount(2, $listTypeRegistration);
         $this->assertInstanceOf(TypeRegistration::class, end($listTypeRegistration));
-
     }
 
     /**

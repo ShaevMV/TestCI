@@ -38,7 +38,9 @@ final class FestivalDate implements EntityDataInterface
         $date = new Carbon($carbonDate);
 
         if (count($date::getLastErrors()['errors']) > 0) {
-            throw new InvalidArgumentException("{$carbonDate} not DateType. Error: " . implode(PHP_EOL, $date::getLastErrors()['errors']));
+            throw new InvalidArgumentException(
+                "{$carbonDate} not DateType. Error: " . implode(PHP_EOL, $date::getLastErrors()['errors'])
+            );
         }
 
         return new self($date);
@@ -57,7 +59,7 @@ final class FestivalDate implements EntityDataInterface
             return $this->date->diffInDays($dateMore);
         }
 
-        throw new InvalidArgumentException(__Class__." Date is empty");
+        throw new InvalidArgumentException(__Class__ . " Date is empty");
     }
 
     /**

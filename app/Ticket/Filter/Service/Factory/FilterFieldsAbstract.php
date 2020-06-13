@@ -3,7 +3,8 @@
 namespace App\Ticket\Filter\Service\Factory;
 
 use App\Ticket\Filter\Entity\FilterItem;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as BuilderQuery;
 use InvalidArgumentException;
 
 /**
@@ -53,17 +54,17 @@ abstract class FilterFieldsAbstract
      * @param mixed $value
      *
      * @throws InvalidArgumentException
-     * @return mixed
      *
+     * @return mixed
      */
     abstract protected static function getValidValue($value);
 
     /**
      * Фильтрация
      *
-     * @param Builder $builder
+     * @param Builder|BuilderQuery $builder
      *
-     * @return Builder
+     * @return Builder|BuilderQuery
      */
-    abstract public function filtration(Builder $builder): Builder;
+    abstract public function filtration($builder);
 }

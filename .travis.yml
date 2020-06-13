@@ -26,3 +26,5 @@ before_script:
 
 script:
   - vendor/bin/phpunit --configuration phpunit.xml
+  - vendor/bin/phpcs
+  - vendor/bin/phpstan analyse

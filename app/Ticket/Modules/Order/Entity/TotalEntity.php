@@ -5,7 +5,12 @@ namespace App\Ticket\Modules\Order\Entity;
 use App\Ticket\Modules\TypeRegistration\Entity\Price;
 use InvalidArgumentException;
 
-class TotalEntity
+/**
+ * Class TotalEntity
+ *
+ * @package App\Ticket\Modules\Order\Entity
+ */
+final class TotalEntity
 {
     /** @var Price */
     private $price;
@@ -23,7 +28,7 @@ class TotalEntity
      *
      * @throws InvalidArgumentException
      *
-     * @return $this
+     * @return TotalEntity
      */
     public static function fromSate(Price $price, int $count, Price $total): self
     {
@@ -101,5 +106,4 @@ class TotalEntity
 
         return $this;
     }
-
 }

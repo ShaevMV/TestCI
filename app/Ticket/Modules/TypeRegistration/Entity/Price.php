@@ -61,7 +61,7 @@ final class Price implements EntityDataInterface
     /**
      * @param int $price
      *
-     * @return static
+     * @return Price
      */
     public static function fromState(int $price): self
     {

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Ticket\Modules\TypeRegistration\Specification;
-
 
 final class SpecificationAnd implements SpecificationInterface
 {

@@ -12,7 +12,7 @@ use InvalidArgumentException;
 final class Pagination
 {
     /** @const int Количество объектов на странице */
-    const DEFAULT_LIMIT = 15;
+    private const DEFAULT_LIMIT = 15;
 
     /** @var int Текущая страница */
     private $page;
@@ -56,8 +56,10 @@ final class Pagination
      * Проверить верность значения у страницы
      *
      * @param int $page
+     *
+     * @return void
      */
-    private static function isPageValid(int $page)
+    private static function isPageValid(int $page): void
     {
         if ($page <= 0) {
             throw new InvalidArgumentException('Invalid page given');
@@ -70,8 +72,10 @@ final class Pagination
      * @param int $limit
      *
      * @example InvalidArgumentException
+     *
+     * @return void
      */
-    private static function isLimitValid(int $limit)
+    private static function isLimitValid(int $limit): void
     {
         if ($limit <= 0) {
             throw new InvalidArgumentException('Invalid limit given');

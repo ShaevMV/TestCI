@@ -15,3 +15,6 @@ yarn-error.log
 docker-composer.yml
 .env
 /composer.lock
+/.phpunit.result.cache
+/_ide_helper.php
+/.phpstorm.meta.php

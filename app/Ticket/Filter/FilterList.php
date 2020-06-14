@@ -12,17 +12,31 @@ use Illuminate\Database\Query\Builder as BuilderQuery;
 /**
  * Class Filter
  *
+ * Класс для фильтрации по массовым фильтрам
+ *
  * @package App\Ticket\Filter
  */
 final class FilterList
 {
-    /** @var FilterFieldsAbstract[] фильтр поля */
+    /**
+     * Массив фильтров
+     *
+     * @var FilterFieldsAbstract[]
+     */
     private $filterFields = [];
 
-    /** @var ModelJoinService */
+    /**
+     * Сервис для связи модели
+     *
+     * @var ModelJoinService
+     */
     private $joinService;
 
-    /** @var FilterService */
+    /**
+     * Сервис для работы с фильтром в базе
+     *
+     * @var FilterService
+     */
     private $filterService;
 
     /**
@@ -43,8 +57,6 @@ final class FilterList
     }
 
     /**
-     * Выдать фильтр поля
-     *
      * @return FilterFieldsAbstract[]
      */
     public function getFilterFields(): array

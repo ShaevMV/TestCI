@@ -8,18 +8,20 @@ use Webpatser\Uuid\Uuid;
 /**
  * Interface RepositoryInterface
  *
+ * Интерфейс для репозитория
+ *
  * @package App\Ticket\Repository
  */
 interface RepositoryInterface
 {
     /**
-     * Сохронить данные в базу
+     * Сохранить данные в базу
      *
      * @param EntityInterface $entity
      *
      * @return Uuid|null
      */
-    public function create($entity): ?Uuid;
+    public function create(EntityInterface $entity): ?Uuid;
 
     /**
      * Вывести список entity
@@ -29,7 +31,7 @@ interface RepositoryInterface
     public function getList(): ?array;
 
     /**
-     * Обновить данные в моделе
+     * Обновить данные в модели
      *
      * @param Uuid $id
      * @param EntityInterface $data
@@ -46,4 +48,13 @@ interface RepositoryInterface
      * @return mixed
      */
     public function findById(Uuid $id);
+
+    /**
+     * Удаление записи
+     *
+     * @param Uuid $id
+     *
+     * @return bool
+     */
+    public function remove(Uuid $id): bool;
 }

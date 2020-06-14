@@ -7,15 +7,34 @@ use App\Ticket\Modules\TypeRegistration\Specification\SpecificationCount;
 use App\Ticket\Modules\TypeRegistration\Specification\SpecificationInterface;
 use InvalidArgumentException;
 
+/**
+ * Class SpecificationService
+ *
+ * Сервис работы со спецификацией типов билетов
+ *
+ * @package App\Ticket\Modules\TypeRegistration\Service
+ */
 final class SpecificationService
 {
+    /**
+     * Ключ параметра типа билета по кол-ву
+     *
+     * @const string
+     */
     public const KEY_COUNT = 'count';
 
+    /**
+     * Список всех ключей параметров
+     *
+     * @const array
+     */
     private const ARRAY_KEY = [
         self::KEY_COUNT,
     ];
 
     /**
+     * Получения списка спецификаций из параметров типа билета
+     *
      * @param Parameter|null $parameter
      *
      * @return SpecificationInterface[]

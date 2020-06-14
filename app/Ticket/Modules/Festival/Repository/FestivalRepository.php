@@ -14,6 +14,13 @@ use OutOfBoundsException;
 use Webpatser\Uuid\Uuid;
 use App\Ticket\Model\Model;
 
+/**
+ * Class FestivalRepository
+ *
+ * Репозиторий для фестиваля
+ *
+ * @package App\Ticket\Modules\Festival\Repository
+ */
 final class FestivalRepository extends BaseRepository
 {
     public function __construct(FestivalModel $festivalModel)
@@ -22,49 +29,14 @@ final class FestivalRepository extends BaseRepository
     }
 
     /**
-     * @param Festival $festival
-     *
-     * @return Uuid|null
-     */
-    public function create($festival): ?Uuid
-    {
-        $create = $this->model->create([
-            'title' => $festival->getTitle(),
-            'date_start' => (string)$festival->getDateStart(),
-            'date_end' => (string)$festival->getDateEnd(),
-            'status' => $festival->getStatus()
-        ]);
-
-        return isset($create->id) ? Uuid::import($create->id) : null;
-    }
-
-
-    /**
-     * Найти Фестиваль по его id
-     *
-     * @param Uuid $id
-     *
-     * @return Festival
-     */
-    public function findById(Uuid $id)
-    {
-        try {
-            $arrayData = $this->model->find((string)$id);
-        } catch (OutOfBoundsException $e) {
-            throw new OutOfBoundsException('Festival with id ' . (string)$id . ' does not exist');
-        }
-
-        return Festival::fromState($arrayData->toArray());
-    }
-
-    /**
      * Вывести фестиваль который проходит в данный момент
      *
      * @throws OutOfBoundsException
+     * @throws Exception
      *
-     * @return Festival|null
+     * @return EntityInterface
      */
-    public function getActive(): ?Festival
+    public function getActive(): EntityInterface
     {
         $arrayData = $this->model
             ->where('date_start', '<=', Carbon::today()->toDateString())
@@ -109,6 +81,15 @@ final class FestivalRepository extends BaseRepository
         return !empty($sync);
     }
 
+    /**
+     * Выдать сущность
+     *
+     * @param array $data
+     *
+     * @throws Exception
+     *
+     * @return EntityInterface
+     */
     protected function build(array $data): EntityInterface
     {
         return Festival::fromState($data);

@@ -10,16 +10,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * Сервис для связи модели
- *
  * Class ModelService
+ *
+ * Сервис для связи модели
  *
  * @package App\Ticket\Model\Service
  */
 final class ModelJoinService
 {
     /**
-     * Получить связоную модель
+     * Получить связанную модель
      *
      * @param Model $model
      * @param string $joinModel
@@ -37,7 +37,7 @@ final class ModelJoinService
     }
 
     /**
-     * Проверить наличие функции в классе моделе
+     * Проверить наличие функции в классе модели
      *
      * @param Model $model
      * @param string $joinTable
@@ -50,6 +50,8 @@ final class ModelJoinService
     }
 
     /**
+     * Выполнить фильтрацию в базе данных
+     *
      * @param Model $model
      * @param string $joinTable
      * @param Closure|null $where

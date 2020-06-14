@@ -2,9 +2,20 @@
 
 namespace App\Ticket\Modules\TypeRegistration\Specification;
 
+/**
+ * Class SpecificationEntity
+ *
+ * Сущность спецификации
+ *
+ * @package App\Ticket\Modules\TypeRegistration\Specification
+ */
 final class SpecificationEntity
 {
-    /** @var int */
+    /**
+     * Количество билетов
+     *
+     * @var int
+     */
     private $count;
 
     /**

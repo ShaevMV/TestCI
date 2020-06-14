@@ -14,6 +14,13 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\TestCase;
 use TypeRegistrationSeeder;
 
+/**
+ * Class TotalServiceTest
+ *
+ * + Получение цены
+ *
+ * @package Tests\Unit\Order\Service
+ */
 class TotalServiceTest extends TestCase
 {
     /** @var TotalService|mixed */
@@ -28,6 +35,8 @@ class TotalServiceTest extends TestCase
      * @param TypeRegistration $typeRegistration
      * @param object $class
      * @param TotalEntity $totalEntity
+     *
+     * @throws BindingResolutionException
      *
      * @return void
      */

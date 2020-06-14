@@ -2,6 +2,8 @@
 
 namespace App\Ticket\Modules\Festival\Entity;
 
+use App\Ticket\Date\DateBetween;
+use App\Ticket\Entity\AbstractionEntity;
 use App\Ticket\Entity\EntityInterface;
 use App\Ticket\Modules\TypeRegistration\Entity\TypeRegistration;
 use Webpatser\Uuid\Uuid;
@@ -9,61 +11,59 @@ use Webpatser\Uuid\Uuid;
 /**
  * Class Festival
  *
+ * Сущность фестиваля
+ *
  * @package App\Ticket\Festival\Entity
  */
-final class Festival implements EntityInterface
+final class Festival extends AbstractionEntity
 {
-    /** @var Uuid Индификатор */
-    private $id;
-
-    /** @var FestivalStatus Статус */
-    private $status;
-
-    /** @var string Заголовок */
-    private $title;
-
-    /** @var FestivalDate Дата начала */
-    private $date_start;
-
-    /** @var FestivalDate Дата окончания */
-    private $date_end;
-
-    /** @var TypeRegistration[]|null */
-    private $typeRegistration;
+    /**
+     * Идентификатор
+     *
+     * @var Uuid
+     */
+    protected $id;
 
     /**
-     * Получить фестиваль из данных БД
+     * Статус
      *
-     * @param array $state
-     *
-     * @return Festival
+     * @var FestivalStatus
      */
-    public static function fromState(array $state): Festival
+    protected $status;
+
+    /**
+     * Заголовок - названия
+     *
+     * @var string
+     */
+    protected $title;
+
+    /**
+     * Даты проведения
+     *
+     * @var DateBetween
+     */
+    protected $date;
+
+    /**
+     * Типы билетов
+     *
+     * @var TypeRegistration[]|null
+     */
+    protected $typeRegistration;
+
+    /**
+     * @param array $data
+     *
+     * @return DateBetween|EntityInterface|Festival
+     */
+    public static function fromState(array $data)
     {
         return (new self())
-            ->setId(Uuid::import($state['id']))
-            ->setTitle($state['title'])
-            ->setDateStart(FestivalDate::getInstance($state['date_start']))
-            ->setDateEnd(FestivalDate::getInstance($state['date_end']))
-            ->setStatus(FestivalStatus::fromInt($state['status']));
-    }
-
-    /**
-     * Вывести сущность в виде массива
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        $vars = get_object_vars($this);
-        $array = [];
-        foreach ($vars as $key => $value) {
-            if (!is_array($value)) {
-                $array[ltrim($key)] = $value;
-            }
-        }
-
-        return $array;
+            ->setId(Uuid::import($data['id']))
+            ->setTitle($data['title'])
+            ->setDate(DateBetween::fromState($data))
+            ->setStatus(FestivalStatus::fromInt($data['status']));
     }
 
     /**
@@ -72,38 +72,6 @@ final class Festival implements EntityInterface
     public function getId(): Uuid
     {
         return $this->id;
-    }
-
-    /**
-     * @return FestivalDate
-     */
-    public function getDateEnd(): FestivalDate
-    {
-        return $this->date_end;
-    }
-
-    /**
-     * @return FestivalDate
-     */
-    public function getDateStart(): FestivalDate
-    {
-        return $this->date_start;
-    }
-
-    /**
-     * @return FestivalStatus|null
-     */
-    public function getStatus(): ?FestivalStatus
-    {
-        return $this->status;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getTitle(): ?string
-    {
-        return $this->title;
     }
 
     /**
@@ -119,6 +87,14 @@ final class Festival implements EntityInterface
     }
 
     /**
+     * @return FestivalStatus|null
+     */
+    public function getStatus(): ?FestivalStatus
+    {
+        return $this->status;
+    }
+
+    /**
      * @param FestivalStatus $status
      *
      * @return Festival
@@ -131,27 +107,11 @@ final class Festival implements EntityInterface
     }
 
     /**
-     * @param FestivalDate $date_end
-     *
-     * @return Festival
+     * @return string|null
      */
-    public function setDateEnd(FestivalDate $date_end): self
+    public function getTitle(): ?string
     {
-        $this->date_end = $date_end;
-
-        return $this;
-    }
-
-    /**
-     * @param FestivalDate $date_start
-     *
-     * @return Festival
-     */
-    public function setDateStart(FestivalDate $date_start): self
-    {
-        $this->date_start = $date_start;
-
-        return $this;
+        return $this->title;
     }
 
     /**
@@ -167,6 +127,14 @@ final class Festival implements EntityInterface
     }
 
     /**
+     * @return TypeRegistration[]
+     */
+    public function getTypeRegistration(): ?array
+    {
+        return $this->typeRegistration;
+    }
+
+    /**
      * @param TypeRegistration[] $typeRegistration
      *
      * @return Festival
@@ -179,10 +147,22 @@ final class Festival implements EntityInterface
     }
 
     /**
-     * @return TypeRegistration[]
+     * @return DateBetween
      */
-    public function getTypeRegistration(): ?array
+    public function getDate(): DateBetween
     {
-        return $this->typeRegistration;
+        return $this->date;
+    }
+
+    /**
+     * @param DateBetween $date
+     *
+     * @return Festival
+     */
+    public function setDate(DateBetween $date): Festival
+    {
+        $this->date = $date;
+
+        return $this;
     }
 }

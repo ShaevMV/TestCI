@@ -6,32 +6,64 @@ use App\Ticket\Entity\EntityDataInterface;
 use InvalidArgumentException;
 
 /**
- * Статус у фестиваля
- *
  * Class FestivalStatus
+ *
+ * Статус у фестиваля
  *
  * @package App\Ticket\Festival\Entity
  */
 final class FestivalStatus implements EntityDataInterface
 {
-    /** @const ID */
+    /**
+     * Идентификатор статуса черновик
+     *
+     * @const int
+     */
     public const STATE_DRAFT_ID = 1;
+
+    /**
+     * Идентификатор статуса запущенного фестиваля
+     *
+     * @const int
+     */
     public const STATE_PUBLISHED_ID = 2;
 
-    /** @const Name */
-    private const STATE_DRAFT = 'draft';
+    /**
+     * Названия статуса черновик
+     *
+     * @const string
+     */
+    public const STATE_DRAFT = 'draft';
+
+    /**
+     * Названия статуса запущенного фестиваля
+     *
+     * @const string
+     */
     public const STATE_PUBLISHED = 'published';
 
-    /** @var array Список статусов */
+    /**
+     * Список статусов
+     *
+     * @var array
+     */
     public const STATE_LIST = [
         self::STATE_DRAFT_ID => self::STATE_DRAFT,
         self::STATE_PUBLISHED_ID => self::STATE_PUBLISHED,
     ];
 
-    /** @var int|null */
+    /**
+     * Идентификатор статуса
+     *
+     * @var int|null
+     */
     private $id = null;
 
-    /** @var string|null */
+    /**
+     * Названия статуса
+     *
+     * @var string|null
+     */
     private $name = null;
 
     /**
@@ -47,7 +79,7 @@ final class FestivalStatus implements EntityDataInterface
     }
 
     /**
-     * Создать объект по ID сатуса
+     * Создать объект по ID статуса
      *
      * @param int $statusId
      *

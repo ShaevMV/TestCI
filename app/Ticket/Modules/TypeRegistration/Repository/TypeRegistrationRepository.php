@@ -3,52 +3,30 @@
 namespace App\Ticket\Modules\TypeRegistration\Repository;
 
 use App\Ticket\Entity\EntityInterface;
-use App\Ticket\Model\Model;
 use App\Ticket\Modules\TypeRegistration\Entity\Parameter;
 use App\Ticket\Modules\TypeRegistration\Entity\Price;
 use App\Ticket\Modules\TypeRegistration\Entity\TypeRegistration;
 use App\Ticket\Modules\TypeRegistration\Model\TypeRegistrationModule;
 use App\Ticket\Repository\BaseRepository;
-use OutOfBoundsException;
 use Webpatser\Uuid\Uuid;
 
+/**
+ * Class TypeRegistrationRepository
+ *
+ * Репозиторий для работы с типом билета
+ *
+ * @package App\Ticket\Modules\TypeRegistration\Repository
+ */
 final class TypeRegistrationRepository extends BaseRepository
 {
+    /**
+     * TypeRegistrationRepository constructor.
+     *
+     * @param TypeRegistrationModule $typeRegistrationModule
+     */
     public function __construct(TypeRegistrationModule $typeRegistrationModule)
     {
         $this->model = $typeRegistrationModule;
-    }
-
-    /**
-     *
-     * @param TypeRegistration $entity
-     *
-     * @return Uuid|null
-     */
-    public function create($entity): ?Uuid
-    {
-        /** @var Model $create */
-        $create = $this->model->create([
-            'title' => $entity->getTitle()
-        ]);
-
-        return isset($create->id) ? Uuid::import($create->id) : null;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function findById(Uuid $id)
-    {
-        try {
-            $arrayData = $this->model->find((string)$id);
-        } catch (OutOfBoundsException $e) {
-            throw new OutOfBoundsException($this->model->getTable() . ' with id ' . (string)$id . ' does not exist');
-        }
-
-        return (new TypeRegistration())
-            ->setId(Uuid::import($arrayData['id']))
-            ->setTitle($arrayData['title']);
     }
 
     /**
@@ -79,6 +57,13 @@ final class TypeRegistrationRepository extends BaseRepository
         return $typeRegistration;
     }
 
+    /**
+     * Получить сущность типа билета
+     *
+     * @param array $data
+     *
+     * @return EntityInterface
+     */
     protected function build(array $data): EntityInterface
     {
         return TypeRegistration::fromState($data);

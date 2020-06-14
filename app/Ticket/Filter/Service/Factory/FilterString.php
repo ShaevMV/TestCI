@@ -7,9 +7,9 @@ use Illuminate\Database\Query\Builder as BuilderQuery;
 use InvalidArgumentException;
 
 /**
- * Не точная фильтрация по строке
- *
  * Class FilterString
+ *
+ * Не точная фильтрация по строке
  *
  * @package App\Tackit\Filter\Fields
  */
@@ -34,7 +34,10 @@ final class FilterString extends FilterFieldsAbstract
     }
 
     /**
+     * Проверить на строку
+     *
      * @param string $value
+     *
      * @return bool
      */
     private static function isValidValue($value): bool

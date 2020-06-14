@@ -9,15 +9,14 @@ use Illuminate\Database\Query\Builder as BuilderQuery;
 use InvalidArgumentException;
 
 /**
- * Филтраци промежутка дат
- *
  * Class FilterDateBetween
+ *
+ * Фильтрация промежутка дат
  *
  * @package App\Tackit\Filter\Fields
  */
 final class FilterDateBetween extends FilterFieldsAbstract
 {
-
     /**
      * Фильтрация
      *

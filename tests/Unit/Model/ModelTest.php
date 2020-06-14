@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Persistence;
+namespace Model;
 
 use App\Ticket\Modules\Festival\Entity\FestivalStatus;
 use App\Ticket\Modules\Festival\Model\FestivalModel;
@@ -11,19 +11,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
-/*use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;*/
-
-/**
- * Class FestivalModuleTest
- * @package Tests\Unit\Module
- *
- * + записать данные в базу / найти запись по его id
- * + обновить данные
- * + Удалить
- * + Поиск
- */
-class PersistenceModuleTest extends TestCase
+class ModelTest extends TestCase
 {
     use DatabaseTransactions;
 

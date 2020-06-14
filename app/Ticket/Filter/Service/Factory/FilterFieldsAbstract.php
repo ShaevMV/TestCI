@@ -8,22 +8,33 @@ use Illuminate\Database\Query\Builder as BuilderQuery;
 use InvalidArgumentException;
 
 /**
- * Class FilterFieldsAbstract Общий класс для фильтров
+ * Class FilterFieldsAbstract
+ *
+ * Общий класс для фильтров
  *
  * @package App\Tackit\Filter\Fields
  */
 abstract class FilterFieldsAbstract
 {
-    /** @var FilterItem */
+    /**
+     * Сущность значений для фильтра
+     *
+     * @var FilterItem
+     */
     protected $filterItem;
 
+    /**
+     * FilterFieldsAbstract constructor.
+     *
+     * @param FilterItem $filterItem
+     */
     public function __construct(FilterItem $filterItem)
     {
         $this->filterItem = $filterItem;
     }
 
     /**
-     * Вывести поле с примапиной именем таблицы
+     * Вывести поле с добавленным именем таблицы
      *
      * @return string table.fields
      */
@@ -33,6 +44,8 @@ abstract class FilterFieldsAbstract
     }
 
     /**
+     * Вывести значения сущности
+     *
      * @return FilterItem
      */
     final public function getFilterItem(): FilterItem
@@ -41,6 +54,8 @@ abstract class FilterFieldsAbstract
     }
 
     /**
+     * Вывести значения по котором осуществляется фильтрация
+     *
      * @return mixed
      */
     final public function getValue()

@@ -2,6 +2,14 @@
 
 namespace App\Ticket\Entity;
 
+/**
+ *
+ * Interface EntityDataInterface
+ *
+ * Интерфейс дата сущности
+ *
+ * @package App\Ticket\Entity
+ */
 interface EntityDataInterface
 {
     /**

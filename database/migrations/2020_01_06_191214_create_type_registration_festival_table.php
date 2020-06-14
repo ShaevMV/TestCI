@@ -16,7 +16,7 @@ class CreateTypeRegistrationFestivalTable extends Migration
         Schema::create('type_registration_festival', function (Blueprint $table) {
             $table->uuid('type_registration_id')->index();
             $table->uuid('festival_id')->index();
-            $table->integer('price')->unsigned()->nullable()->comment('Цена оргвзноса');
+            $table->integer('price')->unsigned()->nullable()->comment('Цена типа билета');
             $table->json('params')->nullable()->comment('Параметры проходки');
         });
     }

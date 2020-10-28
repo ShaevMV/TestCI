@@ -18,3 +18,4 @@ docker-composer.yml
 /.phpunit.result.cache
 /_ide_helper.php
 /.phpstorm.meta.php
+/.blackfire.ini

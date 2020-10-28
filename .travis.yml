@@ -28,3 +28,6 @@ script:
   - vendor/bin/phpunit --configuration phpunit.xml
   - vendor/bin/phpcs
   - vendor/bin/phpstan analyse
+
+after_success:
+  - travis_retry php vendor/bin/php-coveralls

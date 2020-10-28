@@ -8,12 +8,26 @@ RUN apt-get update && apt-get install -y \
         git \
         unzip \
         zip \
+        gnupg2 \
+        wget \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
 
+RUN wget -q -O - https://packages.blackfire.io/gpg.key | apt-key add -
+RUN echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list
+RUN apt update
+RUN apt install blackfire-agent
+RUN blackfire-agent --register --server-id=aff00ff8-8e83-4344-8303-4145b2e48c73 --server-token=9e7aa8a607ce409357436fbc0bf9270961cddd2ff07243ce7972cd5e6aa82547
+RUN /etc/init.d/blackfire-agent restart
+RUN apt install blackfire-php
+RUN blackfire config --client-id=a213ec2f-cd1f-4a85-b55c-fc9aa2d6f144 --client-token=334bb6ebe0fe9ba4b35a281a75bfa8b5adab34a7469d983160ff61bfbc52fde2
+RUN /etc/init.d/blackfire-agent restart
+
+ENV HOME /var/www/html
+ENV DOCKER_PHP ${HOME}/docker/php
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /tmp
-ENV COMPOSER_VERSION 1.9.3
+ENV COMPOSER_VERSION 2.0.2
 
 RUN set -eux; \
   curl --silent --fail --location --retry 3 --output /tmp/installer.php --url https://raw.githubusercontent.com/composer/getcomposer.org/cb19f2aa3aeaa2006c0cd69a7ef011eb31463067/web/installer; \
@@ -29,3 +43,8 @@ RUN set -eux; \
   composer --ansi --version --no-interaction; \
   rm -f /tmp/installer.php; \
   find /tmp -type d -exec chmod -v 1777 {} +
+
+RUN pecl install xdebug-2.8.1 \
+    && docker-php-ext-enable xdebug
+
+COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini

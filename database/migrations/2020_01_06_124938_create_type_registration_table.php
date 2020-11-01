@@ -15,7 +15,7 @@ class CreateTypeRegistrationTable extends Migration
     {
         Schema::create('type_registration', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('title')->comment('Название оргвзноса');
+            $table->string('title')->comment('Название типа билета');
             $table->timestamps();
         });
     }

@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(FestivalSeeder::class);
         $this->call(TypeRegistrationSeeder::class);
+        $this->call(PromoCodeSeeder::class);
     }
 }

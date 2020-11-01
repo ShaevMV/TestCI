@@ -17,8 +17,8 @@ use TypeRegistrationSeeder;
  * @package Tests\Unit\TypeRegistration\Service
  *
  * + Вывод нужного объекта параметров
- * + Проверка спицификацию для параметров
- * + Проверить список спицификаций по логическуму AND
+ * + Проверка спецификацию для параметров
+ * + Проверить список спецификаций по логическому AND
  *
  */
 class SpecificationServiceTest extends TestCase
@@ -84,7 +84,7 @@ class SpecificationServiceTest extends TestCase
     }
 
     /**
-     * Проверить список спицификаций по логическуму AND
+     * Проверить список спецификаций по логическому AND
      *
      * @param array $data
      *

@@ -1,0 +1,118 @@
+<?php
+
+namespace App\Ticket\Date;
+
+use App\Ticket\Entity\AbstractionEntity;
+use Carbon\Carbon;
+use Exception;
+use InvalidArgumentException;
+use RuntimeException;
+
+/**
+ * Class DateBetween
+ *
+ * Класс для работы с промежутком дат
+ *
+ * @package App\Ticket\Date
+ */
+final class DateBetween extends AbstractionEntity
+{
+    /**
+     * Начальная дата
+     *
+     * @var Carbon
+     */
+    protected $date_start;
+
+    /**
+     * Дата окончания
+     *
+     * @var Carbon
+     */
+    protected $date_end;
+
+    /**
+     * Получить сущность из массива
+     *
+     * @param array $data
+     *
+     * @return DateBetween
+     */
+    public static function fromState(array $data)
+    {
+        $dateCarbonStart = self::fromStateDate($data['date_start']);
+        $dateCarbonEnd = self::fromStateDate($data['date_end']);
+
+        if ($dateCarbonEnd < $dateCarbonStart) {
+            throw new RuntimeException('Start date is greater than end date');
+        }
+
+        return (new self())
+            ->setDateStart($dateCarbonStart)
+            ->setDateEnd($dateCarbonEnd);
+    }
+
+    /**
+     * Перевести дату в Carbon
+     *
+     * @param string $date
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return Carbon
+     */
+    private static function fromStateDate(string $date): Carbon
+    {
+        try {
+            $dateCarbon = new Carbon($date);
+
+            if ((string)$dateCarbon->format('Y-m-d') !== $date) {
+                throw new Exception('Date not correct value');
+            }
+        } catch (Exception $e) {
+            throw new InvalidArgumentException($e->getMessage());
+        }
+
+        return $dateCarbon;
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getDateStart(): Carbon
+    {
+        return $this->date_start;
+    }
+
+    /**
+     * @param Carbon $date_start
+     *
+     * @return DateBetween
+     */
+    public function setDateStart(Carbon $date_start): DateBetween
+    {
+        $this->date_start = $date_start;
+
+        return $this;
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getDateEnd(): Carbon
+    {
+        return $this->date_end;
+    }
+
+    /**
+     * @param Carbon $dateEnd
+     *
+     * @return DateBetween
+     */
+    public function setDateEnd(Carbon $dateEnd): DateBetween
+    {
+        $this->date_end = $dateEnd;
+
+        return $this;
+    }
+}

@@ -19,10 +19,10 @@ use TypeRegistrationSeeder;
  * Class ModelServiceTest
  * @package Tests\Unit\Model\Service
  *
- * + Провериь наличие связоной функции
- * + Получить функцию связоной модель
+ * + Проверить наличие связанной функции
+ * + Получить функцию связанной модель
  * + Проверить вызов исключения
- * - Получить связаную модель
+ * - Получить связанную модель
  * - Получить выборку из связоной модели
  */
 class ModelServiceTest extends TestCase
@@ -31,7 +31,7 @@ class ModelServiceTest extends TestCase
     private $modelService;
 
     /**
-     * Провериь наличие связоной функции
+     * Проверить наличие связанной функции
      *
      * @dataProvider getModelProvider
      *
@@ -59,7 +59,7 @@ class ModelServiceTest extends TestCase
     }
 
     /**
-     * Получить функцию связоной модель без выборки
+     * Получить функцию связанной модель без выборки
      * Проверить вызов исключения
      *
      * @dataProvider getModelProvider

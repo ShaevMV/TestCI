@@ -8,20 +8,36 @@ use InvalidArgumentException;
 /**
  * Class TotalEntity
  *
+ * Сущность финальной цены билета
+ *
  * @package App\Ticket\Modules\Order\Entity
  */
 final class TotalEntity
 {
-    /** @var Price */
+    /**
+     * Цена за билет
+     *
+     * @var Price
+     */
     private $price;
 
-    /** @var int */
+    /**
+     * Количество
+     *
+     * @var int
+     */
     private $count;
 
-    /** @var Price */
+    /**
+     * Сумма
+     *
+     * @var Price
+     */
     private $total;
 
     /**
+     * Получить сущность
+     *
      * @param Price $price
      * @param int $count
      * @param Price $total
@@ -42,6 +58,13 @@ final class TotalEntity
             ->setCount($count);
     }
 
+    /**
+     * Проверить количества
+     *
+     * @param int $count
+     *
+     * @return bool
+     */
     private static function isValidCount(int $count): bool
     {
         return $count > 0;

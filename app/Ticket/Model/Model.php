@@ -11,10 +11,10 @@ use Webpatser\Uuid\Uuid;
 /**
  * Class Model
  *
+ * Общий класс для модели
+ *
  * @package App\Ticket\Model
- *
  * @property string $id
- *
  * @method static Builder whereId($value)
  * @method static Builder getQuery()
  * @method static int count($columns = '*')
@@ -31,6 +31,9 @@ use Webpatser\Uuid\Uuid;
  */
 class Model extends BaseModel
 {
+    /**
+     * Перевод primary key в Uuid
+     */
     protected static function boot()
     {
         parent::boot();
@@ -40,11 +43,21 @@ class Model extends BaseModel
         });
     }
 
+    /**
+     * Отключить увеличения идентификатора
+     *
+     * @return bool
+     */
     public function getIncrementing()
     {
         return false;
     }
 
+    /**
+     * Перевод идентификатора в строку
+     *
+     * @return string
+     */
     public function getKeyType()
     {
         return 'string';

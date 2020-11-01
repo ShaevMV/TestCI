@@ -9,11 +9,13 @@ use Illuminate\Support\Carbon;
 /**
  * App\Ticket\Modules\TypeRegistration\Model\TypeRegistrationModule
  *
+ * Сущность типа билета
+ *
  * @property string $id
- * @property string $title Название оргвзноса
+ * @property string $title Типа билета
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
+
  * @method static Builder|TypeRegistrationModule newModelQuery()
  * @method static Builder|TypeRegistrationModule newQuery()
  * @method static Builder|TypeRegistrationModule query()

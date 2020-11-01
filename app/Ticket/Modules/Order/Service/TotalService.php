@@ -5,11 +5,27 @@ namespace App\Ticket\Modules\Order\Service;
 use App\Ticket\Modules\Order\Entity\TotalEntity;
 use App\Ticket\Modules\TypeRegistration\Entity\TypeRegistration;
 
+/**
+ * Class TotalService
+ *
+ * Сервис получения стоимости покупки
+ *
+ * @package App\Ticket\Modules\Order\Service
+ */
 final class TotalService
 {
-    /** @var TotalFactory */
+    /**
+     * Фабрика получения стоимости
+     *
+     * @var TotalFactory
+     */
     private $typeOrderFactory;
 
+    /**
+     * TotalService constructor.
+     *
+     * @param TotalFactory $typeOrderFactory
+     */
     public function __construct(TotalFactory $typeOrderFactory)
     {
         $this->typeOrderFactory = $typeOrderFactory;

@@ -6,7 +6,14 @@ use App\Ticket\Filter\Service\Factory\FilterFieldsAbstract;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
-class FilterService
+/**
+ * Class FilterService
+ *
+ * Сервис для работы с фильтром в базе
+ *
+ * @package App\Ticket\Filter\Service
+ */
+final class FilterService
 {
     /**
      * Вывести функцию для фильтрации

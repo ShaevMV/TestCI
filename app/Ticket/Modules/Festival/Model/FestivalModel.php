@@ -12,9 +12,11 @@ use Illuminate\Support\Carbon;
 /**
  * App\Ticket\Festival\Model\FestivalModel
  *
+ * Модель фестиваля
+ *
  * @property string $title Название фестиваля
  * @property string $date_start Начала фестиваля
- * @property string $date_end Оканчание фестиваля
+ * @property string $date_end Окончание фестиваля
  * @property int $status Статус фестиваля
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at

@@ -7,17 +7,35 @@ use App\Ticket\Modules\TypeRegistration\Entity\TypeRegistration;
 use App\Ticket\Modules\TypeRegistration\Specification\SpecificationAnd;
 use App\Ticket\Modules\TypeRegistration\Specification\SpecificationEntity;
 
+/**
+ * Class TypeRegistrationListService
+ *
+ * Сервис для работы с списком типов билетов
+ *
+ * @package App\Ticket\Modules\TypeRegistration\Service
+ */
 final class TypeRegistrationListService
 {
-    /** @var SpecificationService */
+    /**
+     * Сервис спецификаций
+     *
+     * @var SpecificationService
+     */
     private $specificationService;
 
+    /**
+     * TypeRegistrationListService constructor.
+     *
+     * @param SpecificationService $specificationService
+     */
     public function __construct(SpecificationService $specificationService)
     {
         $this->specificationService = $specificationService;
     }
 
     /**
+     * Получения списка типов билетов со статусом активности
+     *
      * @param TypeRegistration[] $typeRegistration
      * @param SpecificationEntity $specificationEntity
      *
@@ -37,6 +55,14 @@ final class TypeRegistrationListService
         return $result;
     }
 
+    /**
+     * Проверка на активность по спецификацией
+     *
+     * @param TypeRegistration $typeRegistration
+     * @param SpecificationEntity $specificationEntity
+     *
+     * @return bool
+     */
     private function isActive(TypeRegistration $typeRegistration, SpecificationEntity $specificationEntity): bool
     {
         $listSpecification = $this->specificationService

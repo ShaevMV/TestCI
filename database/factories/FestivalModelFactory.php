@@ -20,11 +20,13 @@ use Webpatser\Uuid\Uuid;
 /** @var Factory $factory */
 
 $factory->define(FestivalModel::class, function (Faker $faker) {
+    $dateStart = (new DateTimeImmutable($faker->date()));
+
     return [
         "id" => Uuid::generate(),
         "title" => $faker->jobTitle,
-        "date_start" => (new DateTimeImmutable($faker->date()))->format('Y-m-d'),
-        "date_end" => (new DateTimeImmutable($faker->date()))->format('Y-m-d'),
+        "date_start" => $dateStart->format('Y-m-d'),
+        "date_end" => $dateStart->add(new DateInterval('P10D')),
         "status" => FestivalStatus::STATE_PUBLISHED_ID,
     ];
 });

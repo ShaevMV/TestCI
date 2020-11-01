@@ -8,11 +8,17 @@ use InvalidArgumentException;
 /**
  * Class Price
  *
+ * Получения сущности цены типа билета
+ *
  * @package App\Ticket\TypeRegistration\Entity
  */
 final class Price implements EntityDataInterface
 {
-    /** @var int */
+    /**
+     * Цена типа билета
+     *
+     * @var int
+     */
     private $price;
 
     /**

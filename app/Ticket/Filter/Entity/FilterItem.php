@@ -5,30 +5,54 @@ namespace App\Ticket\Filter\Entity;
 use InvalidArgumentException;
 
 /**
- * Класс для создания
- *
  * Class FilterItem
+ *
+ * Класс для сущности фильтра
  *
  * @package App\Ticket\Filter\Entity
  */
 final class FilterItem
 {
-    /** @const string Разделитель страки */
+    /**
+     * Разделитель старки между названием таблицы и полем
+     *
+     * @const string
+     */
     private const DELIMITER = '.';
 
-    /** @var string|array Значения для фильтра */
+    /**
+     * Значения для фильтра
+     *
+     * @var string|array
+     */
     private $value;
 
-    /** @var string Поле фильтра */
+    /**
+     * Поле фильтрации
+     *
+     * @var string
+     */
     private $field;
 
-    /** @var string Таблица в которой осуществляеться поиск */
+    /**
+     * Таблица в которой осуществляется поиск
+     *
+     * @var string
+     */
     private $table;
 
-    /** @var string Тип фильтрации */
+    /**
+     * Тип фильтрации
+     *
+     * @var string
+     */
     private $type;
 
-    /** @var string */
+    /**
+     * Оператор для фитрации
+     *
+     * @var string
+     */
     private $operation = '=';
 
     /**
@@ -52,6 +76,8 @@ final class FilterItem
     }
 
     /**
+     * Получения данных поля и имени таблицы
+     *
      * @param string $field
      *
      * @return FilterItem
@@ -68,7 +94,7 @@ final class FilterItem
     }
 
     /**
-     * Проверка наличие в страке разделителя
+     * Проверка наличие в старке разделителя
      *
      * @param string $str
      *

@@ -6,39 +6,41 @@ use App\Ticket\Entity\EntityInterface;
 use Webpatser\Uuid\Uuid;
 
 /**
+ * Сущность типа билета
+ *
  * Class TypeRegistration
  *
  * @package App\Ticket\TypeRegistration\Entity
  */
 final class TypeRegistration implements EntityInterface
 {
-    /** @var Uuid */
+    /**
+     * Идентификатор
+     *
+     * @var Uuid
+     */
     private $id;
 
-    /** @var  string */
+    /**
+     * Названия
+     *
+     * @var string
+     */
     private $title;
 
-    /** @var Price */
+    /**
+     * Цена
+     *
+     * @var Price
+     */
     private $price;
 
-    /** @var Parameter */
+    /**
+     * Параметры для типа билета
+     *
+     * @var Parameter
+     */
     private $params;
-
-    public static function fromState(array $data): self
-    {
-        $result = (new self())
-            ->setId(Uuid::import($data['id']))
-            ->setTitle($data['title']);
-
-        if (isset($data['pivot'])) {
-            $price = Price::fromState((int)$data['pivot']['price']);
-            $params = Parameter::fromState($data['pivot']['params']);
-            $result->setPrice($price)
-                ->setParams($params);
-        }
-
-        return $result;
-    }
 
     /**
      * @return string
@@ -131,5 +133,31 @@ final class TypeRegistration implements EntityInterface
         $this->params = $params;
 
         return $this;
+    }
+
+    /**
+     * Получения сущности из статики
+     *
+     * @param array $data
+     *
+     * @return EntityInterface
+     */
+    public static function fromState(array $data): EntityInterface
+    {
+        $result = (new self())
+            ->setId(Uuid::import($data['id']))
+            ->setTitle($data['title']);
+
+        if (isset($data['pivot'])) {
+            $result->setPrice(Price::fromState($data['pivot']['price']))
+                ->setParams(Parameter::fromState($data['pivot']));
+        }
+
+        return $result;
+    }
+
+    public function __get($name)
+    {
+        return $this->$name ?? null;
     }
 }

@@ -10,13 +10,51 @@ use App\Ticket\Filter\Service\Factory\FilterInteger;
 use App\Ticket\Filter\Service\Factory\FilterString;
 use RuntimeException;
 
+/**
+ * Class FilterFactoryService
+ *
+ * Класс фабрика для получения конкретного фильтра
+ *
+ * @package App\Ticket\Filter\Service
+ */
 final class FilterFactoryService
 {
+    /**
+     * Тип фильтра для целого числа
+     *
+     * @const string
+     */
     public const INTEGER_TYPE = 'int';
+
+    /**
+     * Тип фильтра для строки
+     *
+     * @const string
+     */
     public const STRING_TYPE = 'string';
+
+    /**
+     * Тип фильтра для даты
+     *
+     * @const string
+     */
     public const DATE_TYPE = 'date';
+
+    /**
+     * Тип фильтра для промежутка дат
+     *
+     * @const string
+     */
     public const DATE_BETWEEN_TYPE = 'dateBetween';
 
+
+    /**
+     * Инициализация фильтра
+     *
+     * @param FilterItem $filterItem
+     *
+     * @return FilterFieldsAbstract
+     */
     public static function initFilter(
         FilterItem $filterItem
     ): FilterFieldsAbstract {

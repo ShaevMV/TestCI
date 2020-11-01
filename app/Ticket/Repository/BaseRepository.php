@@ -6,6 +6,7 @@ use App\Ticket\Entity\EntityInterface;
 use App\Ticket\Entity\EntityService;
 use App\Ticket\Filter\FilterList;
 use App\Ticket\Model\Model;
+use App\Ticket\Modules\Festival\Entity\Festival;
 use App\Ticket\Pagination\Pagination;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as BuilderQuery;
@@ -13,12 +14,27 @@ use InvalidArgumentException;
 use OutOfBoundsException;
 use Webpatser\Uuid\Uuid;
 
+/**
+ * Class BaseRepository
+ *
+ * Базовый класс репозитория
+ *
+ * @package App\Ticket\Repository
+ */
 abstract class BaseRepository implements RepositoryInterface
 {
-    /** @var Model */
+    /**
+     * Модель в базе данных
+     *
+     * @var Model
+     */
     protected $model;
 
-    /** @var Builder|BuilderQuery */
+    /**
+     * Builder для работы с базой данных
+     *
+     * @var Builder|BuilderQuery
+     */
     protected $builder;
 
     /**
@@ -46,7 +62,7 @@ abstract class BaseRepository implements RepositoryInterface
     }
 
     /**
-     * Выполнить пагинацию в моделе
+     * Выполнить пагинацию в модели
      *
      * @param Pagination|null $pagination
      *
@@ -64,7 +80,7 @@ abstract class BaseRepository implements RepositoryInterface
     }
 
     /**
-     * Выполнить фильтрацию в моделе
+     * Выполнить фильтрацию в модели
      *
      * @param FilterList|null $fields
      *
@@ -109,5 +125,49 @@ abstract class BaseRepository implements RepositoryInterface
         return empty($result) ? null : $result;
     }
 
+    /**
+     * Выдать сущность
+     *
+     * @param array $data
+     *
+     * @return EntityInterface
+     */
     abstract protected function build(array $data): EntityInterface;
+
+    public function create(EntityInterface $entity): ?Uuid
+    {
+        $create = $this->model->create($entity->toArray());
+
+        return isset($create->id) ? Uuid::import($create->id) : null;
+    }
+
+    /**
+     * Найти Фестиваль по его id
+     *
+     * @param Uuid $id
+     *
+     * @return EntityInterface|Festival
+     */
+    public function findById(Uuid $id)
+    {
+        try {
+            $arrayData = $this->model->find((string)$id);
+        } catch (OutOfBoundsException $e) {
+            throw new OutOfBoundsException($this->model->getTable() . ' with id ' . (string)$id . ' does not exist');
+        }
+
+        return $this->build($arrayData->toArray());
+    }
+
+    /**
+     * Удаление записи
+     *
+     * @param Uuid $id
+     *
+     * @return bool
+     */
+    public function remove(Uuid $id): bool
+    {
+        return $this->model->destroy((string)$id) > 0;
+    }
 }

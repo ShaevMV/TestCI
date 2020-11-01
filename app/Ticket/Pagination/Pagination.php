@@ -7,17 +7,31 @@ use InvalidArgumentException;
 /**
  * Class Pagination
  *
+ * Пагинация
+ *
  * @package App\Ticket\Pagination
  */
 final class Pagination
 {
-    /** @const int Количество объектов на странице */
+    /**
+     * Количество объектов на странице
+     *
+     * @const int
+     */
     private const DEFAULT_LIMIT = 15;
 
-    /** @var int Текущая страница */
+    /**
+     * Текущая страница
+     *
+     * @var int
+     */
     private $page;
 
-    /** @var int Лимит записей */
+    /**
+     * Лимит записей
+     *
+     * @var int
+     */
     private $limit;
 
     /**
@@ -67,7 +81,7 @@ final class Pagination
     }
 
     /**
-     * Проверить верность у занчения лимита
+     * Проверить верность у значения лимита
      *
      * @param int $limit
      *

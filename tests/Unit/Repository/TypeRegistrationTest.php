@@ -8,19 +8,13 @@ use FestivalSeeder;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
-use TypeRegistrationSeeder;
 use Webpatser\Uuid\Uuid;
-
-//use Illuminate\Foundation\Testing\WithFaker;
-//use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
  * Class TypeRegistrationTest
  * @package Tests\Unit\Repository
  *
- * + Создать новый тип проходки
- * + Сменить названия у типа проходки
- * + Вывести все типы проходок в фестевале
+ * + Вывести все типы проходок в фестивале
  */
 class TypeRegistrationTest extends TestCase
 {
@@ -32,49 +26,7 @@ class TypeRegistrationTest extends TestCase
     protected $typeRegistrationRepository;
 
     /**
-     * Создать новый тип проходки
-     *
-     * @return void
-     */
-    public function testCreate()
-    {
-        $typeRegistration = (new TypeRegistration())
-            ->setTitle('Test');
-
-        $id = $this->typeRegistrationRepository->create($typeRegistration);
-
-        $this->assertInstanceOf(Uuid::class, $id);
-        $this->assertNotEmpty((string)$id);
-
-        $typeRegistration->setId($id);
-
-        $this->assertEquals($this->typeRegistrationRepository->findById($id), $typeRegistration);
-    }
-
-    /**
-     * Сменить названия у типа проходки
-     *
-     * @return void
-     */
-    public function testUpdate()
-    {
-        $typeRegistration = (new TypeRegistration())
-            ->setTitle('Test2');
-
-        $id = Uuid::import(TypeRegistrationSeeder::ID_FOR_TEST);
-        $this->typeRegistrationRepository
-            ->update(
-                $id,
-                $typeRegistration
-            );
-        $typeRegistration->setId($id);
-
-        $this->assertEquals($this->typeRegistrationRepository->findById($id), $typeRegistration);
-        $this->assertEquals('Test2', $this->typeRegistrationRepository->findById($id)->getTitle());
-    }
-
-    /**
-     * Вывести все типы проходок в фестевале
+     * Вывести все типы проходок в фестивале
      *
      * @return void
      */

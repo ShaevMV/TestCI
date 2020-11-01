@@ -18,7 +18,7 @@ use Webpatser\Uuid\Uuid;
  *
  * @package Tests\Unit\TypeRegistration\Service
  *
- * - Вывести список TypeRegistration
+ * + Вывести список TypeRegistrationDTO
  */
 class TypeRegistrationServiceTest extends TestCase
 {

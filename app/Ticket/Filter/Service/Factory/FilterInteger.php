@@ -7,9 +7,9 @@ use Illuminate\Database\Query\Builder as BuilderQuery;
 use InvalidArgumentException;
 
 /**
- * По целому числу
- *
  * Class FilterInteger
+ *
+ * Фильтрация по целому числу
  *
  * @package App\Tackit\Filter\Fields
  */
@@ -34,6 +34,8 @@ final class FilterInteger extends FilterFieldsAbstract
     }
 
     /**
+     * Проверка на целое число
+     *
      * @param mixed $value
      *
      * @return bool

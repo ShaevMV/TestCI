@@ -4,12 +4,27 @@ namespace App\Ticket\Modules\TypeRegistration\DTO;
 
 use App\Ticket\Modules\TypeRegistration\Entity\TypeRegistration;
 
+/**
+ * Class TypeRegistrationViewDTO
+ *
+ * Класс DTO для типов билета
+ *
+ * @package App\Ticket\Modules\TypeRegistration\DTO
+ */
 final class TypeRegistrationViewDTO
 {
-    /** @var TypeRegistration */
+    /**
+     * Сущность типа билета
+     *
+     * @var TypeRegistration
+     */
     private $typeRegistration;
 
-    /** @var bool */
+    /**
+     * Активность
+     *
+     * @var bool
+     */
     private $active;
 
     /**

@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as BuilderQuery;
 use InvalidArgumentException;
 
+/**
+ * Class FilterDate
+ *
+ * Класс фильтрации по дате
+ *
+ * @package App\Ticket\Filter\Service\Factory
+ */
 final class FilterDate extends FilterFieldsAbstract
 {
     /**

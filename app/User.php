@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
@@ -34,8 +33,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
- *
- * @mixin Eloquent
  */
 class User extends Authenticatable
 {

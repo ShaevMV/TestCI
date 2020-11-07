@@ -3,11 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * App\User
@@ -36,6 +38,8 @@ use Illuminate\Support\Carbon;
  */
 class User extends Authenticatable
 {
+    use HasApiTokens;
+    use HasFactory;
     use Notifiable;
 
     /**

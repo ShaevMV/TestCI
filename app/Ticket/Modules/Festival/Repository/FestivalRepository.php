@@ -23,6 +23,11 @@ use App\Ticket\Model\Model;
  */
 final class FestivalRepository extends BaseRepository
 {
+    /**
+     * FestivalRepository constructor.
+     *
+     * @param FestivalModel $festivalModel
+     */
     public function __construct(FestivalModel $festivalModel)
     {
         $this->model = $festivalModel;

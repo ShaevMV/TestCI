@@ -111,6 +111,7 @@ class BaseRepositoryTest extends TestCase
                         'date_start' => Carbon::today()->toDateString(),
                         'date_end' => Carbon::today()->addDay()->toDateString(),
                     ]))
+                    ->setDescription("TestDescription")
                     ->setStatus(FestivalStatus::fromString(FestivalStatus::STATE_PUBLISHED)),
                 new FestivalRepository(new FestivalModel())
             ],

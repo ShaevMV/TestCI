@@ -16,6 +16,7 @@ class CreateFestivalTable extends Migration
         Schema::create('festivals', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title')->comment('Название фестиваля');
+            $table->text('description')->nullable()->comment('Описание фестиваля');
             $table->date('date_start')->comment('Начала фестиваля');
             $table->date('date_end')->comment('Окончание фестиваля');
             $table->integer('status')->comment('Статус фестиваля');

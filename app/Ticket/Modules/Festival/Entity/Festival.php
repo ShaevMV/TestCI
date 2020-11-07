@@ -46,6 +46,13 @@ final class Festival extends AbstractionEntity
     protected $date;
 
     /**
+     * Описание
+     *
+     * @var string|null
+     */
+    protected $description;
+
+    /**
      * Типы билетов
      *
      * @var TypeRegistration[]|null
@@ -62,6 +69,7 @@ final class Festival extends AbstractionEntity
         return (new self())
             ->setId(Uuid::import($data['id']))
             ->setTitle($data['title'])
+            ->setDescription($data['description'])
             ->setDate(DateBetween::fromState($data))
             ->setStatus(FestivalStatus::fromInt($data['status']));
     }
@@ -97,7 +105,7 @@ final class Festival extends AbstractionEntity
     /**
      * @param FestivalStatus $status
      *
-     * @return Festival
+     * @return self
      */
     public function setStatus(FestivalStatus $status): self
     {
@@ -117,7 +125,7 @@ final class Festival extends AbstractionEntity
     /**
      * @param string $title
      *
-     * @return Festival
+     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -137,7 +145,7 @@ final class Festival extends AbstractionEntity
     /**
      * @param TypeRegistration[] $typeRegistration
      *
-     * @return Festival
+     * @return self
      */
     public function setTypeRegistration(array $typeRegistration): Festival
     {
@@ -157,11 +165,31 @@ final class Festival extends AbstractionEntity
     /**
      * @param DateBetween $date
      *
-     * @return Festival
+     * @return self
      */
-    public function setDate(DateBetween $date): Festival
+    public function setDate(DateBetween $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string|null $description
+     *
+     * @return self
+     */
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

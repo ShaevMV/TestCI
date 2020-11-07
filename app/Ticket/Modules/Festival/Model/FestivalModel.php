@@ -4,8 +4,10 @@ namespace App\Ticket\Modules\Festival\Model;
 
 use App\Ticket\Model\Model;
 use App\Ticket\Modules\TypeRegistration\Model\TypeRegistrationModule;
+use Database\Factories\FestivalModelFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
@@ -38,6 +40,11 @@ use Illuminate\Support\Carbon;
  */
 class FestivalModel extends Model
 {
+    use HasFactory;
+
+    /**
+     * @var string
+     */
     protected $table = "festivals";
 
     /**
@@ -50,6 +57,7 @@ class FestivalModel extends Model
         'date_start',
         'date_end',
         'status',
+        'description'
     ];
 
     /**
@@ -66,5 +74,16 @@ class FestivalModel extends Model
             'price',
             'params'
         ]);
+    }
+
+    /**
+     * @return FestivalModelFactory
+     */
+    protected static function newFactory(): FestivalModelFactory
+    {
+        /** @var FestivalModelFactory $factory */
+        $factory = FestivalModelFactory::class;
+
+        return $factory::new();
     }
 }

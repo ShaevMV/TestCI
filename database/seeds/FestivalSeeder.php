@@ -12,12 +12,14 @@ class FestivalSeeder extends Seeder
     public const STATUS_FOR_TEST = FestivalStatus::STATE_PUBLISHED_ID;
     public const DATE_START_FOR_TEST = "2020-01-03";
     public const DATE_END_FOR_TEST = "2020-12-03";
+    public const DESCRIPTION_FOR_TEST = "DESCRIPTION for test";
 
     public const ID_FOR_TEST_NOT_ACTIVE = "7d240d20-92d4-11ea-9c08-7dbd77e1988c";
     public const TITLE_FOR_TEST_NOT_ACTIVE = "For test not active";
     public const STATUS_FOR_TEST_NOT_ACTIVE = FestivalStatus::STATE_DRAFT_ID;
     public const DATE_START_FOR_TEST_NOT_ACTIVE = "2020-01-03";
     public const DATE_END_FOR_TEST_NOT_ACTIVE = "2020-12-03";
+    public const DESCRIPTION_FOR_NOT_ACTIVE_TEST = "DESCRIPTION for test";
 
     /**
      * @throws Exception
@@ -30,6 +32,7 @@ class FestivalSeeder extends Seeder
             'status' => self::STATUS_FOR_TEST,
             'date_start' => self::DATE_START_FOR_TEST,
             'date_end' => self::DATE_END_FOR_TEST,
+            'description' => self::DESCRIPTION_FOR_TEST,
         ]);
 
         (new FestivalModel())->insert([
@@ -38,6 +41,7 @@ class FestivalSeeder extends Seeder
             'status' => self::STATUS_FOR_TEST_NOT_ACTIVE,
             'date_start' => self::DATE_START_FOR_TEST_NOT_ACTIVE,
             'date_end' => self::DATE_END_FOR_TEST_NOT_ACTIVE,
+            'description' => self::DESCRIPTION_FOR_TEST,
         ]);
 
         (new FestivalModel())
@@ -59,15 +63,24 @@ class FestivalSeeder extends Seeder
                 ]
             ]);
 
-        factory(FestivalModel::class, 4)
+        FestivalModel::factory()->count(5)
             ->create()
             ->each(function (FestivalModel $festivalModel) {
-                $typeRegistrationFirst = factory(TypeRegistrationModule::class)->make();
+
+                $typeRegistrationFirst = TypeRegistrationModule::factory()
+                    ->count(1)
+                    ->create()
+                    ->first();
+
                 $festivalModel->typeRegistration()->save($typeRegistrationFirst, [
                     'price' => random_int(1000, 2000)
                 ]);
 
-                $typeRegistrationLast = factory(TypeRegistrationModule::class)->make();
+                $typeRegistrationLast = TypeRegistrationModule::factory()
+                    ->count(1)
+                    ->create()
+                    ->first();
+
                 $festivalModel->typeRegistration()->save($typeRegistrationLast, [
                     'price' => random_int(1000, 2000)
                 ]);

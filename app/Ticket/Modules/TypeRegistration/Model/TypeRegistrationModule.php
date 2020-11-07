@@ -3,7 +3,9 @@
 namespace App\Ticket\Modules\TypeRegistration\Model;
 
 use App\Ticket\Model\Model;
+use Database\Factories\TypeRegistrationFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
 
 /**
@@ -26,6 +28,8 @@ use Illuminate\Support\Carbon;
  */
 class TypeRegistrationModule extends Model
 {
+    use HasFactory;
+
     protected $table = 'type_registration';
 
     /**
@@ -36,4 +40,15 @@ class TypeRegistrationModule extends Model
     protected $fillable = [
         'title'
     ];
+
+    /**
+     * @return TypeRegistrationFactory
+     */
+    protected static function newFactory(): TypeRegistrationFactory
+    {
+        /** @var TypeRegistrationFactory $factory */
+        $factory = TypeRegistrationFactory::class;
+
+        return $factory::new();
+    }
 }

@@ -19,3 +19,6 @@ docker-composer.yml
 /_ide_helper.php
 /.phpstorm.meta.php
 /.blackfire.ini
+/.npm/
+/.node-gyp/
+/.config/

@@ -48,3 +48,7 @@ RUN pecl install xdebug-2.8.1 \
     && docker-php-ext-enable xdebug
 
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
+RUN apt-get update && apt-get install -y \
+    nodejs \
+    npm

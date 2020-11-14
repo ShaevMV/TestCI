@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// обработка запросов с vue-router
+Route::get('/{vue_capture?}', function () {
+    return view('welcome');
+})->where('vue_capture', '^(?!(?:admin))[\/\w\.-]*');
+
+
+
+Route::get('/admin/{any?}', '\App\Http\Controllers\AdminController@index')->where('any', '.*');

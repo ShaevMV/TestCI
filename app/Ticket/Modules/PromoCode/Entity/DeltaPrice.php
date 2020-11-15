@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\PromoCode\Entity;
 
 use App\Ticket\Entity\AbstractionEntity;
@@ -10,7 +12,7 @@ use InvalidArgumentException;
 /**
  * Class DeltaPrice
  *
- * Сущность цены промо-кода
+ * Сущность цены промокода
  *
  * @package App\Ticket\Modules\PromoCode\Entity
  */
@@ -21,14 +23,14 @@ final class DeltaPrice extends AbstractionEntity implements EntityDataInterface
      *
      * @var int
      */
-    protected $delta_price;
+    protected int $delta_price;
 
     /**
      * Тип изменения цены (процент, скалярная)
      *
      * @var string
      */
-    protected $delta_type;
+    protected string $delta_type;
 
     /**
      * Получения сущности из статики
@@ -43,13 +45,13 @@ final class DeltaPrice extends AbstractionEntity implements EntityDataInterface
             throw new InvalidArgumentException("Type {$data['delta_type']} not valid");
         }
 
-        if (!self::ensureIsValidDeltaPrice($data['delta_price'])) {
+        if (!self::ensureIsValidDeltaPrice((int)$data['delta_price'])) {
             throw new InvalidArgumentException("Price {$data['delta_price']} not valid");
         }
 
         return (new self())
             ->setDeltaType($data['delta_type'])
-            ->setDeltaPrice($data['delta_price']);
+            ->setDeltaPrice((int)$data['delta_price']);
     }
 
     /**
@@ -95,13 +97,13 @@ final class DeltaPrice extends AbstractionEntity implements EntityDataInterface
     }
 
     /**
-     * @param int $deltaPrice
+     * @param int $delta_price
      *
      * @return DeltaPrice
      */
-    public function setDeltaPrice(int $deltaPrice): DeltaPrice
+    public function setDeltaPrice(int $delta_price): DeltaPrice
     {
-        $this->delta_price = $deltaPrice;
+        $this->delta_price = $delta_price;
 
         return $this;
     }
@@ -115,13 +117,13 @@ final class DeltaPrice extends AbstractionEntity implements EntityDataInterface
     }
 
     /**
-     * @param string $deltaType
+     * @param string $delta_type
      *
      * @return DeltaPrice
      */
-    public function setDeltaType(string $deltaType): DeltaPrice
+    public function setDeltaType(string $delta_type): DeltaPrice
     {
-        $this->delta_type = $deltaType;
+        $this->delta_type = $delta_type;
 
         return $this;
     }

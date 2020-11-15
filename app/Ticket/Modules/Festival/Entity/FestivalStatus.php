@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\Festival\Entity;
 
 use App\Ticket\Entity\EntityDataInterface;
@@ -57,14 +59,14 @@ final class FestivalStatus implements EntityDataInterface
      *
      * @var int|null
      */
-    private $id = null;
+    private ?int $id;
 
     /**
      * Названия статуса
      *
      * @var string|null
      */
-    private $name = null;
+    private ?string $name;
 
     /**
      * FestivalStatus constructor.

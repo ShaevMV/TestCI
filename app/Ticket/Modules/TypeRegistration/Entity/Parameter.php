@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\TypeRegistration\Entity;
 
 use InvalidArgumentException;
@@ -18,7 +20,7 @@ final class Parameter
      *
      * @var string|null
      */
-    private $params;
+    private ?string $params;
 
     /**
      * Получения сущности из статики
@@ -58,7 +60,7 @@ final class Parameter
      */
     public function toArray(): array
     {
-        return json_decode($this->params, true) ?? [];
+        return json_decode($this->params ?? '[]', true);
     }
 
     /**

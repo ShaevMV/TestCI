@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\Festival\Repository;
 
 use App\Ticket\Entity\EntityInterface;

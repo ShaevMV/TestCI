@@ -44,10 +44,10 @@ class FilterFieldTest extends TestCase
      */
     public function testCreateFilter(array $data, object $class): void
     {
-        $filter = (new FilterItem())
+         $filter = (new FilterItem())
             ->setValue($data[self::VALUE_INDEX])
-            ->setFieldAndTable($data[self::FIELD_INDEX])
-            ->setType($data[self::TYPE_INDEX]);
+            ->setFieldAndTable((string)$data[self::FIELD_INDEX])
+            ->setType((string)$data[self::TYPE_INDEX]);
 
         $this->assertInstanceOf(get_class($class), FilterFactoryService::initFilter($filter));
     }
@@ -59,9 +59,9 @@ class FilterFieldTest extends TestCase
      *
      * @param array $data
      *
+     * @return void
      * @throws BindingResolutionException
      *
-     * @return void
      */
     public function testCreateFilterList(array $data): void
     {
@@ -69,8 +69,8 @@ class FilterFieldTest extends TestCase
 
         $filter = (new FilterItem())
             ->setValue($data[self::VALUE_INDEX])
-            ->setFieldAndTable($data[self::FIELD_INDEX])
-            ->setType($data[self::TYPE_INDEX]);
+            ->setFieldAndTable((string)$data[self::FIELD_INDEX])
+            ->setType((string)$data[self::TYPE_INDEX]);
 
         $filters[] = FilterFactoryService::initFilter($filter);
 
@@ -90,9 +90,9 @@ class FilterFieldTest extends TestCase
      *
      * @param array $data
      *
+     * @return void
      * @throws BindingResolutionException
      *
-     * @return void
      */
     public function testFiltration(array $data): void
     {
@@ -100,8 +100,8 @@ class FilterFieldTest extends TestCase
 
         $filterItems = (new FilterItem())
             ->setValue($data[self::VALUE_INDEX])
-            ->setFieldAndTable($data[self::FIELD_INDEX])
-            ->setType($data[self::TYPE_INDEX]);
+            ->setFieldAndTable((string)$data[self::FIELD_INDEX])
+            ->setType((string)$data[self::TYPE_INDEX]);
 
         $filters[] = FilterFactoryService::initFilter($filterItems);
 

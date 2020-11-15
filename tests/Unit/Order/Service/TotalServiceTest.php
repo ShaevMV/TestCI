@@ -54,6 +54,7 @@ class TotalServiceTest extends TestCase
         return [
             [
                 (new TypeRegistration())
+                    ->setParams(null)
                     ->setPrice(Price::fromState(1000)),
                 new DefaultTotal(),
                 TotalEntity::fromSate(

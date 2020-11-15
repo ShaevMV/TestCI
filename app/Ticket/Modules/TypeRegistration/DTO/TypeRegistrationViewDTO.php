@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\TypeRegistration\DTO;
 
 use App\Ticket\Modules\TypeRegistration\Entity\TypeRegistration;
@@ -18,14 +20,14 @@ final class TypeRegistrationViewDTO
      *
      * @var TypeRegistration
      */
-    private $typeRegistration;
+    private TypeRegistration $typeRegistration;
 
     /**
      * Активность
      *
      * @var bool
      */
-    private $active;
+    private bool $active;
 
     /**
      * @return TypeRegistration

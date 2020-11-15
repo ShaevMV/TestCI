@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\TypeRegistration\Entity;
 
 use App\Ticket\Entity\EntityDataInterface;
@@ -19,7 +21,7 @@ final class Price implements EntityDataInterface
      *
      * @var int
      */
-    private $price;
+    private int $price;
 
     /**
      * @return int

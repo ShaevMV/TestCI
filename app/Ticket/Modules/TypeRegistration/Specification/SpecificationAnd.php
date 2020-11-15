@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\TypeRegistration\Specification;
 
 /**
@@ -16,7 +18,7 @@ final class SpecificationAnd implements SpecificationInterface
      *
      * @var SpecificationInterface[]
      */
-    private $specifications;
+    private array $specifications;
 
     /**
      * @param SpecificationInterface[] $specifications

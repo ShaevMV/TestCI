@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\Order\Entity;
 
 use App\Ticket\Modules\TypeRegistration\Entity\Price;
@@ -19,21 +21,21 @@ final class TotalEntity
      *
      * @var Price
      */
-    private $price;
+    private Price $price;
 
     /**
      * Количество
      *
      * @var int
      */
-    private $count;
+    private int $count;
 
     /**
      * Сумма
      *
      * @var Price
      */
-    private $total;
+    private Price $total;
 
     /**
      * Получить сущность

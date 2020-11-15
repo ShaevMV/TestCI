@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Date;
 
 use App\Ticket\Entity\AbstractionEntity;
@@ -22,14 +24,14 @@ final class DateBetween extends AbstractionEntity
      *
      * @var Carbon
      */
-    protected $date_start;
+    protected Carbon $date_start;
 
     /**
      * Дата окончания
      *
      * @var Carbon
      */
-    protected $date_end;
+    protected Carbon $date_end;
 
     /**
      * Получить сущность из массива
@@ -105,13 +107,13 @@ final class DateBetween extends AbstractionEntity
     }
 
     /**
-     * @param Carbon $dateEnd
+     * @param Carbon $date_end
      *
      * @return DateBetween
      */
-    public function setDateEnd(Carbon $dateEnd): DateBetween
+    public function setDateEnd(Carbon $date_end): DateBetween
     {
-        $this->date_end = $dateEnd;
+        $this->date_end = $date_end;
 
         return $this;
     }

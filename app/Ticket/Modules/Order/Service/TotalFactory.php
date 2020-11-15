@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\Order\Service;
 
 use App\Ticket\Modules\Order\Service\Factory\CollectiveTicketTotal;
@@ -24,7 +26,7 @@ final class TotalFactory
      *
      * @var Container
      */
-    private $container;
+    private Container $container;
 
     /**
      * TotalFactory constructor.

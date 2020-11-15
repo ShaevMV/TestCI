@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\TypeRegistration\Specification;
 
 /**
@@ -16,7 +18,7 @@ final class SpecificationCount implements SpecificationInterface
      *
      * @var int
      */
-    private $count;
+    private int $count;
 
     /**
      * SpecificationCount constructor.

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\Festival\Entity;
 
 use App\Ticket\Date\DateBetween;
@@ -22,42 +24,42 @@ final class Festival extends AbstractionEntity
      *
      * @var Uuid
      */
-    protected $id;
+    protected Uuid $id;
 
     /**
      * Статус
      *
      * @var FestivalStatus
      */
-    protected $status;
+    protected FestivalStatus $status;
 
     /**
      * Заголовок - названия
      *
      * @var string
      */
-    protected $title;
+    protected string $title;
 
     /**
      * Даты проведения
      *
      * @var DateBetween
      */
-    protected $date;
+    protected DateBetween $date;
 
     /**
      * Описание
      *
      * @var string|null
      */
-    protected $description;
+    protected ?string $description;
 
     /**
      * Типы билетов
      *
      * @var TypeRegistration[]|null
      */
-    protected $typeRegistration;
+    protected ?array $typeRegistration;
 
     /**
      * @param array $data

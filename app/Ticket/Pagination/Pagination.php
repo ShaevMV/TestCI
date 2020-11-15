@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Pagination;
 
 use InvalidArgumentException;
@@ -25,14 +27,14 @@ final class Pagination
      *
      * @var int
      */
-    private $page;
+    private int $page;
 
     /**
      * Лимит записей
      *
      * @var int
      */
-    private $limit;
+    private int $limit;
 
     /**
      * Pagination constructor.

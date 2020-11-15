@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Filter;
 
 use App\Ticket\Filter\Service\Factory\FilterFieldsAbstract;
@@ -23,21 +25,21 @@ final class FilterList
      *
      * @var FilterFieldsAbstract[]
      */
-    private $filterFields = [];
+    private array $filterFields;
 
     /**
      * Сервис для связи модели
      *
      * @var ModelJoinService
      */
-    private $joinService;
+    private ModelJoinService $joinService;
 
     /**
      * Сервис для работы с фильтром в базе
      *
      * @var FilterService
      */
-    private $filterService;
+    private FilterService $filterService;
 
     /**
      * Filter constructor.

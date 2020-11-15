@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\TypeRegistration\Entity;
 
 use App\Ticket\Entity\EntityInterface;
@@ -19,28 +21,33 @@ final class TypeRegistration implements EntityInterface
      *
      * @var Uuid
      */
-    private $id;
+    private Uuid $id;
 
     /**
      * Названия
      *
      * @var string
      */
-    private $title;
+    private string $title;
 
     /**
      * Цена
      *
      * @var Price
      */
-    private $price;
+    private Price $price;
 
     /**
      * Параметры для типа билета
      *
-     * @var Parameter
+     * @var Parameter|null
      */
-    private $params;
+    private ?Parameter $params;
+
+    public function __construct()
+    {
+        $this->params = null;
+    }
 
     /**
      * @return string
@@ -118,17 +125,17 @@ final class TypeRegistration implements EntityInterface
     /**
      * @return Parameter|null
      */
-    public function getParams(): ?Parameter
+    public function getParams()
     {
         return $this->params;
     }
 
     /**
-     * @param Parameter $params
+     * @param Parameter|null $params
      *
      * @return $this
      */
-    public function setParams(Parameter $params): self
+    public function setParams(?Parameter $params): self
     {
         $this->params = $params;
 

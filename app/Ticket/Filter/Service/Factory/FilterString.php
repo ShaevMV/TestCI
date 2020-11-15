@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Filter\Service\Factory;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -40,7 +42,7 @@ final class FilterString extends FilterFieldsAbstract
      *
      * @return bool
      */
-    private static function isValidValue($value): bool
+    private static function isValidValue(string $value): bool
     {
         return is_string($value);
     }

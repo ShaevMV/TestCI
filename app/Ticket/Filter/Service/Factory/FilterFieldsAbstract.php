@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Filter\Service\Factory;
 
 use App\Ticket\Filter\Entity\FilterItem;
@@ -21,7 +23,7 @@ abstract class FilterFieldsAbstract
      *
      * @var FilterItem
      */
-    protected $filterItem;
+    protected FilterItem $filterItem;
 
     /**
      * FilterFieldsAbstract constructor.

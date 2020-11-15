@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Filter\Service\Factory;
 
 use Carbon\Carbon;

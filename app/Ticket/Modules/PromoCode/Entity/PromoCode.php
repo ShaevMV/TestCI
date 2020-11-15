@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\PromoCode\Entity;
 
 use App\Ticket\Date\DateBetween;
@@ -20,14 +22,14 @@ final class PromoCode extends AbstractionEntity
      *
      * @var Uuid
      */
-    protected $id;
+    protected Uuid $id;
 
     /**
      * Промо код
      *
      * @var string
      */
-    protected $name;
+    protected string $name;
 
     /**
      * Изменения цены
@@ -48,14 +50,14 @@ final class PromoCode extends AbstractionEntity
      *
      * @var bool
      */
-    protected $active;
+    protected bool $active;
 
     /**
      * Идентификатор фестиваля
      *
      * @var Uuid
      */
-    protected $festival_id;
+    protected Uuid $festival_id;
 
     public static function fromState(array $data): PromoCode
     {
@@ -63,7 +65,7 @@ final class PromoCode extends AbstractionEntity
             ->setId(Uuid::import($data['id']))
             ->setName($data['name'])
             ->setDate(DateBetween::fromState($data))
-            ->setActive($data['active'])
+            ->setActive((bool)$data['active'])
             ->setFestivalId(Uuid::import($data['festival_id']))
             ->setDelta(DeltaPrice::fromState($data));
     }
@@ -169,13 +171,13 @@ final class PromoCode extends AbstractionEntity
     }
 
     /**
-     * @param Uuid $festivalId
+     * @param Uuid $festival_id
      *
      * @return PromoCode
      */
-    public function setFestivalId(Uuid $festivalId): PromoCode
+    public function setFestivalId(Uuid $festival_id): PromoCode
     {
-        $this->festival_id = $festivalId;
+        $this->festival_id = $festival_id;
 
         return $this;
     }

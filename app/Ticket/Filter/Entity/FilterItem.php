@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Filter\Entity;
 
 use InvalidArgumentException;
@@ -32,28 +34,28 @@ final class FilterItem
      *
      * @var string
      */
-    private $field;
+    private string $field;
 
     /**
      * Таблица в которой осуществляется поиск
      *
      * @var string
      */
-    private $table;
+    private string $table;
 
     /**
      * Тип фильтрации
      *
      * @var string
      */
-    private $type;
+    private string $type;
 
     /**
-     * Оператор для фитрации
+     * Оператор для фильтрации
      *
      * @var string
      */
-    private $operation = '=';
+    private string $operation = '=';
 
     /**
      * @return string|array
@@ -64,7 +66,7 @@ final class FilterItem
     }
 
     /**
-     * @param string $value
+     * @param string|array $value
      *
      * @return $this
      */

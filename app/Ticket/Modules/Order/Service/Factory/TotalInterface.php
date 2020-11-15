@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\Order\Service\Factory;
 
 use App\Ticket\Modules\TypeRegistration\Entity\Price;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Repository;
 
 use App\Ticket\Entity\EntityInterface;
@@ -28,7 +30,7 @@ abstract class BaseRepository implements RepositoryInterface
      *
      * @var Model
      */
-    protected $model;
+    protected Model $model;
 
     /**
      * Builder для работы с базой данных

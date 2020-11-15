@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Modules\TypeRegistration\Service;
 
 use App\Ticket\Modules\TypeRegistration\DTO\TypeRegistrationViewDTO;
@@ -21,7 +23,7 @@ final class TypeRegistrationListService
      *
      * @var SpecificationService
      */
-    private $specificationService;
+    private SpecificationService $specificationService;
 
     /**
      * TypeRegistrationListService constructor.

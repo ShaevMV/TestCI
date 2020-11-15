@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Ticket\Filter\Service;
 
 use App\Ticket\Filter\Entity\FilterItem;

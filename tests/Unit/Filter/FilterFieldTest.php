@@ -10,10 +10,10 @@ use App\Ticket\Filter\Service\Factory\FilterInteger;
 use App\Ticket\Filter\Service\Factory\FilterString;
 use App\Ticket\Filter\Service\FilterFactoryService;
 use App\Ticket\Modules\Festival\Model\FestivalModel;
-use FestivalSeeder;
+use Database\Seeders\FestivalSeeder;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\TestCase;
-use TypeRegistrationSeeder;
+use Database\Seeders\TypeRegistrationSeeder;
 
 //use Illuminate\Foundation\Testing\WithFaker;
 //use Illuminate\Foundation\Testing\RefreshDatabase;

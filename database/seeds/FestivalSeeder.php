@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Ticket\Modules\Festival\Entity\FestivalStatus;
 use App\Ticket\Modules\Festival\Model\FestivalModel;
 use App\Ticket\Modules\TypeRegistration\Model\TypeRegistrationModule;
+use Exception;
 use Illuminate\Database\Seeder;
 
 class FestivalSeeder extends Seeder

@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * App\Ticket\Modules\PromoCode\Model\PromoCodeModel
- *
+ * 
  * Модель промо кода
  *
  * @property string $id
@@ -23,9 +23,7 @@ use Illuminate\Support\Carbon;
  * @property string $festival_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @property-read FestivalModel|null $festival
- *
  * @method static Builder|PromoCodeModel newModelQuery()
  * @method static Builder|PromoCodeModel newQuery()
  * @method static Builder|PromoCodeModel query()
@@ -39,6 +37,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|PromoCodeModel whereId($value)
  * @method static Builder|PromoCodeModel whereName($value)
  * @method static Builder|PromoCodeModel whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class PromoCodeModel extends Model
 {

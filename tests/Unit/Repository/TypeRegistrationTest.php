@@ -4,7 +4,7 @@ namespace Tests\Unit\Repository;
 
 use App\Ticket\Modules\TypeRegistration\Entity\TypeRegistration;
 use App\Ticket\Modules\TypeRegistration\Repository\TypeRegistrationRepository;
-use FestivalSeeder;
+use Database\Seeders\FestivalSeeder;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;

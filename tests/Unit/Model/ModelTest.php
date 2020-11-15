@@ -1,12 +1,12 @@
 <?php
 
-namespace Model;
+namespace Tests\Unit\Model;
 
 use App\Ticket\Modules\Festival\Entity\FestivalStatus;
 use App\Ticket\Modules\Festival\Model\FestivalModel;
 use Carbon\Carbon;
 use Exception;
-use FestivalSeeder;
+use Database\Seeders\FestivalSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
 use Tests\TestCase;

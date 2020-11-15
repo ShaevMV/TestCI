@@ -12,7 +12,7 @@ use Webpatser\Uuid\Uuid;
 
 /**
  * Class Model
- *
+ * 
  * Общий класс для модели
  *
  * @package App\Ticket\Model
@@ -30,6 +30,7 @@ use Webpatser\Uuid\Uuid;
  * @method static Builder|Model newModelQuery()
  * @method static Builder|Model newQuery()
  * @method static Builder|Model query()
+ * @mixin \Eloquent
  */
 class Model extends BaseModel
 {

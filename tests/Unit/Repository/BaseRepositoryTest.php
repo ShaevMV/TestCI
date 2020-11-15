@@ -18,11 +18,11 @@ use App\Ticket\Modules\TypeRegistration\Model\TypeRegistrationModule;
 use App\Ticket\Modules\TypeRegistration\Repository\TypeRegistrationRepository;
 use App\Ticket\Repository\RepositoryInterface;
 use Carbon\Carbon;
-use FestivalSeeder;
-use PromoCodeSeeder;
+use Database\Seeders\FestivalSeeder;
+use Database\Seeders\PromoCodeSeeder;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use TypeRegistrationSeeder;
+use Database\Seeders\TypeRegistrationSeeder;
 use Webpatser\Uuid\Uuid;
 
 /**

@@ -13,7 +13,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * App\Ticket\Festival\Model\FestivalModel
- *
+ * 
  * Модель фестиваля
  *
  * @property string $title Название фестиваля
@@ -23,7 +23,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string $id
- *
  * @method static Builder|FestivalModel newModelQuery()
  * @method static Builder|FestivalModel newQuery()
  * @method static Builder|FestivalModel query()
@@ -34,9 +33,11 @@ use Illuminate\Support\Carbon;
  * @method static Builder|FestivalModel whereStatus($value)
  * @method static Builder|FestivalModel whereTitle($value)
  * @method static Builder|FestivalModel whereUpdatedAt($value)
- *
  * @property-read Collection|TypeRegistrationModule[] $typeRegistration
  * @property-read int|null $type_registration_count
+ * @property string|null $description Описание фестиваля
+ * @method static Builder|FestivalModel whereDescription($value)
+ * @mixin \Eloquent
  */
 class FestivalModel extends Model
 {

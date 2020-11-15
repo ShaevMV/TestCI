@@ -7,10 +7,10 @@ use App\Ticket\Modules\TypeRegistration\Repository\TypeRegistrationRepository;
 use App\Ticket\Modules\TypeRegistration\Service\SpecificationService;
 use App\Ticket\Modules\TypeRegistration\Service\TypeRegistrationListService;
 use App\Ticket\Modules\TypeRegistration\Specification\SpecificationEntity;
-use FestivalSeeder;
+use Database\Seeders\FestivalSeeder;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\TestCase;
-use TypeRegistrationSeeder;
+use Database\Seeders\TypeRegistrationSeeder;
 use Webpatser\Uuid\Uuid;
 
 /**

@@ -9,7 +9,7 @@ use App\Ticket\Modules\TypeRegistration\Specification\SpecificationCount;
 use App\Ticket\Modules\TypeRegistration\Specification\SpecificationEntity;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\TestCase;
-use TypeRegistrationSeeder;
+use Database\Seeders\TypeRegistrationSeeder;
 
 /**
  * Class TypeRegistrationParameterServiceTest

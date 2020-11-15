@@ -12,7 +12,7 @@ use App\Ticket\Modules\TypeRegistration\Entity\Price;
 use App\Ticket\Modules\TypeRegistration\Entity\TypeRegistration;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\TestCase;
-use TypeRegistrationSeeder;
+use Database\Seeders\TypeRegistrationSeeder;
 
 /**
  * Class TotalServiceTest

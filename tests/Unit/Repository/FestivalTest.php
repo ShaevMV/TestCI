@@ -7,11 +7,11 @@ use App\Ticket\Modules\Festival\Repository\FestivalRepository;
 use App\Ticket\Modules\TypeRegistration\Entity\Price;
 use App\Ticket\Modules\TypeRegistration\Repository\TypeRegistrationRepository;
 use Exception;
-use FestivalSeeder;
+use Database\Seeders\FestivalSeeder;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
-use TypeRegistrationSeeder;
+use Database\Seeders\TypeRegistrationSeeder;
 use Webpatser\Uuid\Uuid;
 
 /**

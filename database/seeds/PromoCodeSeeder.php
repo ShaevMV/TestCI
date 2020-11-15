@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Ticket\Modules\PromoCode\Entity\Enum\DeltaTypeEnum;
 use App\Ticket\Modules\PromoCode\Model\PromoCodeModel;
 use Illuminate\Database\Seeder;

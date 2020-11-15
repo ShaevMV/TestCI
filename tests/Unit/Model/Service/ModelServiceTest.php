@@ -13,7 +13,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionException;
 use ReflectionMethod;
 use Tests\TestCase;
-use TypeRegistrationSeeder;
+use Database\Seeders\TypeRegistrationSeeder;
 
 /**
  * Class ModelServiceTest

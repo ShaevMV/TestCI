@@ -8,6 +8,7 @@ use App\Ticket\Entity\EntityInterface;
 use App\Ticket\Modules\Auth\Entity\AccessToken;
 use App\Ticket\Modules\Auth\Model\OauthClientsModel;
 use App\Ticket\Repository\BaseRepository;
+use RuntimeException;
 
 final class OathClientsRepository extends BaseRepository
 {
@@ -22,12 +23,17 @@ final class OathClientsRepository extends BaseRepository
 
     /**
      * @return AccessToken
+     * @throws RuntimeException
      */
     public function getApiAccessToken(): AccessToken
     {
         $data = $this->model
             ->where('password_client', '=', true)
             ->first();
+
+        if (count($data) === 0) {
+            throw new RuntimeException("Ключи в базе не записаны");
+        }
 
         return (new AccessToken())
             ->setClientId($data['id'])

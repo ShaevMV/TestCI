@@ -29,9 +29,10 @@ final class OathClientsRepository extends BaseRepository
     {
         $data = $this->model
             ->where('password_client', '=', true)
-            ->first();
+            ->first()
+            ->toArray();
 
-        if (count($data) === 0) {
+        if (0 === count($data)) {
             throw new RuntimeException("Ключи в базе не записаны");
         }
 

@@ -16,8 +16,8 @@ final class AccessToken extends AbstractionEntity
     /** @var string  Ключ клиента */
     protected string $passwordKey;
 
-    /** @var int  Идентификатор клиента */
-    protected int $clientId;
+    /** @var string  Идентификатор клиента */
+    protected string $clientId;
 
     /**
      * @param string $passwordKey
@@ -43,19 +43,19 @@ final class AccessToken extends AbstractionEntity
     }
 
     /**
-     * @param int $clientId
+     * @param string $clientId
      * @return AccessToken
      */
-    public function setClientId(int $clientId): AccessToken
+    public function setClientId(string $clientId): AccessToken
     {
         $this->clientId = $clientId;
         return $this;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getClientId(): int
+    public function getClientId(): string
     {
         return $this->clientId;
     }

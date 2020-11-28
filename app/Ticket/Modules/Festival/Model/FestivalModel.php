@@ -5,6 +5,7 @@ namespace App\Ticket\Modules\Festival\Model;
 use App\Ticket\Model\Model;
 use App\Ticket\Modules\TypeRegistration\Model\TypeRegistrationModule;
 use Database\Factories\FestivalModelFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * App\Ticket\Festival\Model\FestivalModel
- * 
+ *
  * Модель фестиваля
  *
  * @property string $title Название фестиваля
@@ -37,7 +38,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $type_registration_count
  * @property string|null $description Описание фестиваля
  * @method static Builder|FestivalModel whereDescription($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class FestivalModel extends Model
 {
@@ -62,6 +63,17 @@ class FestivalModel extends Model
     ];
 
     /**
+     * @return FestivalModelFactory
+     */
+    protected static function newFactory(): FestivalModelFactory
+    {
+        /** @var FestivalModelFactory $factory */
+        $factory = FestivalModelFactory::class;
+
+        return $factory::new();
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function typeRegistration()
@@ -75,16 +87,5 @@ class FestivalModel extends Model
             'price',
             'params'
         ]);
-    }
-
-    /**
-     * @return FestivalModelFactory
-     */
-    protected static function newFactory(): FestivalModelFactory
-    {
-        /** @var FestivalModelFactory $factory */
-        $factory = FestivalModelFactory::class;
-
-        return $factory::new();
     }
 }

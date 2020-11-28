@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\User;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 /**
@@ -31,6 +33,11 @@ class RouterTest extends TestCase
      */
     public function testBasicAdminTest()
     {
+        Passport::actingAs(
+            User::first(),
+            ['create-servers']
+        );
+
         $response = $this->get('/admin');
 
         $response->assertStatus(200);

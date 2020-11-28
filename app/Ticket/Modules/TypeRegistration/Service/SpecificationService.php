@@ -43,6 +43,10 @@ final class SpecificationService
      */
     public function createList(?Parameter $parameter): array
     {
+        if (null === $parameter) {
+            return [];
+        }
+
         $result = [];
 
         foreach ($parameter->toArray() as $key => $value) {

@@ -9,8 +9,16 @@ final class EnvDto
     /** @var string Ключ */
     private string $key;
 
-    /** @var string Значения ключа */
-    private string $value;
+    /** @var string|null Значения ключа */
+    private ?string $value = null;
+
+    /**
+     * @return string
+     */
+    public function getKey(): string
+    {
+        return $this->key;
+    }
 
     /**
      * @param string $key
@@ -23,28 +31,21 @@ final class EnvDto
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getKey(): string
-    {
-        return $this->key;
-    }
-
-    /**
-     * @param string $value
-     * @return EnvDto
-     */
-    public function setValue(string $value): EnvDto
-    {
-        $this->value = $value;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
+    }
+
+    /**
+     * @param string|null $value
+     * @return EnvDto
+     */
+    public function setValue(?string $value): EnvDto
+    {
+        $this->value = $value;
+
+        return $this;
     }
 }

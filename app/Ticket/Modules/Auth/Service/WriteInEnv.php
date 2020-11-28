@@ -56,11 +56,13 @@ final class WriteInEnv
      */
     private function write(string $path, string $key, ?string $value): bool
     {
-        if ($this->isIsset($key, file_get_contents($path))) {
+        $filePath = file_get_contents($path);
+
+        if (false !== $filePath && $this->isIsset($key, $filePath)) {
             return file_put_contents($path, str_replace(
                 "{$key}=" . env($key) ?? null,
                 "{$key}={$value}",
-                file_get_contents($path)
+                $filePath
             )) !== false;
         } else {
             return file_put_contents($path, "{$key}={$value}", FILE_APPEND) !== false;
@@ -74,7 +76,7 @@ final class WriteInEnv
      * @param string $fileEnv
      * @return bool
      */
-    private function isIsset(string $key, string $fileEnv)
+    private function isIsset(string $key, string $fileEnv): bool
     {
         return strripos($fileEnv, $key) !== false;
     }

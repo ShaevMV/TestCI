@@ -50,6 +50,25 @@ final class TypeRegistration implements EntityInterface
     }
 
     /**
+     * @param array $data
+     *
+     * @return TypeRegistration
+     */
+    public static function fromState(array $data)
+    {
+        $result = (new self())
+            ->setId(Uuid::import($data['id']))
+            ->setTitle($data['title']);
+
+        if (isset($data['pivot'])) {
+            $result->setPrice(Price::fromState($data['pivot']['price']))
+                ->setParams(Parameter::fromState($data['pivot']));
+        }
+
+        return $result;
+    }
+
+    /**
      * @return string
      */
     public function getTitle(): string
@@ -140,27 +159,6 @@ final class TypeRegistration implements EntityInterface
         $this->params = $params;
 
         return $this;
-    }
-
-    /**
-     * Получения сущности из статики
-     *
-     * @param array $data
-     *
-     * @return EntityInterface
-     */
-    public static function fromState(array $data): EntityInterface
-    {
-        $result = (new self())
-            ->setId(Uuid::import($data['id']))
-            ->setTitle($data['title']);
-
-        if (isset($data['pivot'])) {
-            $result->setPrice(Price::fromState($data['pivot']['price']))
-                ->setParams(Parameter::fromState($data['pivot']));
-        }
-
-        return $result;
     }
 
     public function __get($name)

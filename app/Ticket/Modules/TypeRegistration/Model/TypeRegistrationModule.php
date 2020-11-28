@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * App\Ticket\Modules\TypeRegistration\Model\TypeRegistrationModule
- * 
+ *
  * Сущность типа билета
  *
  * @property string $id

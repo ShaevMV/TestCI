@@ -59,7 +59,11 @@ final class PromoCode extends AbstractionEntity
      */
     protected Uuid $festival_id;
 
-    public static function fromState(array $data): PromoCode
+    /**
+     * @param array $data
+     * @return PromoCode
+     */
+    public static function fromState(array $data)
     {
         return (new self())
             ->setId(Uuid::import($data['id']))
@@ -171,6 +175,14 @@ final class PromoCode extends AbstractionEntity
     }
 
     /**
+     * @return Uuid
+     */
+    public function getFestivalId(): Uuid
+    {
+        return $this->festival_id;
+    }
+
+    /**
      * @param Uuid $festival_id
      *
      * @return PromoCode
@@ -180,13 +192,5 @@ final class PromoCode extends AbstractionEntity
         $this->festival_id = $festival_id;
 
         return $this;
-    }
-
-    /**
-     * @return Uuid
-     */
-    public function getFestivalId(): Uuid
-    {
-        return $this->festival_id;
     }
 }

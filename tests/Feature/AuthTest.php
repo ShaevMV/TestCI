@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Ticket\Modules\Auth\Repository\OathClientsRepository;
 use App\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -9,6 +10,8 @@ use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
+    private OathClientsRepository $oathClientsRepository;
+
     /**
      * A basic feature test example.
      *
@@ -17,17 +20,15 @@ class AuthTest extends TestCase
      */
     public function testExample()
     {
-        $urlOauthToken = env('APP_URL_DOCKER', '') . 'oauth/token';
-
+        $urlOauthToken = 'http://localhost:8888/oauth/token';
+        $accessToken = $this->oathClientsRepository->getApiAccessToken();
         $http = new Client();
-        $clientId = env('MIX_CLIENT_ID', false);
-        $clientSecret = env('MIX_PUSHER_APP_KEY_API', false);
         $user = User::first();
         $response = $http->post($urlOauthToken, [
             'form_params' => [
                 'grant_type' => 'password',
-                'client_id' => $clientId,
-                'client_secret' => $clientSecret,
+                'client_id' => $accessToken->getClientId(),
+                'client_secret' => $accessToken->getPasswordKey(),
                 'username' => $user->email,
                 'password' => 'secret',
                 'scope' => '*',
@@ -39,5 +40,11 @@ class AuthTest extends TestCase
         $this->assertArrayHasKey('expires_in', $result);
         $this->assertArrayHasKey('access_token', $result);
         $this->assertArrayHasKey('refresh_token', $result);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->oathClientsRepository = $this->app->get(OathClientsRepository::class);
     }
 }

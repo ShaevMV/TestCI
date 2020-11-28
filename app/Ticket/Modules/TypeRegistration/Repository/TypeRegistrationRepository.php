@@ -22,6 +22,11 @@ use Webpatser\Uuid\Uuid;
 final class TypeRegistrationRepository extends BaseRepository
 {
     /**
+     * @var TypeRegistrationModule
+     */
+    protected $model;
+
+    /**
      * TypeRegistrationRepository constructor.
      *
      * @param TypeRegistrationModule $typeRegistrationModule

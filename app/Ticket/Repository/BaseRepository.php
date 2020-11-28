@@ -30,7 +30,7 @@ abstract class BaseRepository implements RepositoryInterface
      *
      * @var Model
      */
-    protected Model $model;
+    protected $model;
 
     /**
      * Builder для работы с базой данных
@@ -138,7 +138,7 @@ abstract class BaseRepository implements RepositoryInterface
 
     public function create(EntityInterface $entity): ?Uuid
     {
-        $create = $this->model->create($entity->toArray());
+        $create = $this->model->create($entity->toArray() ?? []);
 
         return isset($create->id) ? Uuid::import($create->id) : null;
     }
@@ -153,12 +153,12 @@ abstract class BaseRepository implements RepositoryInterface
     public function findById(Uuid $id)
     {
         try {
-            $arrayData = $this->model->find((string)$id);
+            $arrayData = $this->model->findorfail((string)$id);
         } catch (OutOfBoundsException $e) {
             throw new OutOfBoundsException($this->model->getTable() . ' with id ' . (string)$id . ' does not exist');
         }
 
-        return $this->build($arrayData->toArray());
+        return $this->build($arrayData->toArray() ?? []);
     }
 
     /**

@@ -39,7 +39,7 @@ final class DeltaPrice extends AbstractionEntity implements EntityDataInterface
      *
      * @return DeltaPrice
      */
-    public static function fromState(array $data): DeltaPrice
+    public static function fromState(array $data)
     {
         if (!self::ensureIsValidDeltaType($data['delta_type'])) {
             throw new InvalidArgumentException("Type {$data['delta_type']} not valid");

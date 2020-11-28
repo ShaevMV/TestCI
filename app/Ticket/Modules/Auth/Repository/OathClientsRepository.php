@@ -13,6 +13,11 @@ use RuntimeException;
 final class OathClientsRepository extends BaseRepository
 {
     /**
+     * @var OauthClientsModel
+     */
+    protected $model;
+
+    /**
      * OathClientsRepository constructor.
      * @param OauthClientsModel $clientsModel
      */
@@ -23,27 +28,29 @@ final class OathClientsRepository extends BaseRepository
 
     /**
      * @return AccessToken
+     *
      * @throws RuntimeException
      */
     public function getApiAccessToken(): AccessToken
     {
         $data = $this->model
             ->where('password_client', '=', true)
-            ->first()
-            ->toArray();
+            ->first();
 
-        if (0 === count($data)) {
+        if (null === $data) {
             throw new RuntimeException("Ключи в базе не записаны");
         }
 
-        return (new AccessToken())
-            ->setClientId($data['id'])
-            ->setPasswordKey($data['secret']);
+        return AccessToken::fromState($data->toArray());
     }
 
+    /**
+     * @param array $data
+     *
+     * @return EntityInterface
+     */
     protected function build(array $data): EntityInterface
     {
-        return (new AccessToken())
-            ->setPasswordKey($data['secret']);
+        return AccessToken::fromState($data);
     }
 }

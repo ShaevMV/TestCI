@@ -10,6 +10,7 @@ use Closure;
 use ErrorException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use RuntimeException;
 
 /**
  * Class ModelService
@@ -68,6 +69,10 @@ final class ModelJoinService
                     return $model->whereHas(
                         $joinTable,
                         function (Builder $builder) use ($where) {
+                            if (null === $where) {
+                                throw new RuntimeException('Значения параметра $where не должно быть пустым');
+                            }
+
                             $where($builder);
                         }
                     );

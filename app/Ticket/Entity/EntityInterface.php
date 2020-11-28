@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Ticket\Entity;
 
-use App\Ticket\Date\DateBetween;
 use Webpatser\Uuid\Uuid;
 
 /**
@@ -20,21 +19,20 @@ use Webpatser\Uuid\Uuid;
 interface EntityInterface
 {
     /**
+     * Создания сущности из массива
+     *
+     * @param array $data
+     *
+     * @return mixed
+     */
+    public static function fromState(array $data);
+
+    /**
      * Преобразовать значения сущности в массив
      *
      * @return array|null
      */
     public function toArray(): ?array;
-
-
-    /**
-     * Создания сущности из массива
-     *
-     * @param array $data
-     *
-     * @return EntityInterface|DateBetween
-     */
-    public static function fromState(array $data);
 
     /**
      * @param string $name

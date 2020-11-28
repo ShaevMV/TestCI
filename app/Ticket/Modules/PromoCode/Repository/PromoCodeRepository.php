@@ -12,6 +12,11 @@ use App\Ticket\Repository\BaseRepository;
 class PromoCodeRepository extends BaseRepository
 {
     /**
+     * @var PromoCodeModel
+     */
+    protected $model;
+
+    /**
      * PromoCodeRepository constructor.
      *
      * @param PromoCodeModel $promoCodeModel

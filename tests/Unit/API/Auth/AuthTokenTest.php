@@ -48,14 +48,14 @@ class AuthTokenTest extends TestCase
         $this->assertTrue($this->writeInEnv->editValue([
             (new EnvDto())
                 ->setKey(EnvHelper::KEY_API)
-                ->setValue(env('MIX_PUSHER_APP_KEY_API'))
+                ->setValue(env('MIX_PUSHER_APP_KEY_API') ?? '')
         ]));
     }
 
     /**
      * Записать в env файл реальный ключ
      */
-    public function testWriteRealToken()
+    public function testWriteRealToken(): void
     {
         $this->assertTrue($this->writeTokenInEnvService->init());
     }

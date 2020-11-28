@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Ticket\Modules\Auth\Model;
 
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use App\Ticket\Model\Model;
 use Illuminate\Support\Carbon;
@@ -37,7 +36,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|OauthClientsModel whereSecret($value)
  * @method static Builder|OauthClientsModel whereUpdatedAt($value)
  * @method static Builder|OauthClientsModel whereUserId($value)
- * @mixin Eloquent
  */
 final class OauthClientsModel extends Model
 {

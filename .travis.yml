@@ -19,11 +19,14 @@ before_script:
   - composer install --no-interaction
   - mysql --version
   - mysql -e 'CREATE DATABASE IF NOT EXISTS laravel;'
+  - ip addr show
+  - php artisan migrate:refresh --seed
+  - php artisan passport:install
+  - php artisan passport:env
+  - php artisan serve --env=testing --no-ansi --no-interaction --port=8888 --host=localhost &
   - php artisan config:clear
   - php artisan cache:clear
   - php artisan config:cache
-  - php artisan migrate:refresh --seed
-  - php artisan passport:install
 
 script:
   - vendor/bin/phpunit --configuration phpunit.xml

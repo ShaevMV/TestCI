@@ -28,7 +28,7 @@ abstract class AbstractionEntity implements EntityInterface
         $array = [];
         foreach ($vars as $key => $value) {
             if ($value instanceof EntityInterface) {
-                $array = array_merge($array, $value->toArray());
+                $array = array_merge($array, $value->toArray() ?? []);
             } elseif ($value instanceof EntityDataInterface || $value instanceof Uuid || $value instanceof Carbon) {
                 //TODO: Вынести в отдельный класс, перебросить зависимость на детей
                 $array[ltrim($key)] = (string)$value;

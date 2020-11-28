@@ -20,13 +20,14 @@ final class AccessToken extends AbstractionEntity
     protected string $clientId;
 
     /**
-     * @param string $passwordKey
+     * @param array $data
      * @return AccessToken
      */
-    public function setPasswordKey(string $passwordKey): AccessToken
+    public static function fromState(array $data)
     {
-        $this->passwordKey = $passwordKey;
-        return $this;
+        return (new self())
+            ->setClientId($data['id'])
+            ->setPasswordKey($data['secret']);
     }
 
     /**
@@ -37,9 +38,23 @@ final class AccessToken extends AbstractionEntity
         return $this->passwordKey;
     }
 
-    public static function fromState(array $data)
+    /**
+     * @param string $passwordKey
+     * @return AccessToken
+     */
+    public function setPasswordKey(string $passwordKey): AccessToken
     {
-        // TODO: Implement fromState() method.
+        $this->passwordKey = $passwordKey;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClientId(): string
+    {
+        return $this->clientId;
     }
 
     /**
@@ -50,13 +65,5 @@ final class AccessToken extends AbstractionEntity
     {
         $this->clientId = $clientId;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getClientId(): string
-    {
-        return $this->clientId;
     }
 }

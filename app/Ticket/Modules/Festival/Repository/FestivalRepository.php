@@ -26,6 +26,11 @@ use App\Ticket\Model\Model;
 final class FestivalRepository extends BaseRepository
 {
     /**
+     * @var FestivalModel
+     */
+    protected $model;
+
+    /**
      * FestivalRepository constructor.
      *
      * @param FestivalModel $festivalModel

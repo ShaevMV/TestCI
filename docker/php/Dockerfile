@@ -47,8 +47,13 @@ RUN set -eux; \
 RUN pecl install xdebug-2.8.1 \
     && docker-php-ext-enable xdebug
 
-COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+WORKDIR /var/www/html
+COPY . .
 
-RUN apt-get update && apt-get install -y \
-    nodejs \
-    npm
+# OTHER CONFIGURATION
+ENV TZ=Europe/Moscow
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN adduser --disabled-password --gecos "" user
+RUN mkdir -p /var/www/html
+RUN chown user:user /var/www/html
+RUN chgrp -R user /var/www/html

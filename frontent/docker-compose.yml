@@ -1,0 +1,9 @@
+version: "2"
+services:
+  node:
+    build:
+      context: docker/node
+    working_dir: /home/node/
+    volumes:
+      - .:/home/node
+    command: tail -f /dev/null

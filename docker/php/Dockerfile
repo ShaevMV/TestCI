@@ -47,8 +47,6 @@ RUN set -eux; \
 RUN pecl install xdebug-2.8.1 \
     && docker-php-ext-enable xdebug
 
-WORKDIR /var/www/html
-COPY . .
 
 # OTHER CONFIGURATION
 ENV TZ=Europe/Moscow

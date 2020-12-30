@@ -52,10 +52,11 @@ final class FilterDate extends FilterFieldsAbstract
     protected static function getValidValue($value): Carbon
     {
         $date = new Carbon($value);
+        $errors = $date::getLastErrors();
 
-        if (count($date::getLastErrors()['errors']) > 0) {
+        if (is_array($errors) && isset($errors['errors']) && count($errors['errors']) > 0) {
             throw new InvalidArgumentException(
-                "{$value} not DateType. Error: " . implode(PHP_EOL, $date::getLastErrors()['errors'])
+                "{$value} not DateType. Error: " . implode(PHP_EOL, $errors['errors'])
             );
         }
 

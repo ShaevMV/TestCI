@@ -14,14 +14,14 @@ class FestivalSeeder extends Seeder
     public const TITLE_FOR_TEST = "For test";
     public const STATUS_FOR_TEST = FestivalStatus::STATE_PUBLISHED_ID;
     public const DATE_START_FOR_TEST = "2020-01-03";
-    public const DATE_END_FOR_TEST = "2020-12-03";
+    public const DATE_END_FOR_TEST = "2022-12-03";
     public const DESCRIPTION_FOR_TEST = "DESCRIPTION for test";
 
     public const ID_FOR_TEST_NOT_ACTIVE = "7d240d20-92d4-11ea-9c08-7dbd77e1988c";
     public const TITLE_FOR_TEST_NOT_ACTIVE = "For test not active";
     public const STATUS_FOR_TEST_NOT_ACTIVE = FestivalStatus::STATE_DRAFT_ID;
     public const DATE_START_FOR_TEST_NOT_ACTIVE = "2020-01-03";
-    public const DATE_END_FOR_TEST_NOT_ACTIVE = "2020-12-03";
+    public const DATE_END_FOR_TEST_NOT_ACTIVE = "2022-12-03";
     public const DESCRIPTION_FOR_NOT_ACTIVE_TEST = "DESCRIPTION for test";
 
     /**

@@ -24,9 +24,9 @@ final class FilterDateBetween extends FilterFieldsAbstract
      *
      * @param Builder|BuilderQuery $builder
      *
+     * @return Builder|BuilderQuery
      * @throws Exception
      *
-     * @return Builder|BuilderQuery
      */
     public function filtration($builder)
     {
@@ -44,18 +44,19 @@ final class FilterDateBetween extends FilterFieldsAbstract
      *
      * @param mixed $value
      *
+     * @return Carbon[]
      * @throws InvalidArgumentException|Exception
      *
-     * @return Carbon[]
      */
     protected static function getValidValue($value): array
     {
         $result = [];
         foreach ($value as $item) {
             $date = new Carbon($item);
+            $errors = $date::getLastErrors();
 
-            if (count($date::getLastErrors()['errors']) > 0) {
-                throw new InvalidArgumentException("{$item} not DateType. Error: {$date::getLastErrors()['errors']}");
+            if (is_array($errors) && isset($errors['errors']) && count($errors['errors']) > 0) {
+                throw new InvalidArgumentException("{$item} not DateType. Error: {$errors['errors']}");
             }
 
             $result[] = $date;

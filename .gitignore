@@ -22,3 +22,4 @@ docker-composer.yml
 /.npm/
 /.node-gyp/
 /.config/
+/.cache/esbuild/bin/esbuild-linux-64@0.7.21

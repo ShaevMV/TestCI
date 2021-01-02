@@ -1,0 +1,9 @@
+docker
+.blackfire.ini
+.idea
+.git
+.cache
+.npm
+.node-gyp
+.config
+frontent

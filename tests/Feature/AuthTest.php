@@ -20,7 +20,7 @@ class AuthTest extends TestCase
      */
     public function testExample()
     {
-        $urlOauthToken = env('APP_URL_DOCKER', 'http://localhost:8888/') . 'oauth/token';
+        $urlOauthToken = env('APP_URL_DOCKER', 'http://172.18.0.5:8083/') . 'oauth/token';
         $accessToken = $this->oathClientsRepository->getApiAccessToken();
         $http = new Client();
         $user = User::first();

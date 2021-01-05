@@ -1,3 +1,11 @@
 FROM node:latest
 
-RUN yarn add @tailwindcss/ui
+RUN npm install --global @vue/cli
+
+# устанавливаем простой HTTP-сервер для статики
+RUN npm install -g http-server
+
+EXPOSE 8080
+CMD [ "http-server", "dist" ]
+
+USER node

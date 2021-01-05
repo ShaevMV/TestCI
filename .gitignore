@@ -23,3 +23,4 @@ docker-composer.yml
 /.node-gyp/
 /.config/
 /.cache/esbuild/bin/esbuild-linux-64@0.7.21
+/.bash_history

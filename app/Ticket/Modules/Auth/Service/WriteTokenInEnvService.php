@@ -36,6 +36,8 @@ final class WriteTokenInEnvService
         // Очистка кеша
         Artisan::call('cache:clear');
 
+        // Копируем значение в другие файлы состояний среды
+        $this->writeInEnv->editValue($envDtoList, WriteInEnv::PATH_FRONTEND);
         return true;
     }
 }

@@ -6,4 +6,4 @@ docker
 .npm
 .node-gyp
 .config
-frontent
+.bash_history

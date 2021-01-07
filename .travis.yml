@@ -15,6 +15,7 @@ cache:
 
 before_script:
   - cp .env.travis .env
+  - cp .env.travis frontend/.env
   - composer self-update
   - composer install --no-interaction
   - mysql --version

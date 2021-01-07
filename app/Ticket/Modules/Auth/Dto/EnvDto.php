@@ -22,11 +22,13 @@ final class EnvDto
 
     /**
      * @param string $key
+     *
      * @return EnvDto
      */
     public function setKey(string $key): EnvDto
     {
         $this->key = $key;
+
         return $this;
     }
 
@@ -40,6 +42,7 @@ final class EnvDto
 
     /**
      * @param string|null $value
+     *
      * @return EnvDto
      */
     public function setValue(?string $value): EnvDto

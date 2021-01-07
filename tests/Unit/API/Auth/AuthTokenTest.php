@@ -22,14 +22,8 @@ use Tests\TestCase;
  */
 class AuthTokenTest extends TestCase
 {
-
-    /** @var OathClientsRepository */
     private OathClientsRepository $oathClientsRepository;
-
-    /** @var WriteInEnv */
     private WriteInEnv $writeInEnv;
-
-    /** @var WriteTokenInEnvService */
     private WriteTokenInEnvService $writeTokenInEnvService;
 
     /**
@@ -43,13 +37,13 @@ class AuthTokenTest extends TestCase
     /**
      * Изменить запись в env
      */
-    public function testWrite(): void
+    public function testEditValue(): void
     {
         $this->assertTrue($this->writeInEnv->editValue([
             (new EnvDto())
                 ->setKey(EnvHelper::KEY_API)
-                ->setValue(env('MIX_PUSHER_APP_KEY_API') ?? '')
-        ]));
+                ->setValue('0oWJvtgCY3E3JkEvu4DruF6VYUOuiaBlXOPkHsjn')
+        ], WriteInEnv::PATH_FRONTEND));
     }
 
     /**

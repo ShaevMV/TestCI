@@ -5,22 +5,27 @@ declare(strict_types=1);
 namespace App\Ticket\Modules\Auth\Service;
 
 use App\Ticket\Modules\Auth\Dto\EnvDto;
-use InvalidArgumentException;
 use RuntimeException;
 
 final class WriteInEnv
 {
+    public const PATH_FRONTEND = 'frontend';
+
     /**
      * Изменить значения в файле env
      *
      * @param EnvDto[] $envsDto
+     * @param string|null $pathEnv
+     *
      * @return bool
-     * @throws InvalidArgumentException
-     * @throws RuntimeException
      */
-    public function editValue(array $envsDto): bool
+    public function editValue(array $envsDto, ?string $pathEnv = null): bool
     {
-        $path = base_path('.env');
+        if (null !== $pathEnv) {
+            $path = base_path("{$pathEnv}/.env");
+        } else {
+            $path = base_path(".env");
+        }
 
         if (!$this->validateEnv($path)) {
             throw new RuntimeException("Файл .env отсутствует");
@@ -59,13 +64,14 @@ final class WriteInEnv
         $filePath = file_get_contents($path);
 
         if (false !== $filePath && $this->isIsset($key, $filePath)) {
+            $envValue = env($key);
             return file_put_contents($path, str_replace(
-                "{$key}=" . env($key) ?? null,
+                "{$key}=" . $envValue ?? null,
                 "{$key}={$value}",
                 $filePath
             )) !== false;
         } else {
-            return file_put_contents($path, "{$key}={$value}", FILE_APPEND) !== false;
+            return file_put_contents($path, "{$key}={$value}" . PHP_EOL, FILE_APPEND) !== false;
         }
     }
 
@@ -79,5 +85,26 @@ final class WriteInEnv
     private function isIsset(string $key, string $fileEnv): bool
     {
         return strripos($fileEnv, $key) !== false;
+    }
+
+    /**
+     * Скопировать значения в сторонний .env файл
+     *
+     * @param array $envsDto
+     * @param string $pathEnv
+     *
+     * @return bool
+     */
+    public function copy(array $envsDto, string $pathEnv): bool
+    {
+        $path = base_path("{$pathEnv}/.env");
+
+        foreach ($envsDto as $envDto) {
+            if (!$this->write($path, $envDto->getKey(), $envDto->getValue())) {
+                throw new RuntimeException("Не возможно записать {$envDto->getKey()}={$envDto->getValue()}");
+            }
+        }
+
+        return true;
     }
 }

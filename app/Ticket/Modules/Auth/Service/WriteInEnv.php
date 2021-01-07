@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Ticket\Modules\Auth\Service;
 
 use App\Ticket\Modules\Auth\Dto\EnvDto;
-use InvalidArgumentException;
 use RuntimeException;
 
 final class WriteInEnv
@@ -67,10 +66,10 @@ final class WriteInEnv
         if (false !== $filePath && $this->isIsset($key, $filePath)) {
             $envValue = env($key);
             return file_put_contents($path, str_replace(
-                    "{$key}=" . $envValue ?? null,
-                    "{$key}={$value}",
-                    $filePath
-                )) !== false;
+                "{$key}=" . $envValue ?? null,
+                "{$key}={$value}",
+                $filePath
+            )) !== false;
         } else {
             return file_put_contents($path, "{$key}={$value}" . PHP_EOL, FILE_APPEND) !== false;
         }

@@ -19,6 +19,7 @@
             <div id="content" class="main-content">
                 <div class="layout-px-spacing">
                     <div class="row layout-top-spacing">
+                        <router-view></router-view>
                     </div>
                 </div>
             </div>

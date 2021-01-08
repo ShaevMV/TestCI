@@ -38,6 +38,7 @@ final class WriteTokenInEnvService
 
         // Копируем значение в другие файлы состояний среды
         $this->writeInEnv->editValue($envDtoList, WriteInEnv::PATH_FRONTEND);
+
         return true;
     }
 }

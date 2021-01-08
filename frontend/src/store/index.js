@@ -9,6 +9,7 @@ import * as mutations from './mutations';
 
 // Модули
 import appLogin from './modules/loginModule/index.js'
+import appStyle from './modules/styleModule/index.js'
 
 Vue.use(Vuex, VueAxios, axios);
 
@@ -32,6 +33,7 @@ const store = new Vuex.Store({
     actions,
     modules: {
         'appLogin': appLogin,
+        'appStyle': appStyle,
     }
 });
 

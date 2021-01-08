@@ -1,13 +1,14 @@
 <template>
     <div id="app">
         <Authentication v-if="!isAuthenticated"></Authentication>
+        <Main v-else></Main>
     </div>
 </template>
 
 <script>
 import {mapGetters, mapState} from 'vuex';
-///import HelloWorld from './components/HelloWorld.vue'
-import Authentication from "./components/Authentication.vue";
+import Authentication from "./components/auth/Authentication.vue";
+import Main from "./components/Main";
 
 export default {
     name: 'App',
@@ -20,18 +21,11 @@ export default {
         ])
     },
     components: {
+        Main,
         Authentication
     }
 }
 </script>
 
 <style>
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-}
 </style>

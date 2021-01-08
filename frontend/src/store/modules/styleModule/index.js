@@ -3,15 +3,15 @@ import * as actions from './actions';
 import * as mutations from './mutations';
 
 /**
- * Модуль для работы с авторизацией
+ * Модуль для работы со стилями
  */
 export default {
     namespaced: true,
     state: {
-        tokenType: '',
-        accessToken: '',
-
-        dataError: {},
+        /**
+         * @type boolean Открытие боковое меню
+         */
+        openSidebar: false,
     },
     getters,
     actions,

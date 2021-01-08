@@ -60,11 +60,12 @@
                                         <button
                                             type="submit"
                                             class="btn btn-primary"
-                                            value="">Log In</button>
+                                            value="">Log In
+                                        </button>
                                     </div>
                                 </div>
-                                <label class="error">{{getError('active')}}</label>
-                          </div>
+                                <label class="error">{{ getError('active') }}</label>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -74,7 +75,7 @@
 </template>
 
 <script>
-import {mapActions,mapGetters} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
     name: "Authentication",
@@ -102,12 +103,12 @@ export default {
         ...mapActions('appLogin', [
             'loginUser'
         ]),
-        login:function (e) {
+        login: function (e) {
             this.loginUser({
                 username: this.email,
                 password: this.password,
                 callback: function () {
-                    document.location.href="/";
+                    document.location.href = "/";
                 }
             });
 
@@ -122,6 +123,6 @@ export default {
 </style>
 
 
-<style src='../assets/css/authentication/form-2.css'></style>
-<style src='../assets/css/forms/theme-checkbox-radio.css'></style>
-<style src='../assets/css/forms/switches.css'></style>
+<style src='../../assets/css/authentication/form-2.css'></style>
+<style src='../../assets/css/forms/theme-checkbox-radio.css'></style>
+<style src='../../assets/css/forms/switches.css'></style>

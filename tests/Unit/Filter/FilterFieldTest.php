@@ -9,6 +9,7 @@ use App\Ticket\Filter\Service\Factory\FilterDateBetween;
 use App\Ticket\Filter\Service\Factory\FilterInteger;
 use App\Ticket\Filter\Service\Factory\FilterString;
 use App\Ticket\Filter\Service\FilterFactoryService;
+use App\Ticket\Filter\Service\FilterListService;
 use App\Ticket\Modules\Festival\Model\FestivalModel;
 use Database\Seeders\FestivalSeeder;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -28,9 +29,8 @@ use Database\Seeders\TypeRegistrationSeeder;
  */
 class FilterFieldTest extends TestCase
 {
-    private const TYPE_INDEX = "type";
-    private const FIELD_INDEX = "index";
-    private const VALUE_INDEX = "value";
+    private FilterListService $filterListService;
+    private FilterList $filterList;
 
     /**
      * Создать фильтр из данных
@@ -44,10 +44,10 @@ class FilterFieldTest extends TestCase
      */
     public function testCreateFilter(array $data, object $class): void
     {
-         $filter = (new FilterItem())
-            ->setValue($data[self::VALUE_INDEX])
-            ->setFieldAndTable((string)$data[self::FIELD_INDEX])
-            ->setType((string)$data[self::TYPE_INDEX]);
+        $filter = (new FilterItem())
+            ->setValue($data[FilterItem::VALUE_INDEX])
+            ->setFieldAndTable((string)$data[FilterItem::FIELD_INDEX])
+            ->setType((string)$data[FilterItem::TYPE_INDEX]);
 
         $this->assertInstanceOf(get_class($class), FilterFactoryService::initFilter($filter));
     }
@@ -60,7 +60,6 @@ class FilterFieldTest extends TestCase
      * @param array $data
      *
      * @return void
-     * @throws BindingResolutionException
      *
      */
     public function testCreateFilterList(array $data): void
@@ -68,19 +67,16 @@ class FilterFieldTest extends TestCase
         static $filters = [];
 
         $filter = (new FilterItem())
-            ->setValue($data[self::VALUE_INDEX])
-            ->setFieldAndTable((string)$data[self::FIELD_INDEX])
-            ->setType((string)$data[self::TYPE_INDEX]);
+            ->setValue($data[FilterItem::VALUE_INDEX])
+            ->setFieldAndTable((string)$data[FilterItem::FIELD_INDEX])
+            ->setType((string)$data[FilterItem::TYPE_INDEX]);
 
         $filters[] = FilterFactoryService::initFilter($filter);
+        $this->filterList->setFilterFields($filters);
 
-        $filterList = $this->app->make(FilterList::class, [
-            'filterFields' => $filters
-        ]);
-
-        $this->assertInstanceOf(FilterList::class, $filterList);
-        $this->assertIsArray($filterList->getFilterFields());
-        $this->assertCount(count($filters), $filterList->getFilterFields());
+        $this->assertInstanceOf(FilterList::class, $this->filterList);
+        $this->assertIsArray($this->filterList->getFilterFields());
+        $this->assertCount(count($filters), $this->filterList->getFilterFields());
     }
 
     /**
@@ -91,73 +87,94 @@ class FilterFieldTest extends TestCase
      * @param array $data
      *
      * @return void
-     * @throws BindingResolutionException
-     *
      */
     public function testFiltration(array $data): void
     {
         static $filters = [];
 
         $filterItems = (new FilterItem())
-            ->setValue($data[self::VALUE_INDEX])
-            ->setFieldAndTable((string)$data[self::FIELD_INDEX])
-            ->setType((string)$data[self::TYPE_INDEX]);
+            ->setValue($data[FilterItem::VALUE_INDEX])
+            ->setFieldAndTable((string)$data[FilterItem::FIELD_INDEX])
+            ->setType((string)$data[FilterItem::TYPE_INDEX]);
 
         $filters[] = FilterFactoryService::initFilter($filterItems);
 
         $festival = new FestivalModel();
+        $this->filterList->setFilterFields($filters);
 
-        $filterList = $this->app->make(FilterList::class, [
-            'filterFields' => $filters
-        ]);
-
-        $fromFiltered = $filterList->filtration($festival->getQuery(), $festival)->get();
+        $fromFiltered = $this->filterList->filtration($festival->getQuery(), $festival)->get();
 
         $this->assertTrue($fromFiltered->count() > 0);
         $this->assertNotEquals($festival->count(), $fromFiltered->count());
     }
 
     /**
+     * Тестирования создания списка фильтров из серого запроса
+     *
+     * @dataProvider dataProviderFilter
+     *
+     * @param array $data
+     */
+    public function testFilterListService(array $data): void
+    {
+        static $filters = [];
+        $filters[] = $data;
+        $filterList = $this->filterListService->getFilterListOfRaw($filters);
+
+        $this->assertInstanceOf(FilterList::class, $filterList);
+    }
+
+    /**
      * @return array
      */
-    public function dataProviderFilter()
+    public function dataProviderFilter(): array
     {
         $filterItem = new FilterItem();
 
         return [
             [[
-                self::TYPE_INDEX => FilterFactoryService::INTEGER_TYPE,
-                self::FIELD_INDEX => 'festivals.status',
-                self::VALUE_INDEX => FestivalSeeder::STATUS_FOR_TEST,
+                FilterItem::TYPE_INDEX => FilterFactoryService::INTEGER_TYPE,
+                FilterItem::FIELD_INDEX => 'festivals.status',
+                FilterItem::VALUE_INDEX => FestivalSeeder::STATUS_FOR_TEST,
             ], new FilterInteger($filterItem)],
             [[
-                self::TYPE_INDEX => FilterFactoryService::STRING_TYPE,
-                self::FIELD_INDEX => 'festivals.title',
-                self::VALUE_INDEX => FestivalSeeder::TITLE_FOR_TEST,
+                FilterItem::TYPE_INDEX => FilterFactoryService::STRING_TYPE,
+                FilterItem::FIELD_INDEX => 'festivals.title',
+                FilterItem::VALUE_INDEX => FestivalSeeder::TITLE_FOR_TEST,
             ], new FilterString($filterItem)],
             [[
-                self::TYPE_INDEX => FilterFactoryService::DATE_TYPE,
-                self::FIELD_INDEX => 'festivals.date_start',
-                self::VALUE_INDEX => FestivalSeeder::DATE_START_FOR_TEST,
+                FilterItem::TYPE_INDEX => FilterFactoryService::DATE_TYPE,
+                FilterItem::FIELD_INDEX => 'festivals.date_start',
+                FilterItem::VALUE_INDEX => FestivalSeeder::DATE_START_FOR_TEST,
             ], new FilterDate($filterItem)],
             [[
-                self::TYPE_INDEX => FilterFactoryService::DATE_BETWEEN_TYPE,
-                self::FIELD_INDEX => 'festivals.date_start',
-                self::VALUE_INDEX => [
+                FilterItem::TYPE_INDEX => FilterFactoryService::DATE_BETWEEN_TYPE,
+                FilterItem::FIELD_INDEX => 'festivals.date_start',
+                FilterItem::VALUE_INDEX => [
                     FestivalSeeder::DATE_START_FOR_TEST,
                     FestivalSeeder::DATE_END_FOR_TEST,
                 ]
             ], new FilterDateBetween($filterItem)],
             [[
-                self::TYPE_INDEX => FilterFactoryService::INTEGER_TYPE,
-                self::FIELD_INDEX => 'typeRegistration.price',
-                self::VALUE_INDEX => TypeRegistrationSeeder::PRICE_FOR_TEST
+                FilterItem::TYPE_INDEX => FilterFactoryService::INTEGER_TYPE,
+                FilterItem::FIELD_INDEX => 'typeRegistration.price',
+                FilterItem::VALUE_INDEX => TypeRegistrationSeeder::PRICE_FOR_TEST
             ], new FilterInteger($filterItem)],
             [[
-                self::TYPE_INDEX => FilterFactoryService::STRING_TYPE,
-                self::FIELD_INDEX => 'typeRegistration.title',
-                self::VALUE_INDEX => TypeRegistrationSeeder::TITLE_FOR_TEST
+                FilterItem::TYPE_INDEX => FilterFactoryService::STRING_TYPE,
+                FilterItem::FIELD_INDEX => 'typeRegistration.title',
+                FilterItem::VALUE_INDEX => TypeRegistrationSeeder::TITLE_FOR_TEST
             ], new FilterString($filterItem)],
         ];
+    }
+
+    /**
+     * @throws BindingResolutionException
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->filterListService = $this->app->make(FilterListService::class);
+        $this->filterList = $this->app->make(FilterList::class);
     }
 }

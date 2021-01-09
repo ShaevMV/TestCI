@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Ticket\Modules\TypeRegistration\Entity;
 
-use App\Ticket\Entity\EntityInterface;
+use App\Ticket\Entity\AbstractionEntity;
 use Webpatser\Uuid\Uuid;
 
 /**
@@ -14,35 +14,35 @@ use Webpatser\Uuid\Uuid;
  *
  * @package App\Ticket\TypeRegistration\Entity
  */
-final class TypeRegistration implements EntityInterface
+final class TypeRegistration extends AbstractionEntity
 {
     /**
      * Идентификатор
      *
      * @var Uuid
      */
-    private Uuid $id;
+    protected Uuid $id;
 
     /**
      * Названия
      *
      * @var string
      */
-    private string $title;
+    protected string $title;
 
     /**
      * Цена
      *
      * @var Price
      */
-    private Price $price;
+    protected Price $price;
 
     /**
      * Параметры для типа билета
      *
      * @var Parameter|null
      */
-    private ?Parameter $params;
+    protected ?Parameter $params;
 
     public function __construct()
     {
@@ -52,9 +52,9 @@ final class TypeRegistration implements EntityInterface
     /**
      * @param array $data
      *
-     * @return TypeRegistration
+     * @return self
      */
-    public static function fromState(array $data)
+    public static function fromState(array $data): self
     {
         $result = (new self())
             ->setId(Uuid::import($data['id']))
@@ -128,23 +128,9 @@ final class TypeRegistration implements EntityInterface
     }
 
     /**
-     * @return array|null
-     */
-    public function toArray(): ?array
-    {
-        $vars = get_object_vars($this);
-        $array = [];
-        foreach ($vars as $key => $value) {
-            $array[ltrim($key)] = $value;
-        }
-
-        return $array;
-    }
-
-    /**
      * @return Parameter|null
      */
-    public function getParams()
+    public function getParams(): ?Parameter
     {
         return $this->params;
     }
@@ -161,8 +147,8 @@ final class TypeRegistration implements EntityInterface
         return $this;
     }
 
-    public function __get($name)
+    protected function getColumnsList(): array
     {
-        return $this->$name ?? null;
+        return [];
     }
 }

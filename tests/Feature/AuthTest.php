@@ -20,18 +20,14 @@ class AuthTest extends TestCase
      */
     public function testExample()
     {
-        $urlOauthToken = env('APP_URL_DOCKER', 'http://172.18.0.5:8083/') . 'oauth/token';
-        $accessToken = $this->oathClientsRepository->getApiAccessToken();
+        $urlOauthToken = env('APP_URL_DOCKER', 'http://172.18.0.4:8083/') . 'api/auth/login';
         $http = new Client();
+        /** @var User $user */
         $user = User::first();
         $response = $http->post($urlOauthToken, [
             'form_params' => [
-                'grant_type' => 'password',
-                'client_id' => $accessToken->getClientId(),
-                'client_secret' => $accessToken->getPasswordKey(),
-                'username' => $user->email,
+                'email' => $user->email,
                 'password' => 'secret',
-                'scope' => '*',
             ],
         ]);
         $result = json_decode((string)$response->getBody(), true);
@@ -39,7 +35,6 @@ class AuthTest extends TestCase
         $this->assertArrayHasKey('token_type', $result);
         $this->assertArrayHasKey('expires_in', $result);
         $this->assertArrayHasKey('access_token', $result);
-        $this->assertArrayHasKey('refresh_token', $result);
     }
 
     protected function setUp(): void

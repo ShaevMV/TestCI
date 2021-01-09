@@ -15,12 +15,22 @@ use InvalidArgumentException;
  */
 final class FilterItem
 {
+    public const TYPE_INDEX = "type";
+    public const FIELD_INDEX = "index";
+    public const VALUE_INDEX = "value";
+    public const OPERATION_INDEX = "operation";
+
     /**
      * Разделитель старки между названием таблицы и полем
      *
      * @const string
      */
     private const DELIMITER = '.';
+
+    /**
+     * Оператор для фильтрации по умолчанию
+     */
+    private const DEFAULT_OPERATION = '=';
 
     /**
      * Значения для фильтра
@@ -55,26 +65,20 @@ final class FilterItem
      *
      * @var string
      */
-    private string $operation = '=';
+    private string $operation = self::DEFAULT_OPERATION;
 
     /**
-     * @return string|array
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @param string|array $value
+     * @param array $data
      *
-     * @return $this
+     * @return static
      */
-    public function setValue($value): self
+    public static function fromState(array $data): self
     {
-        $this->value = $value;
-
-        return $this;
+        return (new self())
+            ->setType($data[self::TYPE_INDEX])
+            ->setValue($data[self::VALUE_INDEX])
+            ->setOperation(isset($data[self::OPERATION_INDEX]) ? $data[self::OPERATION_INDEX] : self::DEFAULT_OPERATION)
+            ->setFieldAndTable($data[self::FIELD_INDEX]);
     }
 
     /**
@@ -108,6 +112,26 @@ final class FilterItem
     }
 
     /**
+     * @return string|array
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param string|array $value
+     *
+     * @return $this
+     */
+    public function setValue($value): self
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getField(): string
@@ -138,7 +162,7 @@ final class FilterItem
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -156,22 +180,22 @@ final class FilterItem
     }
 
     /**
-     * @param string $operation
-     *
-     * @return $this
-     */
-    public function setOperation(string $operation = '='): self
-    {
-        $this->operation = $operation;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getOperation(): string
     {
         return $this->operation;
+    }
+
+    /**
+     * @param string $operation
+     *
+     * @return $this
+     */
+    public function setOperation(string $operation = self::DEFAULT_OPERATION): self
+    {
+        $this->operation = $operation;
+
+        return $this;
     }
 }

@@ -59,4 +59,6 @@ interface RepositoryInterface
      * @return bool
      */
     public function remove(Uuid $id): bool;
+
+    public function getTotal(): int;
 }

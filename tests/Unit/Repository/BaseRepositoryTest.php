@@ -51,7 +51,7 @@ class BaseRepositoryTest extends TestCase
      */
     public function testCreate(EntityInterface $entity, RepositoryInterface $repository): void
     {
-        $this->assertInstanceOf(Uuid::class, $repository->create($entity));
+        self::assertInstanceOf(Uuid::class, $repository->create($entity));
     }
 
     /**
@@ -66,7 +66,7 @@ class BaseRepositoryTest extends TestCase
      */
     public function testUpdate(EntityInterface $entity, RepositoryInterface $repository): void
     {
-        $this->assertTrue($repository->update($entity->id, $entity));
+        self::assertTrue($repository->update($entity->id, $entity));
     }
 
     /**
@@ -81,7 +81,7 @@ class BaseRepositoryTest extends TestCase
      */
     public function testRemove(EntityInterface $entity, RepositoryInterface $repository): void
     {
-        $this->assertTrue($repository->remove($entity->id));
+        self::assertTrue($repository->remove($entity->id));
     }
 
     /**
@@ -96,7 +96,7 @@ class BaseRepositoryTest extends TestCase
      */
     public function testRead(EntityInterface $entity, RepositoryInterface $repository): void
     {
-        $this->assertInstanceOf(EntityInterface::class, $repository->findById($entity->id));
+        self::assertInstanceOf(EntityInterface::class, $repository->findById($entity->id));
     }
 
     public function dataProviderRepository(): array

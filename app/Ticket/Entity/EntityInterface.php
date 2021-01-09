@@ -40,4 +40,18 @@ interface EntityInterface
      * @return mixed|null
      */
     public function __get(string $name);
+
+    /**
+     * Вывести названия колонок по ключам
+     *
+     * @return string[][]
+     */
+    public function getColumns(): array;
+
+    /**
+     * Высети объект в виде json
+     *
+     * @return string
+     */
+    public function toJson(): string;
 }

@@ -3,6 +3,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import $ from 'jquery'
 import VueRouter from 'vue-router';
+import router from './router.js';
 
 Vue.config.productionTip = false
 
@@ -12,7 +13,7 @@ Vue.config.productionTip = false
 window.jQuery = $;
 
 /**
- * @type {Vue | CombinedVueInstance<Vue, object, object, object, Record<never, any>>}
+ * @type {Vue <Vue, object, object, object, Record<never, any>>}
  */
 window.eventBus = new Vue(); // события
 /**
@@ -27,5 +28,6 @@ window.Vue.use(VueRouter);
 
 new Vue({
     store,
+    router,
     render: h => h(App),
 }).$mount('#app')

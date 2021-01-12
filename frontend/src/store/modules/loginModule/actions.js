@@ -9,16 +9,13 @@ import axios from 'axios';
 export const loginUser = (context, payload) => {
 
     let params = {
-        grant_type: 'password',
-        client_id: process.env.VUE_APP_CLIENT_ID,
-        client_secret: process.env.VUE_APP_PUSHER_APP_KEY_API,
-        username: payload.username,
+        email: payload.username,
         password: payload.password,
-        scope: '*'
     };
 
 
-    let promise = axios.post(process.env.VUE_APP_URL_API + 'oauth/token', params);
+
+    let promise = axios.post(process.env.VUE_APP_URL_API + 'api/auth/login', params);
     promise.then(async function (response) {
                 let data = response.data;
 

@@ -11,9 +11,7 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
-use Laravel\Passport\Client;
-use Laravel\Passport\HasApiTokens;
-use Laravel\Passport\Token;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Webpatser\Uuid\Uuid;
 
 /**
@@ -38,15 +36,15 @@ use Webpatser\Uuid\Uuid;
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
- * @property-read Collection|Client[] $clients
+ * @property-read Collection $clients
  * @property-read int|null $clients_count
- * @property-read Collection|Token[] $tokens
+ * @property-read Collection $tokens
  * @property-read int|null $tokens_count
  * @mixin Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens;
+
     use HasFactory;
     use Notifiable;
 
@@ -80,5 +78,24 @@ class User extends Authenticatable
     public static function generateUuid()
     {
         return Uuid::generate();
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier() {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims(): array
+    {
+        return [];
     }
 }

@@ -13,11 +13,16 @@ return [
     |
     */
 
-    'defaults' => [
+    /*'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
     ],
+    */
 
+    'defaults' => [
+        'guard' => 'api',
+        'passwords' => 'users',
+    ],
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -42,8 +47,9 @@ return [
         ],
 
         'api' => [
-            'driver' => 'passport',
+            'driver' => 'jwt',
             'provider' => 'users',
+            'hash' => false,
         ],
     ],
 

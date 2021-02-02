@@ -1,59 +1,16 @@
-version: '2'
-
+version: '3.9'
 services:
-
   nginx:
+    restart: always
     build:
-      context: docker/nginx
+      dockerfile: Dockerfile.dev
+      context: ./nginx
     ports:
-      - 80:8083
-    volumes:
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-    volumes_from:
-      - php
-      - node
-    user: user
-
-  php:
+      - '3000:80'
+  client:
     build:
-      context: ./
-      dockerfile: ./docker/php/Dockerfile
+      dockerfile: Dockerfile.dev
+      context: ./client
     volumes:
-      - ./docker/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
-      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
-      - ./docker/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
-      - ./:/var/www/html
-    links:
-      - database
-    environment:
-      - "DB_PORT=3306"
-      - "DB_HOST=database"
-    user: user
-
-  database:
-    image: mysql:5.7
-    environment:
-      - "MYSQL_ROOT_PASSWORD=common404"
-      - "MYSQL_DATABASE=laravel"
-    volumes:
-      - ./docker/mysql:/var/lib/mysql
-      - ./docker/mysqlConfig/log/mysql.log:/var/log/mysql/mysql.log
-      - ./docker/mysqlConfig/my.cnf:/etc/mysql/my.cnf
-    ports:
-      - "33065:3306"
-
-  node:
-    build:
-      context: docker/node
-    working_dir: /var/app
-    ports:
-      - 8081:8080
-    volumes:
-      - ./frontend:/var/app
-    user: node
-    command: tail -f /dev/null
-
-networks:
-  network-ticket:
-
+      - /app/node_modules
+      - ./client:/app 

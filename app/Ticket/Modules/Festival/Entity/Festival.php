@@ -19,6 +19,21 @@ use Webpatser\Uuid\Uuid;
  */
 final class Festival extends AbstractionEntity
 {
+    private const COLUMNS_LIST = [
+        'id' => [
+            'value' => 'id',
+            'type' => self::TYPE_IN_SERIES,
+        ],
+        'title' => [
+            'value' => 'Название',
+            'type'  => self::TYPE_STRING,
+        ],
+        'status' => [
+            'value' => 'Статус',
+            'type' => self::TYPE_STRING,
+        ],
+    ];
+
     /**
      * Идентификатор
      *
@@ -194,5 +209,13 @@ final class Festival extends AbstractionEntity
         $this->description = $description;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getColumnsList(): array
+    {
+        return self::COLUMNS_LIST;
     }
 }

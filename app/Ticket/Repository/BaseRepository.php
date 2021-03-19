@@ -70,11 +70,12 @@ abstract class BaseRepository implements RepositoryInterface
      *
      * @return $this
      */
-    public function setPagination(Pagination $pagination = null): self
+    public function setPagination(?Pagination &$pagination = null): self
     {
         if (!empty($pagination)) {
             $builder = $this->getBuilder();
-            $builder->forPage($pagination->getPage(), $pagination->getPage());
+            $pagination->setTotal($this->getTotal());
+            $builder->forPage($pagination->getPage(), $pagination->getLimit());
             $this->setBuilder($builder);
         }
 
@@ -117,6 +118,9 @@ abstract class BaseRepository implements RepositoryInterface
         $this->builder = $builder;
     }
 
+    /**
+     * @return EntityInterface[]|null
+     */
     public function getList(): ?array
     {
         $result = [];
@@ -138,7 +142,8 @@ abstract class BaseRepository implements RepositoryInterface
 
     public function create(EntityInterface $entity): ?Uuid
     {
-        $create = $this->model->create($entity->toArray() ?? []);
+        $data = $entity->toArray() ?? [];
+        $create = $this->model->create($data);
 
         return isset($create->id) ? Uuid::import($create->id) : null;
     }
@@ -171,5 +176,15 @@ abstract class BaseRepository implements RepositoryInterface
     public function remove(Uuid $id): bool
     {
         return $this->model->destroy((string)$id) > 0;
+    }
+
+    /**
+     * Вывести общее кол-во записей
+     *
+     * @return int
+     */
+    public function getTotal(): int
+    {
+        return $this->getBuilder()->get()->count();
     }
 }

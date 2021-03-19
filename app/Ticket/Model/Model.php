@@ -39,7 +39,7 @@ class Model extends BaseModel
     /**
      * Перевод primary key в Uuid
      */
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
@@ -53,7 +53,7 @@ class Model extends BaseModel
      *
      * @return bool
      */
-    public function getIncrementing()
+    public function getIncrementing(): bool
     {
         return false;
     }
@@ -63,7 +63,7 @@ class Model extends BaseModel
      *
      * @return string
      */
-    public function getKeyType()
+    public function getKeyType(): string
     {
         return 'string';
     }

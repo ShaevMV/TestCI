@@ -15,12 +15,22 @@ use InvalidArgumentException;
  */
 final class FilterItem
 {
+    public const TYPE_INDEX = "type";
+    public const FIELD_INDEX = "index";
+    public const VALUE_INDEX = "value";
+    public const OPERATION_INDEX = "operation";
+
     /**
      * Разделитель старки между названием таблицы и полем
      *
      * @const string
      */
     private const DELIMITER = '.';
+
+    /**
+     * Оператор для фильтрации по умолчанию
+     */
+    private const DEFAULT_OPERATION = '=';
 
     /**
      * Значения для фильтра
@@ -55,7 +65,51 @@ final class FilterItem
      *
      * @var string
      */
-    private string $operation = '=';
+    private string $operation = self::DEFAULT_OPERATION;
+
+    /**
+     * @param array $data
+     *
+     * @return self
+     */
+    public static function fromState(array $data): self
+    {
+        return (new self())
+            ->setType($data[self::TYPE_INDEX])
+            ->setValue($data[self::VALUE_INDEX])
+            ->setOperation($data[self::OPERATION_INDEX] ?? self::DEFAULT_OPERATION)
+            ->setFieldAndTable($data[self::FIELD_INDEX]);
+    }
+
+    /**
+     * Получения данных поля и имени таблицы
+     *
+     * @param string $field
+     *
+     * @return FilterItem
+     */
+    public function setFieldAndTable(string $field): self
+    {
+        if ($arrFieldAndTable = self::getDelimiter($field)) {
+            [$this->table, $this->field] = $arrFieldAndTable;
+        } else {
+            throw new InvalidArgumentException("{$field} not found DELIMITER '" . self::DELIMITER . "'");
+        }
+
+        return $this;
+    }
+
+    /**
+     * Проверка наличие в старке разделителя
+     *
+     * @param string $str
+     *
+     * @return array|bool
+     */
+    private static function getDelimiter(string $str)
+    {
+        return strrpos($str, self::DELIMITER) !== false ? explode(self::DELIMITER, $str) : false;
+    }
 
     /**
      * @return string|array
@@ -75,36 +129,6 @@ final class FilterItem
         $this->value = $value;
 
         return $this;
-    }
-
-    /**
-     * Получения данных поля и имени таблицы
-     *
-     * @param string $field
-     *
-     * @return FilterItem
-     */
-    public function setFieldAndTable(string $field): self
-    {
-        if ($arrFieldAndTable = self::getDelimiter($field)) {
-            list($this->table, $this->field) = $arrFieldAndTable;
-        } else {
-            throw new InvalidArgumentException("{$field} not found DELIMITER '" . self::DELIMITER . "'");
-        }
-
-        return $this;
-    }
-
-    /**
-     * Проверка наличие в старке разделителя
-     *
-     * @param string $str
-     *
-     * @return array|bool
-     */
-    private static function getDelimiter(string $str)
-    {
-        return strripos($str, self::DELIMITER) !== false ? explode(self::DELIMITER, $str) : false;
     }
 
     /**
@@ -138,7 +162,7 @@ final class FilterItem
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -156,22 +180,22 @@ final class FilterItem
     }
 
     /**
-     * @param string $operation
-     *
-     * @return $this
-     */
-    public function setOperation(string $operation = '='): self
-    {
-        $this->operation = $operation;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getOperation(): string
     {
         return $this->operation;
+    }
+
+    /**
+     * @param string $operation
+     *
+     * @return $this
+     */
+    public function setOperation(string $operation = self::DEFAULT_OPERATION): self
+    {
+        $this->operation = $operation;
+
+        return $this;
     }
 }

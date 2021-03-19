@@ -6,6 +6,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -97,5 +98,37 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims(): array
     {
         return [];
+    }
+
+    /**
+     * Перевод primary key в Uuid
+     */
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function (BaseModel $post) {
+            $post->{$post->getKeyName()} = (string)Uuid::generate();
+        });
+    }
+
+    /**
+     * Отключить увеличения идентификатора
+     *
+     * @return bool
+     */
+    public function getIncrementing(): bool
+    {
+        return false;
+    }
+
+    /**
+     * Перевод идентификатора в строку
+     *
+     * @return string
+     */
+    public function getKeyType(): string
+    {
+        return 'string';
     }
 }

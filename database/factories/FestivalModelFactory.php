@@ -35,7 +35,7 @@ class FestivalModelFactory extends Factory
             "title" => $this->faker->jobTitle,
             "date_start" => $dateStart->format('Y-m-d'),
             "date_end" => $dateStart->add(new DateInterval('P10D')),
-            "status" => array_rand([FestivalStatus::STATE_PUBLISHED_ID, FestivalStatus::STATE_DRAFT_ID], 1),
+            "status" => FestivalStatus::STATE_DRAFT_ID,
             "description" => $this->faker->text(200),
         ];
     }

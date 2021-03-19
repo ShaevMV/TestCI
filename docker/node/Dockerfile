@@ -1,5 +1,6 @@
 FROM node:latest
 
+RUN npm install -g typescript@next
 RUN npm install --global @vue/cli
 
 # устанавливаем простой HTTP-сервер для статики

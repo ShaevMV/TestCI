@@ -20,7 +20,7 @@ final class Pagination
      *
      * @const int
      */
-    private const DEFAULT_LIMIT = 15;
+    public const DEFAULT_LIMIT = 15;
 
     /**
      * Текущая страница
@@ -35,6 +35,13 @@ final class Pagination
      * @var int
      */
     private int $limit;
+
+    /**
+     * Общее кол-во записей
+     *
+     * @var int
+     */
+    private int $total = 0;
 
     /**
      * Pagination constructor.
@@ -134,6 +141,28 @@ final class Pagination
     public function setLimit(int $limit): self
     {
         $this->limit = $limit;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotal(): int
+    {
+        return $this->total;
+    }
+
+    /**
+     * @param int $total
+     *
+     * @return self
+     */
+    public function setTotal(int $total): self
+    {
+        if (empty($this->total)) {
+            $this->total = $total;
+        }
 
         return $this;
     }

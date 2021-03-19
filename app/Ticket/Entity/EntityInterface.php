@@ -40,4 +40,11 @@ interface EntityInterface
      * @return mixed|null
      */
     public function __get(string $name);
+
+    /**
+     * Высети объект в виде json
+     *
+     * @return string
+     */
+    public function toJson(): string;
 }

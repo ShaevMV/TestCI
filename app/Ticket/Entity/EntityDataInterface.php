@@ -20,4 +20,11 @@ interface EntityDataInterface
      * @return mixed
      */
     public function __toString();
+
+    /**
+     * Высети сущность в виде json строки
+     *
+     * @return string
+     */
+    public function toJson(): string;
 }

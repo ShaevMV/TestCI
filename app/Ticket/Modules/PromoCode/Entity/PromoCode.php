@@ -17,6 +17,24 @@ use Webpatser\Uuid\Uuid;
  */
 final class PromoCode extends AbstractionEntity
 {
+    private const COLUMNS_LIST = [
+        'id' => [
+            'value' => 'id',
+            'type' => self::TYPE_IN_SERIES,
+        ],
+        'name' => [
+            'value' => 'Промо код',
+            'type'  => self::TYPE_STRING,
+        ],
+        'delta' => [
+            'value' => 'Изменения цены',
+            'type' => self::TYPE_STRING,
+        ],
+        'active' => [
+            'value' => 'Активность',
+            'type' => self::TYPE_BOOL,
+        ],
+    ];
     /**
      * Идентификатор
      *
@@ -36,14 +54,14 @@ final class PromoCode extends AbstractionEntity
      *
      * @var DeltaPrice
      */
-    protected $delta;
+    protected DeltaPrice $delta;
 
     /**
      * Дата действия промо кода
      *
      * @var DateBetween
      */
-    protected $date;
+    protected DateBetween $date;
 
     /**
      * Активность
@@ -61,9 +79,10 @@ final class PromoCode extends AbstractionEntity
 
     /**
      * @param array $data
-     * @return PromoCode
+     *
+     * @return self
      */
-    public static function fromState(array $data)
+    public static function fromState(array $data): self
     {
         return (new self())
             ->setId(Uuid::import($data['id']))
@@ -192,5 +211,13 @@ final class PromoCode extends AbstractionEntity
         $this->festival_id = $festival_id;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getColumnsList(): array
+    {
+        return self::COLUMNS_LIST;
     }
 }

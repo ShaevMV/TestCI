@@ -66,4 +66,9 @@ final class AccessToken extends AbstractionEntity
         $this->clientId = $clientId;
         return $this;
     }
+
+    protected function getColumnsList(): array
+    {
+        return [];
+    }
 }

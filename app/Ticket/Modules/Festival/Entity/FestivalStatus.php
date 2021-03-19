@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Ticket\Modules\Festival\Entity;
 
-use App\Ticket\Entity\EntityDataInterface;
+use App\Ticket\Entity\AbstractionEntityData;
 use InvalidArgumentException;
 
 /**
@@ -14,7 +14,7 @@ use InvalidArgumentException;
  *
  * @package App\Ticket\Festival\Entity
  */
-final class FestivalStatus implements EntityDataInterface
+final class FestivalStatus extends AbstractionEntityData
 {
     /**
      * Идентификатор статуса черновик
@@ -35,14 +35,14 @@ final class FestivalStatus implements EntityDataInterface
      *
      * @const string
      */
-    public const STATE_DRAFT = 'draft';
+    public const STATE_DRAFT = 'Черновик';
 
     /**
      * Названия статуса запущенного фестиваля
      *
      * @const string
      */
-    public const STATE_PUBLISHED = 'published';
+    public const STATE_PUBLISHED = 'Запущенный фестиваля';
 
     /**
      * Список статусов
@@ -59,14 +59,14 @@ final class FestivalStatus implements EntityDataInterface
      *
      * @var int|null
      */
-    private ?int $id;
+    protected ?int $id;
 
     /**
      * Названия статуса
      *
      * @var string|null
      */
-    private ?string $name;
+    protected ?string $name;
 
     /**
      * FestivalStatus constructor.
@@ -85,11 +85,11 @@ final class FestivalStatus implements EntityDataInterface
      *
      * @param int $statusId
      *
-     * @return FestivalStatus
+     * @return self
      *
      * @throws InvalidArgumentException
      */
-    public static function fromInt(int $statusId)
+    public static function fromInt(int $statusId): self
     {
         if (!self::ensureIsValidId($statusId)) {
             throw new InvalidArgumentException('Invalid status id given');
@@ -103,25 +103,25 @@ final class FestivalStatus implements EntityDataInterface
      *
      * @param string $status
      *
-     * @return FestivalStatus
+     * @return self
      *
      * @throws InvalidArgumentException
      */
-    public static function fromString(string $status)
+    public static function fromString(string $status): self
     {
         if (!self::ensureIsValidName($status)) {
             throw new InvalidArgumentException('Invalid state given!');
         }
 
-        $state = array_search($status, self::STATE_LIST);
+        $state = array_search($status, self::STATE_LIST, true);
 
         return new self((int)$state, $status);
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function __toString(): ?string
+    public function __toString(): string
     {
         return (string)$this->id;
     }
@@ -156,7 +156,7 @@ final class FestivalStatus implements EntityDataInterface
      */
     private static function ensureIsValidId(int $status): bool
     {
-        return in_array($status, array_keys(self::STATE_LIST), true);
+        return array_key_exists($status, self::STATE_LIST);
     }
 
     /**

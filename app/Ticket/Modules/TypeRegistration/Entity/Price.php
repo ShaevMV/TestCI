@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Ticket\Modules\TypeRegistration\Entity;
 
-use App\Ticket\Entity\EntityDataInterface;
+use App\Ticket\Entity\AbstractionEntityData;
 use InvalidArgumentException;
 
 /**
@@ -14,14 +14,14 @@ use InvalidArgumentException;
  *
  * @package App\Ticket\TypeRegistration\Entity
  */
-final class Price implements EntityDataInterface
+final class Price extends AbstractionEntityData
 {
     /**
      * Цена типа билета
      *
      * @var int
      */
-    private int $price;
+    protected int $price;
 
     /**
      * @return int
@@ -61,7 +61,7 @@ final class Price implements EntityDataInterface
     /**
      * @inheritDoc
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string)$this->price;
     }

@@ -46,7 +46,7 @@ final class AuthService
      */
     private function getToken(string $token): Token
     {
-        if(auth() instanceof Container) {
+        if (auth() instanceof Container) {
             /** @var  Factory $jwtAuth */
             $jwtAuth = auth()->factory('');
         } else {

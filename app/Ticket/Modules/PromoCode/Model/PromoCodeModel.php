@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * App\Ticket\Modules\PromoCode\Model\PromoCodeModel
- * 
+ *
  * Модель промо кода
  *
  * @property string $id

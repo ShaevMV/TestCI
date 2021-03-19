@@ -13,7 +13,7 @@ use Webpatser\Uuid\Uuid;
 
 /**
  * Class Model
- * 
+ *
  * Общий класс для модели
  *
  * @package App\Ticket\Model

@@ -160,7 +160,7 @@ final class Pagination
      */
     public function setTotal(int $total): self
     {
-        if(empty($this->total)) {
+        if (empty($this->total)) {
             $this->total = $total;
         }
 

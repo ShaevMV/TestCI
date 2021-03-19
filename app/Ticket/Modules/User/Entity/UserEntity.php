@@ -17,7 +17,9 @@ class UserEntity extends AbstractionEntity
 
     /**
      * @param array $data
-     * @return static
+     *
+     * @return self
+     *
      * @throws Exception
      */
     public static function fromState(array $data): self

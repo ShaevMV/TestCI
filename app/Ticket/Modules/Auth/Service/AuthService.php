@@ -7,6 +7,7 @@ namespace App\Ticket\Modules\Auth\Service;
 use App\Ticket\Modules\Auth\Entity\CredentialsDto;
 use App\Ticket\Modules\Auth\Entity\Token;
 use App\Ticket\Modules\Auth\Exception\ExceptionAuth;
+use Illuminate\Contracts\Container\Container;
 use Tymon\JWTAuth\Factory;
 use Tymon\JWTAuth\JWTGuard;
 
@@ -36,10 +37,21 @@ final class AuthService
         return $this->getToken((string)$token);
     }
 
+    /**
+     * @param string $token
+     *
+     * @return Token
+     *
+     * @throws ExceptionAuth
+     */
     private function getToken(string $token): Token
     {
-        /** @var  Factory $jwtAuth */
-        $jwtAuth = auth()->factory('');
+        if(auth() instanceof Container) {
+            /** @var  Factory $jwtAuth */
+            $jwtAuth = auth()->factory('');
+        } else {
+            throw new ExceptionAuth('Не верный тип авторизации');
+        }
 
         return (new Token())
             ->setExpiresIn($jwtAuth->getTTL() * self::LIFE_TIME)

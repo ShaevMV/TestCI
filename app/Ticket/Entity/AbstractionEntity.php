@@ -57,23 +57,6 @@ abstract class AbstractionEntity implements EntityInterface
 
     /**
      * {@inheritdoc}
-     */
-    public function getColumns(): array
-    {
-        $vars = get_object_vars($this);
-
-        $result = $this->getColumnsList();
-        foreach ($vars as $key => $value) {
-            if ($value instanceof EntityInterface) {
-                $result += $value->getColumns();
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * {@inheritdoc}
      * @throws JsonException
      */
     public function toJson(): string
@@ -89,7 +72,6 @@ abstract class AbstractionEntity implements EntityInterface
             } else {
                 $array[$key] = $value;
             }
-
         }
 
         return json_encode($array, JSON_THROW_ON_ERROR);

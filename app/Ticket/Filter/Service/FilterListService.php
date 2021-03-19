@@ -32,13 +32,14 @@ final class FilterListService
      */
     public function getFilterListOfRaw(?array $rawArray): ?FilterList
     {
-        if(null === $rawArray) {
+        if (null === $rawArray) {
             return null;
         }
 
         $filterItems = [];
         foreach ($rawArray as $item) {
-            $filterItems[]= FilterItem::fromState($item);
+            $filter = FilterFactoryService::initFilter(FilterItem::fromState($item));
+            $filterItems[] = $filter;
         }
 
         return $this->filterList->setFilterFields($filterItems);

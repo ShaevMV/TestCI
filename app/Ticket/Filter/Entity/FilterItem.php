@@ -70,14 +70,14 @@ final class FilterItem
     /**
      * @param array $data
      *
-     * @return static
+     * @return self
      */
     public static function fromState(array $data): self
     {
         return (new self())
             ->setType($data[self::TYPE_INDEX])
             ->setValue($data[self::VALUE_INDEX])
-            ->setOperation(isset($data[self::OPERATION_INDEX]) ? $data[self::OPERATION_INDEX] : self::DEFAULT_OPERATION)
+            ->setOperation($data[self::OPERATION_INDEX] ?? self::DEFAULT_OPERATION)
             ->setFieldAndTable($data[self::FIELD_INDEX]);
     }
 
@@ -91,7 +91,7 @@ final class FilterItem
     public function setFieldAndTable(string $field): self
     {
         if ($arrFieldAndTable = self::getDelimiter($field)) {
-            list($this->table, $this->field) = $arrFieldAndTable;
+            [$this->table, $this->field] = $arrFieldAndTable;
         } else {
             throw new InvalidArgumentException("{$field} not found DELIMITER '" . self::DELIMITER . "'");
         }
@@ -108,7 +108,7 @@ final class FilterItem
      */
     private static function getDelimiter(string $str)
     {
-        return strripos($str, self::DELIMITER) !== false ? explode(self::DELIMITER, $str) : false;
+        return strrpos($str, self::DELIMITER) !== false ? explode(self::DELIMITER, $str) : false;
     }
 
     /**

@@ -14,7 +14,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * App\Ticket\Festival\Model\FestivalModel
- * 
+ *
  * Модель фестиваля
  *
  * @property string $title Название фестиваля

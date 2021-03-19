@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Ticket\Modules\User\Repository;
 
-
 use App\Ticket\Entity\EntityInterface;
 use App\Ticket\Modules\User\Entity\UserEntity;
 use App\Ticket\Repository\BaseRepository;

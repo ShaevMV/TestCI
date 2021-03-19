@@ -49,7 +49,7 @@ class FilterFieldTest extends TestCase
             ->setFieldAndTable((string)$data[FilterItem::FIELD_INDEX])
             ->setType((string)$data[FilterItem::TYPE_INDEX]);
 
-        $this->assertInstanceOf(get_class($class), FilterFactoryService::initFilter($filter));
+        self::assertInstanceOf(get_class($class), FilterFactoryService::initFilter($filter));
     }
 
     /**
@@ -74,9 +74,9 @@ class FilterFieldTest extends TestCase
         $filters[] = FilterFactoryService::initFilter($filter);
         $this->filterList->setFilterFields($filters);
 
-        $this->assertInstanceOf(FilterList::class, $this->filterList);
-        $this->assertIsArray($this->filterList->getFilterFields());
-        $this->assertCount(count($filters), $this->filterList->getFilterFields());
+        self::assertInstanceOf(FilterList::class, $this->filterList);
+        self::assertIsArray($this->filterList->getFilterFields());
+        self::assertCount(count($filters), $this->filterList->getFilterFields());
     }
 
     /**
@@ -102,10 +102,12 @@ class FilterFieldTest extends TestCase
         $festival = new FestivalModel();
         $this->filterList->setFilterFields($filters);
 
-        $fromFiltered = $this->filterList->filtration($festival->getQuery(), $festival)->get();
-
-        $this->assertTrue($fromFiltered->count() > 0);
-        $this->assertNotEquals($festival->count(), $fromFiltered->count());
+        $fromFiltered = $this->filterList->filtration($festival->getQuery(), $festival);
+        if (null !== $fromFiltered) {
+            $fromFiltered = $fromFiltered->get();
+            self::assertTrue($fromFiltered->count() > 0);
+            self::assertNotEquals($festival->count(), $fromFiltered->count());
+        }
     }
 
     /**
@@ -121,7 +123,7 @@ class FilterFieldTest extends TestCase
         $filters[] = $data;
         $filterList = $this->filterListService->getFilterListOfRaw($filters);
 
-        $this->assertInstanceOf(FilterList::class, $filterList);
+        self::assertInstanceOf(FilterList::class, $filterList);
     }
 
     /**

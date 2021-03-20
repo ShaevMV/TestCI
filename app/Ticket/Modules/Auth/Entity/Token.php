@@ -33,6 +33,14 @@ final class Token extends AbstractionEntity
     }
 
     /**
+     * @return string
+     */
+    public function getAccessToken(): string
+    {
+        return $this->access_token;
+    }
+
+    /**
      * @param string $access_token
      *
      * @return self
@@ -47,9 +55,9 @@ final class Token extends AbstractionEntity
     /**
      * @return string
      */
-    public function getAccessToken(): string
+    public function getTokenType(): string
     {
-        return $this->access_token;
+        return $this->token_type;
     }
 
     /**
@@ -65,6 +73,14 @@ final class Token extends AbstractionEntity
     }
 
     /**
+     * @return int
+     */
+    public function getExpiresIn(): int
+    {
+        return $this->expires_in;
+    }
+
+    /**
      * @param int $expires_in
      *
      * @return self
@@ -74,21 +90,5 @@ final class Token extends AbstractionEntity
         $this->expires_in = $expires_in;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTokenType(): string
-    {
-        return $this->token_type;
-    }
-
-    /**
-     * @return int
-     */
-    public function getExpiresIn(): int
-    {
-        return $this->expires_in;
     }
 }

@@ -44,9 +44,9 @@ final class TotalEntity
      * @param int $count
      * @param Price $total
      *
+     * @return TotalEntity
      * @throws InvalidArgumentException
      *
-     * @return TotalEntity
      */
     public static function fromSate(Price $price, int $count, Price $total): self
     {

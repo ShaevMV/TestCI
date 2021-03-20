@@ -17,7 +17,8 @@ final class WriteTokenInEnvService
         OathClientsRepository $oathClientsRepository,
         WriteInEnv $writeInEnv,
         EnvRepository $envRepository
-    ) {
+    )
+    {
         $this->oathClientsRepository = $oathClientsRepository;
         $this->writeInEnv = $writeInEnv;
         $this->envRepository = $envRepository;

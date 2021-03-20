@@ -54,16 +54,6 @@ final class Parameter
     }
 
     /**
-     * Вывести параметры в массиве
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return json_decode($this->params ?? '[]', true);
-    }
-
-    /**
      * @param string|null $params
      *
      * @return $this
@@ -73,5 +63,15 @@ final class Parameter
         $this->params = $params;
 
         return $this;
+    }
+
+    /**
+     * Вывести параметры в массиве
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return json_decode($this->params ?? '[]', true);
     }
 }

@@ -26,7 +26,7 @@ final class DateBetween extends AbstractionEntity
         ],
         'date_end' => [
             'value' => 'Дата окончание',
-            'type'  => self::TYPE_DATE,
+            'type' => self::TYPE_DATE,
         ],
     ];
 
@@ -70,9 +70,9 @@ final class DateBetween extends AbstractionEntity
      *
      * @param string $date
      *
+     * @return Carbon
      * @throws InvalidArgumentException
      *
-     * @return Carbon
      */
     private static function fromStateDate(string $date): Carbon
     {

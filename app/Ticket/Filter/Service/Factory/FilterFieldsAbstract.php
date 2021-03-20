@@ -36,16 +36,6 @@ abstract class FilterFieldsAbstract
     }
 
     /**
-     * Вывести поле с добавленным именем таблицы
-     *
-     * @return string table.fields
-     */
-    final protected function getFieldForWhere(): string
-    {
-        return "{$this->filterItem->getTable()}.{$this->filterItem->getField()}";
-    }
-
-    /**
      * Вывести значения сущности
      *
      * @return FilterItem
@@ -70,9 +60,9 @@ abstract class FilterFieldsAbstract
      *
      * @param mixed $value
      *
+     * @return mixed
      * @throws InvalidArgumentException
      *
-     * @return mixed
      */
     abstract protected static function getValidValue($value);
 
@@ -84,4 +74,14 @@ abstract class FilterFieldsAbstract
      * @return Builder|BuilderQuery
      */
     abstract public function filtration($builder);
+
+    /**
+     * Вывести поле с добавленным именем таблицы
+     *
+     * @return string table.fields
+     */
+    final protected function getFieldForWhere(): string
+    {
+        return "{$this->filterItem->getTable()}.{$this->filterItem->getField()}";
+    }
 }

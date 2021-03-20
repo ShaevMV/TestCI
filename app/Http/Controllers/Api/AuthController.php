@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\User;
 use Illuminate\Validation\ValidationException;
-use Tymon\JWTAuth\Factory;
 use Validator;
 
 class AuthController extends Controller

@@ -50,7 +50,8 @@ final class FilterList
     public function __construct(
         ModelJoinService $joinService,
         FilterService $filterService
-    ) {
+    )
+    {
         $this->joinService = $joinService;
         $this->filterService = $filterService;
     }
@@ -61,6 +62,18 @@ final class FilterList
     public function getFilterFields(): array
     {
         return $this->filterFields;
+    }
+
+    /**
+     * @param FilterFieldsAbstract[] $filterFields
+     *
+     * @return self
+     */
+    public function setFilterFields(array $filterFields): self
+    {
+        $this->filterFields = $filterFields;
+
+        return $this;
     }
 
     /**
@@ -88,17 +101,5 @@ final class FilterList
         }
 
         return $result;
-    }
-
-    /**
-     * @param FilterFieldsAbstract[] $filterFields
-     *
-     * @return self
-     */
-    public function setFilterFields(array $filterFields): self
-    {
-        $this->filterFields = $filterFields;
-
-        return $this;
     }
 }

@@ -5,8 +5,8 @@ namespace Tests\Unit\Model;
 use App\Ticket\Modules\Festival\Entity\FestivalStatus;
 use App\Ticket\Modules\Festival\Model\FestivalModel;
 use Carbon\Carbon;
-use Exception;
 use Database\Seeders\FestivalSeeder;
+use Exception;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
@@ -67,9 +67,9 @@ class ModelTest extends TestCase
     /**
      * Удалить
      *
+     * @return void
      * @throws Exception
      *
-     * @return void
      */
     public function testDelete(): void
     {

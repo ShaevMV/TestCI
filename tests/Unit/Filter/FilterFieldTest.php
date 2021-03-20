@@ -12,9 +12,9 @@ use App\Ticket\Filter\Service\FilterFactoryService;
 use App\Ticket\Filter\Service\FilterListService;
 use App\Ticket\Modules\Festival\Model\FestivalModel;
 use Database\Seeders\FestivalSeeder;
+use Database\Seeders\TypeRegistrationSeeder;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\TestCase;
-use Database\Seeders\TypeRegistrationSeeder;
 
 //use Illuminate\Foundation\Testing\WithFaker;
 //use Illuminate\Foundation\Testing\RefreshDatabase;

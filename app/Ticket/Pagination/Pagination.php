@@ -94,9 +94,9 @@ final class Pagination
      *
      * @param int $limit
      *
+     * @return void
      * @example InvalidArgumentException
      *
-     * @return void
      */
     private static function isLimitValid(int $limit): void
     {

@@ -99,6 +99,18 @@ final class FestivalStatus extends AbstractionEntityData
     }
 
     /**
+     * Проверка валидности по ID
+     *
+     * @param int $status
+     *
+     * @return bool
+     */
+    private static function ensureIsValidId(int $status): bool
+    {
+        return array_key_exists($status, self::STATE_LIST);
+    }
+
+    /**
      * Создать объект из название
      *
      * @param string $status
@@ -116,6 +128,18 @@ final class FestivalStatus extends AbstractionEntityData
         $state = array_search($status, self::STATE_LIST, true);
 
         return new self((int)$state, $status);
+    }
+
+    /**
+     * Проверка валидности по названию статуса
+     *
+     * @param string $status
+     *
+     * @return bool
+     */
+    private static function ensureIsValidName(string $status): bool
+    {
+        return in_array($status, self::STATE_LIST, true);
     }
 
     /**
@@ -144,30 +168,5 @@ final class FestivalStatus extends AbstractionEntityData
     {
         $this->id = self::STATE_DRAFT_ID;
         $this->name = self::STATE_DRAFT;
-    }
-
-
-    /**
-     * Проверка валидности по ID
-     *
-     * @param int $status
-     *
-     * @return bool
-     */
-    private static function ensureIsValidId(int $status): bool
-    {
-        return array_key_exists($status, self::STATE_LIST);
-    }
-
-    /**
-     * Проверка валидности по названию статуса
-     *
-     * @param string $status
-     *
-     * @return bool
-     */
-    private static function ensureIsValidName(string $status): bool
-    {
-        return in_array($status, self::STATE_LIST, true);
     }
 }

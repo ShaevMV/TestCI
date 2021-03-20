@@ -20,9 +20,9 @@ use App\Ticket\Repository\RepositoryInterface;
 use Carbon\Carbon;
 use Database\Seeders\FestivalSeeder;
 use Database\Seeders\PromoCodeSeeder;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Database\Seeders\TypeRegistrationSeeder;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 use Webpatser\Uuid\Uuid;
 
 /**

@@ -10,9 +10,9 @@ use App\Ticket\Modules\Order\Service\TotalService;
 use App\Ticket\Modules\TypeRegistration\Entity\Parameter;
 use App\Ticket\Modules\TypeRegistration\Entity\Price;
 use App\Ticket\Modules\TypeRegistration\Entity\TypeRegistration;
+use Database\Seeders\TypeRegistrationSeeder;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\TestCase;
-use Database\Seeders\TypeRegistrationSeeder;
 
 /**
  * Class TotalServiceTest
@@ -36,9 +36,9 @@ class TotalServiceTest extends TestCase
      * @param object $class
      * @param TotalEntity $totalEntity
      *
+     * @return void
      * @throws BindingResolutionException
      *
-     * @return void
      */
     public function testGetTotal(TypeRegistration $typeRegistration, object $class, TotalEntity $totalEntity): void
     {
@@ -67,7 +67,7 @@ class TotalServiceTest extends TestCase
                 (new TypeRegistration())
                     ->setPrice(Price::fromState(1000))
                     ->setParams(Parameter::fromState(
-                        json_encode(TypeRegistrationSeeder::PARAMS_FOR_TEST_COUNT) ? : null
+                        json_encode(TypeRegistrationSeeder::PARAMS_FOR_TEST_COUNT) ?: null
                     )),
                 new CollectiveTicketTotal(),
                 TotalEntity::fromSate(

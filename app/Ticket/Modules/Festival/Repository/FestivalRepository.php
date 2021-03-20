@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Ticket\Modules\Festival\Repository;
 
 use App\Ticket\Entity\EntityInterface;
+use App\Ticket\Model\Model;
 use App\Ticket\Modules\Festival\Entity\Festival;
 use App\Ticket\Modules\Festival\Entity\FestivalStatus;
 use App\Ticket\Modules\Festival\Model\FestivalModel;
@@ -14,7 +15,6 @@ use Carbon\Carbon;
 use Exception;
 use OutOfBoundsException;
 use Webpatser\Uuid\Uuid;
-use App\Ticket\Model\Model;
 
 /**
  * Class FestivalRepository
@@ -43,10 +43,10 @@ final class FestivalRepository extends BaseRepository
     /**
      * Вывести фестиваль который проходит в данный момент
      *
-     * @throws OutOfBoundsException
+     * @return EntityInterface
      * @throws Exception
      *
-     * @return EntityInterface
+     * @throws OutOfBoundsException
      */
     public function getActive(): EntityInterface
     {
@@ -70,9 +70,9 @@ final class FestivalRepository extends BaseRepository
      * @param Uuid $idFestival
      * @param Price $price
      *
+     * @return bool
      * @throws OutOfBoundsException
      *
-     * @return bool
      */
     public function joinTypeRegistration(Uuid $idFestival, Uuid $idTypeRegistration, Price $price): bool
     {
@@ -98,9 +98,9 @@ final class FestivalRepository extends BaseRepository
      *
      * @param array $data
      *
+     * @return EntityInterface
      * @throws Exception
      *
-     * @return EntityInterface
      */
     protected function build(array $data): EntityInterface
     {

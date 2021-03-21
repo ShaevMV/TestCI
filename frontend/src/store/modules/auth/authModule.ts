@@ -2,7 +2,7 @@ import axios from "axios";
 
 import router from "@/router"; //shortcut to src
 import {Module} from "vuex";
-import {authInterface} from "@/store/modules/auth/Interface";
+import {authInterface, tokenInterface} from "@/store/modules/auth/Interface";
 import {authUserMutation} from "@/apolloClient/queries";
 import {apolloClient} from "@/apolloClient";
 
@@ -14,71 +14,110 @@ const authModule: Module<any, any> = {
     username: null,
     token: {
       accessToken: '',
-      typeToken: '',
+      tokenType: '',
+      expiresIn: 0,
     }
   },
 
   getters: {
+    /**
+     * Вывести ошибки авторизации
+     *
+     * @param state
+     */
     getLoginError(state: any): string | null {
-      return state.loginError
-    }
+      return state.loginError;
+    },
+
+    /**
+     * Проверить что пользователь авторизован
+     *
+     * @param state
+     */
+    isLogin(state: any): boolean {
+      return state.loggedIn;
+    },
   },
 
   mutations: {
-    loggedIn(state: any, payload) {
+    /**
+     * Авторизовать пользователя
+     *
+     * @param state
+     * @param payload
+     */
+    loggedIn(state: any, payload: tokenInterface) {
       state.loggedIn = true;
       state.loginError = null;
-      state.username = payload.username || "";
+      state.token = payload;
 
-      router.push("/");
+      router.push("/").catch((e: any) => {
+        console.error(e);
+      });
     },
 
+    /**
+     * Разлогинить пользователя
+     *
+     * @param state
+     */
     loggedOut(state: any) {
-            state.loggedIn = false;
-            router.push("/login");
-        },
-
-        loginError(state: any, payload) {
-            state.loginError = payload;
-        }
+      state.loggedIn = false;
+      router.push("/").catch((e: any) => {
+        console.error(e);
+      });
     },
 
-    actions: {
-        loginUser({commit, getters}, payload: authInterface): void {
-          apolloClient.mutate({
-            mutation: authUserMutation,
-            variables: {
-              email: payload.email,
-              password: payload.password,
-            }
-          }).then(r => {
-            console.log(r);
-          }).catch(e => {
-            if (e.graphQLErrors) {
-              let error: string[] = [];
-              e.graphQLErrors.forEach(function (item: any) {
-                error.push(item.message);
-              });
-              commit("loginError", error.join(' '));
-            }
-          });
-        },
-
-        async logout({dispatch, commit}) {
-            axios({
-                method: "post",
-                url: "/auth/logout"
-            })
-                .then(response => {
-                    commit("clearNavigationState");
-                    commit("loggedOut");
-                })
-                .catch(error => {
-                    commit("clearNavigationState");
-                    commit("loggedOut");
-                });
-        }
+    /**
+     * Ошибки авторизации
+     *
+     * @param state
+     * @param payload
+     */
+    loginError(state: any, payload: string) {
+      state.loginError = payload;
     }
+  },
+
+  actions: {
+    loginUser({commit, getters}, payload: authInterface): void {
+      apolloClient.mutate({
+        mutation: authUserMutation,
+        variables: {
+          email: payload.email,
+          password: payload.password,
+        }
+      }).then(r => {
+        if (r.data.auth !== undefined) {
+          console.log(r.data.auth);
+          commit('loggedIn', r.data.auth);
+        }
+      }).catch(e => {
+        if (e.graphQLErrors) {
+          const error: string[] = [];
+          e.graphQLErrors.forEach(function (item: any) {
+            error.push(item.message);
+          });
+          commit("loginError", error.join(' '));
+        }
+      });
+    },
+
+    logout({dispatch, commit}) {
+      axios({
+        method: "post",
+        url: "/auth/logout"
+      })
+        .then(response => {
+          commit("clearNavigationState");
+          commit("loggedOut");
+        })
+        .catch(error => {
+          commit("clearNavigationState");
+          commit("loggedOut");
+        });
+    }
+  }
 };
 
 export default authModule;

@@ -16,13 +16,13 @@ use App\Ticket\Entity\AbstractionEntity;
 final class Token extends AbstractionEntity
 {
     /** @var string токен */
-    protected string $access_token;
+    protected string $accessToken;
 
     /** @var string тип токена */
-    protected string $token_type = 'bearer';
+    protected string $tokenType = 'bearer';
 
     /** @var int время жизни токена */
-    protected int $expires_in;
+    protected int $expiresIn;
 
     public static function fromState(array $data): self
     {
@@ -37,17 +37,17 @@ final class Token extends AbstractionEntity
      */
     public function getAccessToken(): string
     {
-        return $this->access_token;
+        return $this->accessToken;
     }
 
     /**
-     * @param string $access_token
+     * @param string $accessToken
      *
      * @return self
      */
-    public function setAccessToken(string $access_token): self
+    public function setAccessToken(string $accessToken): self
     {
-        $this->access_token = $access_token;
+        $this->accessToken = $accessToken;
 
         return $this;
     }
@@ -57,17 +57,17 @@ final class Token extends AbstractionEntity
      */
     public function getTokenType(): string
     {
-        return $this->token_type;
+        return $this->tokenType;
     }
 
     /**
-     * @param string $token_type
+     * @param string $tokenType
      *
      * @return self
      */
-    public function setTokenType(string $token_type): self
+    public function setTokenType(string $tokenType): self
     {
-        $this->token_type = $token_type;
+        $this->tokenType = $tokenType;
 
         return $this;
     }
@@ -77,17 +77,17 @@ final class Token extends AbstractionEntity
      */
     public function getExpiresIn(): int
     {
-        return $this->expires_in;
+        return $this->expiresIn;
     }
 
     /**
-     * @param int $expires_in
+     * @param int $expiresIn
      *
      * @return self
      */
-    public function setExpiresIn(int $expires_in): self
+    public function setExpiresIn(int $expiresIn): self
     {
-        $this->expires_in = $expires_in;
+        $this->expiresIn = $expiresIn;
 
         return $this;
     }

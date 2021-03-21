@@ -17,15 +17,15 @@ class TokenType extends GraphQLType
     public function fields(): array
     {
         return [
-            'access_token' => [
+            'accessToken' => [
                 'type' => Type::string(),
                 'description' => 'Token for auth user',
             ],
-            'token_type' => [
+            'tokenType' => [
                 'type' => Type::string(),
                 'description' => 'Type token',
             ],
-            'expires_in' => [
+            'expiresIn' => [
                 'type' => Type::int(),
                 'description' => 'Time live token',
             ],

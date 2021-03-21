@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <b-container>
         <b-form
           @submit="onSubmit"
           @reset="onReset">
@@ -46,7 +46,7 @@
                  show>
           {{ getLoginError }}
         </b-alert>
-    </div>
+    </b-container>
 </template>
 
 <script lang="ts">
@@ -64,7 +64,7 @@ export default class Login extends Vue {
   @someAuthModule.Action('loginUser') loginUser!: (form: authInterface) => void;
   // вывести ошибки авторизации
   @someAuthModule.Getter('getLoginError') getLoginError!: () => string | null;
-
+  @someAuthModule.Getter('isLogin') isLogin!: () => boolean;
   public form: authInterface = {
     email: '',
     password: '',

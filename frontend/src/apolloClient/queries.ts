@@ -9,9 +9,9 @@ export const authUserMutation = gql`
       email: $email
       password: $password
     ) {
-      access_token
-      token_type
-      expires_in
+      accessToken
+      tokenType
+      expiresIn
     }
   }
 `;

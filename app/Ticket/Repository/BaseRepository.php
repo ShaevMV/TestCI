@@ -45,10 +45,10 @@ abstract class BaseRepository implements RepositoryInterface
      * @param Uuid $id
      * @param EntityInterface $data
      *
-     * @throws OutOfBoundsException
+     * @return bool
      * @throws InvalidArgumentException
      *
-     * @return bool
+     * @throws OutOfBoundsException
      */
     public function update(Uuid $id, EntityInterface $data): bool
     {
@@ -83,22 +83,6 @@ abstract class BaseRepository implements RepositoryInterface
     }
 
     /**
-     * Выполнить фильтрацию в модели
-     *
-     * @param FilterList|null $fields
-     *
-     * @return $this
-     */
-    public function setFilter(?FilterList $fields): self
-    {
-        if ($fields !== null && $builder = $fields->filtration($this->getBuilder(), $this->model)) {
-            $this->setBuilder($builder);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Builder|BuilderQuery
      */
     public function getBuilder()
@@ -116,6 +100,32 @@ abstract class BaseRepository implements RepositoryInterface
     public function setBuilder($builder): void
     {
         $this->builder = $builder;
+    }
+
+    /**
+     * Вывести общее кол-во записей
+     *
+     * @return int
+     */
+    public function getTotal(): int
+    {
+        return $this->getBuilder()->get()->count();
+    }
+
+    /**
+     * Выполнить фильтрацию в модели
+     *
+     * @param FilterList|null $fields
+     *
+     * @return $this
+     */
+    public function setFilter(?FilterList $fields): self
+    {
+        if ($fields !== null && $builder = $fields->filtration($this->getBuilder(), $this->model)) {
+            $this->setBuilder($builder);
+        }
+
+        return $this;
     }
 
     /**
@@ -176,15 +186,5 @@ abstract class BaseRepository implements RepositoryInterface
     public function remove(Uuid $id): bool
     {
         return $this->model->destroy((string)$id) > 0;
-    }
-
-    /**
-     * Вывести общее кол-во записей
-     *
-     * @return int
-     */
-    public function getTotal(): int
-    {
-        return $this->getBuilder()->get()->count();
     }
 }

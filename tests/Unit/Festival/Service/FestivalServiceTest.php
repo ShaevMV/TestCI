@@ -12,13 +12,6 @@ class FestivalServiceTest extends TestCase
 {
     private FestivalService $festivalService;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->festivalService = $this->app->get(FestivalService::class);
-    }
-
     /**
      *
      */
@@ -29,5 +22,12 @@ class FestivalServiceTest extends TestCase
         $this->assertNotEmpty($this->festivalService->getList($pagination));
 
         $this->assertNotNull($pagination->getTotal());
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->festivalService = $this->app->get(FestivalService::class);
     }
 }

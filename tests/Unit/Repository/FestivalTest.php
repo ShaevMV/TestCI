@@ -6,12 +6,12 @@ use App\Ticket\Modules\Festival\Entity\Festival;
 use App\Ticket\Modules\Festival\Repository\FestivalRepository;
 use App\Ticket\Modules\TypeRegistration\Entity\Price;
 use App\Ticket\Modules\TypeRegistration\Repository\TypeRegistrationRepository;
-use Exception;
 use Database\Seeders\FestivalSeeder;
+use Database\Seeders\TypeRegistrationSeeder;
+use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
-use Database\Seeders\TypeRegistrationSeeder;
 use Webpatser\Uuid\Uuid;
 
 /**
@@ -60,9 +60,9 @@ class FestivalTest extends TestCase
     /**
      * Получить активный фестиваль который проходит сейчас
      *
+     * @return void
      * @throws Exception
      *
-     * @return void
      */
     public function testGetActive(): void
     {

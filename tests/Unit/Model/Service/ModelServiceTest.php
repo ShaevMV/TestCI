@@ -6,6 +6,7 @@ use App\Ticket\Model\Model;
 use App\Ticket\Model\Service\ModelJoinService;
 use App\Ticket\Modules\Festival\Model\FestivalModel;
 use BadMethodCallException;
+use Database\Seeders\TypeRegistrationSeeder;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -13,7 +14,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionException;
 use ReflectionMethod;
 use Tests\TestCase;
-use Database\Seeders\TypeRegistrationSeeder;
 
 /**
  * Class ModelServiceTest
@@ -38,9 +38,9 @@ class ModelServiceTest extends TestCase
      * @param string $joinTable
      * @param Model $model
      *
+     * @return void
      * @throws ReflectionException
      *
-     * @return void
      */
     public function testIsCallFunction(string $joinTable, Model $model): void
     {

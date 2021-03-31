@@ -41,21 +41,17 @@ final class AuthService
      * @param string $token
      *
      * @return Token
-     *
-     * @throws ExceptionAuth
      */
     private function getToken(string $token): Token
     {
-        if (auth() instanceof Container) {
-            /** @var  Factory $jwtAuth */
-            $jwtAuth = auth()->factory('');
-        } else {
-            throw new ExceptionAuth('Не верный тип авторизации');
-        }
+        /** @var Container $auth */
+        $auth = app('auth');
+        /** @var  Factory $jwtAuth */
+        $jwtAuth = $auth->factory('');
 
         return (new Token())
             ->setExpiresIn($jwtAuth->getTTL() * self::LIFE_TIME)
-            ->setAccessToken((string)$token);
+            ->setAccessToken($token);
     }
 
     /**

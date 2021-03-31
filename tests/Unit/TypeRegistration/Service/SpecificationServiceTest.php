@@ -7,9 +7,9 @@ use App\Ticket\Modules\TypeRegistration\Service\SpecificationService;
 use App\Ticket\Modules\TypeRegistration\Specification\SpecificationAnd;
 use App\Ticket\Modules\TypeRegistration\Specification\SpecificationCount;
 use App\Ticket\Modules\TypeRegistration\Specification\SpecificationEntity;
+use Database\Seeders\TypeRegistrationSeeder;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\TestCase;
-use Database\Seeders\TypeRegistrationSeeder;
 
 /**
  * Class TypeRegistrationParameterServiceTest
@@ -40,7 +40,7 @@ class SpecificationServiceTest extends TestCase
      */
     public function testCreateList(array $data, object $class): void
     {
-        $parameter = Parameter::fromState(json_encode($data) ? : null);
+        $parameter = Parameter::fromState(json_encode($data) ?: null);
         $specificationList = $this->specificationService->createList($parameter);
 
         $this->assertIsArray($specificationList);
@@ -94,7 +94,7 @@ class SpecificationServiceTest extends TestCase
      */
     public function testListAndSpecification(array $data): void
     {
-        $parameter = Parameter::fromState(json_encode($data) ? : null);
+        $parameter = Parameter::fromState(json_encode($data) ?: null);
         $specificationList = $this->specificationService->createList($parameter);
         $specificationAnd = new SpecificationAnd($specificationList);
         $count = TypeRegistrationSeeder::PARAMS_FOR_TEST_COUNT[SpecificationService::KEY_COUNT];

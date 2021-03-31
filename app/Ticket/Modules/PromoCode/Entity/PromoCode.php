@@ -24,7 +24,7 @@ final class PromoCode extends AbstractionEntity
         ],
         'name' => [
             'value' => 'Промо код',
-            'type'  => self::TYPE_STRING,
+            'type' => self::TYPE_STRING,
         ],
         'delta' => [
             'value' => 'Изменения цены',

@@ -7,4 +7,5 @@ export interface authInterface {
 export interface tokenInterface {
     accessToken: string,
     typeToken: string,
+    expiresIn: number,
 }

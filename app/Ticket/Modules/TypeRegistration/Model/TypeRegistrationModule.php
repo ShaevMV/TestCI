@@ -4,10 +4,10 @@ namespace App\Ticket\Modules\TypeRegistration\Model;
 
 use App\Ticket\Model\Model;
 use Database\Factories\TypeRegistrationFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
-use Eloquent;
 
 /**
  * App\Ticket\Modules\TypeRegistration\Model\TypeRegistrationModule

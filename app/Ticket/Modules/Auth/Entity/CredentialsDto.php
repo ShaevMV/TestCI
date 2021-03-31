@@ -18,16 +18,11 @@ final class CredentialsDto extends AbstractionEntity
     public string $email;
     public string $password;
 
-    /**
-     * @param string $email
-     *
-     * @return self
-     */
-    public function setEmail(string $email): self
+    public static function fromState(array $data): self
     {
-        $this->email = $email;
-
-        return $this;
+        return (new self())
+            ->setEmail($data['email'])
+            ->setPassword($data['password']);
     }
 
     /**
@@ -42,10 +37,15 @@ final class CredentialsDto extends AbstractionEntity
         return $this;
     }
 
-    public static function fromState(array $data): self
+    /**
+     * @param string $email
+     *
+     * @return self
+     */
+    public function setEmail(string $email): self
     {
-        return (new self())
-            ->setEmail($data['email'])
-            ->setPassword($data['password']);
+        $this->email = $email;
+
+        return $this;
     }
 }

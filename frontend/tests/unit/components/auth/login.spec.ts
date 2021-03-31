@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import Login from "@/components/auth/Login.vue";
 import BootstrapVue from "bootstrap-vue";
 
-const localVue = createLocalVue()
+const localVue = createLocalVue();
 
 localVue.use(Vuex)
 localVue.use(BootstrapVue);

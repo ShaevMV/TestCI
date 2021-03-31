@@ -20,9 +20,9 @@ class EntityService
      *
      * @param EntityInterface $entity
      *
+     * @return array
      * @throws InvalidArgumentException
      *
-     * @return array
      */
     public static function getNotEmptyFields(EntityInterface $entity): array
     {

@@ -24,11 +24,14 @@ final class Price extends AbstractionEntityData
     protected int $price;
 
     /**
-     * @return int
+     * @param int $price
+     *
+     * @return Price
      */
-    public function getInt(): int
+    public static function fromState(int $price): self
     {
-        return $this->price;
+        return (new self())
+            ->setPrice($price);
     }
 
     /**
@@ -59,21 +62,18 @@ final class Price extends AbstractionEntityData
     }
 
     /**
+     * @return int
+     */
+    public function getInt(): int
+    {
+        return $this->price;
+    }
+
+    /**
      * @inheritDoc
      */
     public function __toString(): string
     {
         return (string)$this->price;
-    }
-
-    /**
-     * @param int $price
-     *
-     * @return Price
-     */
-    public static function fromState(int $price): self
-    {
-        return (new self())
-            ->setPrice($price);
     }
 }

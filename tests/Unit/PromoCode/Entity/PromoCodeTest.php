@@ -4,8 +4,8 @@ namespace Tests\Unit\PromoCode\Entity;
 
 use App\Ticket\Modules\PromoCode\Entity\PromoCode;
 use Database\Seeders\FestivalSeeder;
-use PHPUnit\Framework\TestCase;
 use Database\Seeders\PromoCodeSeeder;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class PromoCodeTest

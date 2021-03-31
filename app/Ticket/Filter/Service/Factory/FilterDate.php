@@ -24,9 +24,9 @@ final class FilterDate extends FilterFieldsAbstract
      *
      * @param Builder|BuilderQuery $builder
      *
+     * @return Builder|BuilderQuery
      * @throws Exception
      *
-     * @return Builder|BuilderQuery
      */
     public function filtration($builder)
     {
@@ -44,10 +44,10 @@ final class FilterDate extends FilterFieldsAbstract
      *
      * @param mixed $value
      *
-     * @throws InvalidArgumentException
+     * @return Carbon
      * @throws Exception
      *
-     * @return Carbon
+     * @throws InvalidArgumentException
      */
     protected static function getValidValue($value): Carbon
     {

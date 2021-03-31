@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Ticket\Modules\Auth\Model;
 
+use App\Ticket\Model\Model;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use App\Ticket\Model\Model;
 use Illuminate\Support\Carbon;
 
 /**

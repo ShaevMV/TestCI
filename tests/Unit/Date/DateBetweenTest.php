@@ -3,8 +3,8 @@
 namespace Tests\Unit\Date;
 
 use App\Ticket\Date\DateBetween;
-use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
 /**

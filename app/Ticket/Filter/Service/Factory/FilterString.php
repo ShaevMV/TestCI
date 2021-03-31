@@ -18,13 +18,27 @@ use InvalidArgumentException;
 final class FilterString extends FilterFieldsAbstract
 {
     /**
+     * Фильтрация
+     *
+     * @param Builder|BuilderQuery $builder
+     *
+     * @return Builder|BuilderQuery
+     */
+    public function filtration($builder)
+    {
+        $value = $this->filterItem->getValue();
+
+        return $builder->where($this->getFieldForWhere(), 'like', "%{$this->getValidValue($value)}%");
+    }
+
+    /**
      * Выдать значения для фильтрации
      *
      * @param mixed $value
      *
+     * @return string
      * @throws InvalidArgumentException
      *
-     * @return string
      */
     protected static function getValidValue($value): string
     {
@@ -45,19 +59,5 @@ final class FilterString extends FilterFieldsAbstract
     private static function isValidValue(string $value): bool
     {
         return is_string($value);
-    }
-
-    /**
-     * Фильтрация
-     *
-     * @param Builder|BuilderQuery $builder
-     *
-     * @return Builder|BuilderQuery
-     */
-    public function filtration($builder)
-    {
-        $value = $this->filterItem->getValue();
-
-        return $builder->where($this->getFieldForWhere(), 'like', "%{$this->getValidValue($value)}%");
     }
 }

@@ -43,9 +43,9 @@ final class TotalFactory
      *
      * @param TypeRegistration $typeRegistration
      *
+     * @return TotalInterface
      * @throws BindingResolutionException
      *
-     * @return TotalInterface
      */
     public function getTotalStrategy(TypeRegistration $typeRegistration): TotalInterface
     {

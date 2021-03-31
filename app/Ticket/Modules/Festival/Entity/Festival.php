@@ -26,7 +26,7 @@ final class Festival extends AbstractionEntity
         ],
         'title' => [
             'value' => 'Название',
-            'type'  => self::TYPE_STRING,
+            'type' => self::TYPE_STRING,
         ],
         'status' => [
             'value' => 'Статус',

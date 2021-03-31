@@ -8,9 +8,9 @@ use App\Ticket\Modules\TypeRegistration\Service\SpecificationService;
 use App\Ticket\Modules\TypeRegistration\Service\TypeRegistrationListService;
 use App\Ticket\Modules\TypeRegistration\Specification\SpecificationEntity;
 use Database\Seeders\FestivalSeeder;
+use Database\Seeders\TypeRegistrationSeeder;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Tests\TestCase;
-use Database\Seeders\TypeRegistrationSeeder;
 use Webpatser\Uuid\Uuid;
 
 /**
